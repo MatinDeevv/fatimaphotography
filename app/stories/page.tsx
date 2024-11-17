@@ -1,8 +1,11 @@
+// app/stories/page.tsx
+
 "use client";
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { useState } from 'react';
-import Link from 'next/link';
-
+// Story type
 type Story = {
   id: number;
   couple: string;
@@ -12,76 +15,97 @@ type Story = {
   description: string;
 };
 
-export default function StoriesPage() {
-  const stories: Story[] = [
-    {
-      id: 1,
-      couple: "Alice & John",
-      date: "July 2024",
-      thumbnail: "/path/to/thumbnail1.jpg",
-      images: ["/path/to/image1.jpg", "/path/to/image2.jpg", "/path/to/image3.jpg"],
-      description: "A beautiful wedding celebration at the coast.",
-    },
-    {
-      id: 2,
-      couple: "Emma & Liam",
-      date: "August 2024",
-      thumbnail: "/path/to/thumbnail2.jpg",
-      images: ["/path/to/image4.jpg", "/path/to/image5.jpg", "/path/to/image6.jpg"],
-      description: "An intimate garden ceremony full of love and laughter.",
-    },
-  ];
+// Sample stories data
+const stories: Story[] = [
+  { id: 1, couple: "Story 1", date: "November 2024", thumbnail: "/pictures-gallery/1.jpg", images: ["/pictures-gallery/1.jpg"], description: "A captivating moment captured in time." },
+  { id: 2, couple: "Story 2", date: "November 2024", thumbnail: "/pictures-gallery/15.jpg", images: ["/pictures-gallery/15.jpg"], description: "An unforgettable scene full of emotion." },
+  { id: 3, couple: "Story 3", date: "November 2024", thumbnail: "/pictures-gallery/19.jpg", images: ["/pictures-gallery/19.jpg"], description: "A beautiful memory frozen forever." },
+  { id: 4, couple: "Story 4", date: "November 2024", thumbnail: "/pictures-gallery/20.jpg", images: ["/pictures-gallery/20.jpg"], description: "Captured emotions and cherished moments." },
+  { id: 5, couple: "Story 5", date: "November 2024", thumbnail: "/pictures-gallery/7.jpg", images: ["/pictures-gallery/7.jpg"], description: "A serene scene filled with love and warmth." },
+  // Additional stories would go here
+];
 
-  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+// Navbar Component
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
-      {/* Navbar */}
-      <nav className="bg-white shadow-md fixed top-0 w-full z-50">
-        <div className="container mx-auto p-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-semibold text-gray-800">
-            FatimaPhotography
-          </Link>
-          <ul className="hidden md:flex space-x-6">
-            <li><Link href="/" className="text-gray-800 hover:text-blue-600">Home</Link></li>
-            <li><Link href="/about" className="text-gray-800 hover:text-blue-600">About</Link></li>
-            <li><Link href="/stories" className="text-gray-800 hover:text-blue-600">Stories</Link></li>
-            <li><Link href="/contact" className="text-gray-800 hover:text-blue-600">Contact</Link></li>
-          </ul>
-          <button
-            className="md:hidden text-gray-800 focus:outline-none"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            Menu
+    <nav className="bg-white fixed top-0 w-full z-50 p-4 shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link href="/" className="text-3xl font-extrabold text-gray-800 hover:text-blue-600">
+          FatimaPhotography
+        </Link>
+        <div className="md:hidden z-50">
+          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800 text-2xl">
+            {isOpen ? "✕" : "☰"}
           </button>
         </div>
-        {isOpen && (
-          <div className="md:hidden bg-white shadow-lg">
-            <ul className="p-4 space-y-4">
-              <li><Link href="/" className="block text-gray-800 hover:text-blue-600">Home</Link></li>
-              <li><Link href="/about" className="block text-gray-800 hover:text-blue-600">About</Link></li>
-              <li><Link href="/stories" className="block text-gray-800 hover:text-blue-600">Stories</Link></li>
-              <li><Link href="/contact" className="block text-gray-800 hover:text-blue-600">Contact</Link></li>
-            </ul>
-          </div>
-        )}
-      </nav>
+        <ul className={`${
+            isOpen ? "flex" : "hidden"
+          } absolute top-0 left-0 w-full h-screen bg-white flex-col items-center justify-center space-y-8 text-lg font-medium z-40 md:flex md:static md:h-auto md:bg-transparent md:space-y-0 md:space-x-8 md:flex-row`}
+        >
+          {["Home", "About", "Stories", "Gallery", "Contact"].map((page, index) => (
+            <li key={index} className="py-2 md:py-0">
+              <Link
+                href={page === "Home" ? "/" : `/${page.toLowerCase()}`}
+                className="text-gray-800 hover:text-blue-600"
+                onClick={() => setIsOpen(false)}
+              >
+                {page}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+// Footer Component
+const Footer = () => (
+  <footer className="bg-gray-900 text-white py-10">
+    <div className="container mx-auto text-center px-4">
+      <p className="text-lg font-light mb-6">Follow Us</p>
+      <div className="flex justify-center mb-8 space-x-6 text-2xl">
+        {["Facebook", "Instagram", "Twitter"].map((platform, index) => (
+          <a key={index} href="#" className="hover:text-blue-500" aria-label={`Follow us on ${platform}`}>
+            {platform}
+          </a>
+        ))}
+      </div>
+      <p className="text-sm text-gray-400">© 2024 FatimaPhotography. All rights reserved.</p>
+    </div>
+  </footer>
+);
+
+// Stories Page Component
+export default function StoriesPage() {
+  const router = useRouter();
+
+  return (
+    <div className="bg-white text-gray-900 font-['Roboto']">
+      {/* Navbar */}
+      <Navbar />
 
       {/* Hero Section */}
-      <div className="bg-cover bg-center h-64 flex items-center justify-center mt-16" style={{ backgroundImage: 'url(/public/about.jpg)' }}>
-        <h1 className="text-4xl font-bold text-white">Love Stories</h1>
+      <div className="bg-cover bg-center h-64 flex items-center justify-center mt-16" style={{ backgroundImage: "url('/about.jpg')" }}>
+        <h1 className="text-4xl font-bold text-black">Love Stories</h1>
       </div>
 
       {/* Stories Grid */}
-      <div className="container mx-auto my-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {stories.map((story) => (
           <div
             key={story.id}
             className="relative bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-            onClick={() => setSelectedStory(story)}
+            onClick={() => router.push(`/stories/${story.id}`)}
           >
-            <img src={story.thumbnail} alt={`${story.couple}'s Story`} className="w-full h-48 object-cover" />
+            <img
+              src={story.thumbnail}
+              alt={`${story.couple}'s Story`}
+              className="w-full h-48 object-cover rounded-t-lg"
+              loading="lazy"
+            />
             <div className="p-4">
               <h2 className="text-xl font-semibold">{story.couple}</h2>
               <p className="text-gray-500">{story.date}</p>
@@ -91,40 +115,8 @@ export default function StoriesPage() {
         ))}
       </div>
 
-      {/* Story Detail Modal */}
-      {selectedStory && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden w-11/12 md:w-2/3 lg:w-1/2 max-h-full overflow-y-auto">
-            <button className="text-right p-4 text-gray-500 hover:text-black" onClick={() => setSelectedStory(null)}>
-              Close
-            </button>
-            <div className="p-6">
-              <h2 className="text-3xl font-bold mb-4">{selectedStory.couple}</h2>
-              <p className="text-gray-500 mb-6">{selectedStory.date}</p>
-              <p className="text-lg text-gray-700 mb-6">{selectedStory.description}</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {selectedStory.images.map((image, index) => (
-                  <img key={index} src={image} alt={`${selectedStory.couple} Image ${index + 1}`} className="rounded-lg shadow-md" />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Footer */}
-      <footer className="bg-white text-black py-6">
-        <div className="container mx-auto text-center">
-          <p className="mb-2">Follow Us</p>
-          <div className="flex justify-center mb-4 space-x-4">
-            <a href="#" className="hover:text-blue-500">Facebook</a>
-            <a href="#" className="hover:text-blue-500">Instagram</a>
-            <a href="#" className="hover:text-blue-500">Twitter</a>
-            <a href="#" className="hover:text-blue-500">LinkedIn</a>
-          </div>
-          <p>© 2024 FatimaPhotography. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

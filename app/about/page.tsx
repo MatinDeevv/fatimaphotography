@@ -1,167 +1,150 @@
+// app/about/page.tsx
+
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
-export default function AboutPage() {
+type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+};
+
+type Achievement = {
+  title: string;
+  description: string;
+};
+
+const team: TeamMember[] = [
+  { name: "Fatima", role: "Lead Photographer", image: "/About.jpeg" },
+  { name: "Ahmed", role: "Assistant Photographer", image: "/About.jpeg" },
+  { name: "Sara", role: "Editor", image: "/About.jpeg" },
+  { name: "Ali", role: "Editor", image: "/About.jpeg" },
+];
+
+const achievements: Achievement[] = [
+  { title: "500+ Weddings Captured", description: "Bringing love stories to life in every frame." },
+  { title: "300+ Family Portraits", description: "Preserving family memories for generations." },
+  { title: "Award-Winning Photographer", description: "Recognized for excellence in visual storytelling." },
+];
+
+// Responsive Navbar Component
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
-      {/* Navbar */}
-      <nav className="bg-white shadow-md fixed top-0 w-full z-50">
-        <div className="container mx-auto p-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-semibold text-gray-800">
-            FatimaPhotography
-          </Link>
-          <ul className="hidden md:flex space-x-6">
-            <li>
-              <Link href="/" className="text-gray-800 hover:text-blue-600">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="text-gray-800 hover:text-blue-600">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/stories" className="text-gray-800 hover:text-blue-600">
-                Stories
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="text-gray-800 hover:text-blue-600">
-                Contact
-              </Link>
-            </li>
-          </ul>
-          <button
-            className="md:hidden text-gray-800 focus:outline-none"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            Menu
+    <nav className="bg-white fixed top-0 w-full z-50 p-4 shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link href="/" className="text-3xl font-extrabold text-gray-800 hover:text-blue-600">
+          FatimaPhotography
+        </Link>
+        <div className="md:hidden z-50">
+          <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle navigation" className="text-gray-800 text-2xl">
+            {isOpen ? "✕" : "☰"}
           </button>
         </div>
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden bg-white shadow-lg">
-            <ul className="p-4 space-y-4">
-              <li>
-                <Link href="/" className="block text-gray-800 hover:text-blue-600">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="block text-gray-800 hover:text-blue-600">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/stories" className="block text-gray-800 hover:text-blue-600">
-                  Stories
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="block text-gray-800 hover:text-blue-600">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-        )}
-      </nav>
 
-      {/* About Section */}
-      <section className="bg-gray-100 min-h-screen flex flex-col items-center justify-center text-center pt-24">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">About Us</h1>
-          <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-8">
-            <div className="md:w-1/2">
-              <img
-                src="/About.jpeg"
-                alt="FatimaPhotography Team"
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="md:w-1/2 text-left">
-              <p className="text-lg text-gray-600 leading-relaxed mb-4">
-                At FatimaPhotography, we believe in capturing life’s most precious moments in their truest form. With over a decade of experience, our team is passionate about storytelling through the art of photography.
-              </p>
-              <p className="text-lg text-gray-600 leading-relaxed mb-4">
-                Our mission is to freeze moments in time and create timeless memories for our clients. From the first consultation to the final photo delivery, we work closely with you to ensure every detail is perfect.
-              </p>
-              <button className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500">
-                Learn More
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+        {/* Mobile Menu Overlay */}
+        <ul
+          className={`${
+            isOpen ? "flex" : "hidden"
+          } absolute top-0 left-0 w-full h-screen bg-white flex-col items-center justify-center space-y-8 text-lg font-medium z-40 md:flex md:static md:h-auto md:bg-transparent md:space-y-0 md:space-x-8 md:flex-row`}
+        >
+          {["Home", "About", "Stories", "Gallery", "Contact"].map((page, index) => (
+            <li key={index} className="py-2 md:py-0">
+              <Link
+                href={page === "Home" ? "/" : `/${page.toLowerCase()}`}
+                className="text-gray-800 hover:text-blue-600"
+                onClick={() => setIsOpen(false)}
+              >
+                {page}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
-      {/* Experience Section */}
-      <section className="bg-white py-12">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Our Experience</h2>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">
-            With over a decade of experience in wedding and portrait photography, we have mastered the art of capturing memorable moments.
-          </p>
+export default function AboutPage() {
+  return (
+    <div className="bg-gray-100 text-black">
+      <Navbar />
+
+      {/* Hero Section */}
+      <motion.section
+        className="bg-cover bg-center h-64 flex items-center justify-center mt-16"
+        style={{ backgroundImage: 'url(/about-hero.jpg)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <h1 className="text-4xl font-bold text-white drop-shadow-lg">About Us</h1>
+      </motion.section>
+
+      {/* Team Section */}
+      <section className="container mx-auto my-12 text-center">
+        <h2 className="text-3xl font-bold mb-8">Meet Our Team</h2>
+        <div className="flex flex-wrap justify-center gap-8">
+          {team.map((member) => (
+            <div key={member.name} className="w-64 p-4 bg-white rounded-lg shadow-lg">
+              <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded-t-lg" />
+              <div className="mt-4">
+                <h3 className="text-xl font-semibold">{member.name}</h3>
+                <p className="text-gray-500">{member.role}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Achievements Section */}
-      <section className="bg-gray-100 py-12">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Achievements</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 shadow-md rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-800">500+ Weddings Captured</h3>
-              <p className="text-gray-600 mt-2">Bringing love stories to life in every frame.</p>
-            </div>
-            <div className="bg-white p-6 shadow-md rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-800">300+ Family Portraits</h3>
-              <p className="text-gray-600 mt-2">Preserving family memories for generations.</p>
-            </div>
-            <div className="bg-white p-6 shadow-md rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-800">Award-Winning Photographer</h3>
-              <p className="text-gray-600 mt-2">Recognized for excellence in visual storytelling.</p>
-            </div>
-          </div>
+      <section className="bg-gray-100 py-12 text-center">
+        <h2 className="text-3xl font-bold mb-8">Achievements</h2>
+        <div className="flex flex-wrap justify-center gap-8">
+          {achievements.map((achievement) => (
+            <motion.div key={achievement.title} className="w-64 p-4 bg-white rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold">{achievement.title}</h3>
+              <p className="text-gray-500">{achievement.description}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="bg-white py-12">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">What Our Clients Say</h2>
-          <div className="space-y-8">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-              <p className="text-lg text-gray-600">
-                “FatimaPhotography captured our wedding beautifully! The pictures are beyond perfect, and we couldn’t be happier!”
-              </p>
-              <p className="text-gray-800 font-bold mt-4">— Sarah & Ahmed</p>
-            </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-              <p className="text-lg text-gray-600">
-                “Such a professional and warm experience. The photoshoot was comfortable, and the results were incredible.”
-              </p>
-              <p className="text-gray-800 font-bold mt-4">— Emily & John</p>
-            </div>
+      {/* Statistics Section */}
+      <section className="bg-gray-100 py-12 text-center">
+        <h2 className="text-3xl font-bold mb-8">Our Statistics</h2>
+        <div className="flex justify-center space-x-8">
+          <div className="p-4">
+            <p className="text-5xl font-bold">10+</p>
+            <p className="text-gray-500">Years of Experience</p>
+          </div>
+          <div className="p-4">
+            <p className="text-5xl font-bold">500+</p>
+            <p className="text-gray-500">Weddings Captured</p>
+          </div>
+          <div className="p-4">
+            <p className="text-5xl font-bold">1000+</p>
+            <p className="text-gray-500">Happy Clients</p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white text-black py-6">
-        <div className="container mx-auto text-center">
-          <p className="mb-2">Follow Us</p>
-          <div className="flex justify-center mb-4 space-x-4">
-            <a href="#" className="hover:text-blue-500">Facebook</a>
-            <a href="#" className="hover:text-blue-500">Instagram</a>
-            <a href="#" className="hover:text-blue-500">Twitter</a>
-            <a href="#" className="hover:text-blue-500">LinkedIn</a>
+      <footer className="bg-gray-900 text-white py-10">
+        <div className="container mx-auto text-center px-4">
+          <p className="text-lg font-light mb-6">Follow Us</p>
+          <div className="flex justify-center mb-8 space-x-6 text-2xl">
+            {["Facebook", "Instagram", "Twitter"].map((platform, index) => (
+              <a key={index} href="#" className="hover:text-blue-500" aria-label={`Follow us on ${platform}`}>
+                {platform}
+              </a>
+            ))}
           </div>
-          <p>© 2024 FatimaPhotography. All rights reserved.</p>
+          <p className="text-sm text-gray-400">© 2024 FatimaPhotography. All rights reserved.</p>
         </div>
       </footer>
     </div>

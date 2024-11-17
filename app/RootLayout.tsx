@@ -1,7 +1,6 @@
-// app/layout.tsx
+// app/RootLayout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { PropsWithChildren } from "react";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
   description: "Capturing life's precious moments",
 };
 
-export default function RootLayout({ children }: PropsWithChildren<{}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head />
