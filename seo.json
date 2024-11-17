@@ -1500,98 +1500,60 @@
       "Toronto fashion photographer",
       "Toronto headshot photographer"
     ],
-    "contact": {
-      "phone": "+123456789",
-      "email": "contact@fatimaphotography.com",
-      "address": {
-        "street": "123 Main St",
-        "city": "Windsor",
-        "state": "ON",
-        "postalCode": "12345",
-        "country": "CA"
-      },
-      "social": {
-        "facebook": "https://www.facebook.com/yourprofile",
-        "instagram": "https://www.instagram.com/yourprofile",
-        "twitter": "https://www.twitter.com/yourprofile",
-        "platform": ""
-      }
-    },
-    "structuredData": {
-      "@context": "http://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Fatima Photography Windsor",
-      "description": "Professional photography services in Windsor specializing in capturing moments for weddings, portraits, and events.",
-      "url": "https://yourwebsite.com",
-      "image": "https://yourwebsite.com/logo.png",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "123 Main St",
-        "addressLocality": "Windsor",
-        "addressRegion": "ON",
-        "postalCode": "12345",
-        "addressCountry": "CA"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+123456789",
-        "contactType": "Customer Service",
-        "email": "contact@fatimaphotography.com"
-      },
-      "sameAs": [
-        "https://www.facebook.com/yourprofile",
-        "https://www.instagram.com/yourprofile",
-        "https://www.twitter.com/yourprofile"
-      ]
-    },
-        "siteName": "Fatima Photography",
-        "defaultTitle": "Fatima Photography - Windsor's Top Photography Service",
-        "defaultDescription": "Explore Windsor's top photography services with Fatima Photography. Specializing in weddings, portraits, family sessions, and more.",
-        "keywords": ["Windsor photographer", "best photography in Windsor", "wedding photography Windsor", "family photography Windsor"],
-        "contact": {
-          "phone": "+1-123-456-7890",
-          "email": "contact@fatimaphotography.com",
-          "address": {
-            "street": "123 Windsor St",
-            "city": "Windsor",
-            "state": "ON",
-            "postalCode": "N9A 3A1",
-            "country": "CA"
-          },
-          "social": {
-            "facebook": "https://facebook.com/FatimaPhotography",
-            "instagram": "https://instagram.com/FatimaPhotography",
-            "twitter": "https://twitter.com/FatimaPhotography",
-            "ogImage": "https://yourwebsite.com/featured-image.jpg",
-            "twitterCard": "summary_large_image"
-          }
+    
+      "defaultTitle": "Fatima Photography - Windsor's Top Photography Service",
+      "defaultDescription": "Explore Windsor's top photography services with Fatima Photography. Specializing in weddings, portraits, family sessions, and more.",
+      "siteName": "Fatima Photography",
+      "contact": {
+        "website": "https://www.fatimaphotography.ca",
+        "phone": "+1-123-456-7890",
+        "email": "contact@fatimaphotography.com",
+        "address": {
+          "street": "123 Windsor St",
+          "city": "Windsor",
+          "state": "ON",
+          "postalCode": "N9A 3A1",
+          "country": "CA"
         },
-        "structuredData": {
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "name": "Fatima Photography",
-          "description": "Providing professional photography services in Windsor, Ontario. Specializing in weddings, family portraits, and more.",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "123 Windsor St",
-            "addressLocality": "Windsor",
-            "addressRegion": "ON",
-            "postalCode": "N9A 3A1",
-            "addressCountry": "CA"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "42.3149",
-            "longitude": "-83.0364"
-          },
-          "telephone": "+1-123-456-7890",
-          "url": "https://yourwebsite.com",
-          "sameAs": [
-            "https://facebook.com/FatimaPhotography",
-            "https://instagram.com/FatimaPhotography",
-            "https://twitter.com/FatimaPhotography"
-          ]
+        "social": {
+          "facebook": "https://facebook.com/FatimaPhotography",
+          "instagram": "https://instagram.com/FatimaPhotography",
+          "twitter": "https://twitter.com/FatimaPhotography",
+          "ogImage": "https://yourwebsite.com/featured-image.jpg",
+          "twitterCard": "summary_large_image"
         }
+      },
+      "structuredData": {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Fatima Photography",
+        "description": "Providing professional photography services in Windsor, Ontario. Specializing in weddings, family portraits, and more.",
+        "url": "https://www.fatimaphotography.ca",
+        "image": "https://yourwebsite.com/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "123 Windsor St",
+          "addressLocality": "Windsor",
+          "addressRegion": "ON",
+          "postalCode": "N9A 3A1",
+          "addressCountry": "CA"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "42.3149",
+          "longitude": "-83.0364"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-123-456-7890",
+          "contactType": "Customer Service",
+          "email": "contact@fatimaphotography.com"
+        },
+        "sameAs": [
+          "https://facebook.com/FatimaPhotography",
+          "https://instagram.com/FatimaPhotography",
+          "https://twitter.com/FatimaPhotography"
+        ]
       }
-        
+    }
     

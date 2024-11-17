@@ -11,16 +11,16 @@ import Image from "next/image";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { FaFacebookF, FaInstagram, FaTwitter, FaCamera } from "react-icons/fa";
 import Head from "next/head";
-import seoData from "../seo.json"; // Adjust the path if needed
+import seoData from "../seo.json"; // Ensure the path is correct
 
-// Loader Component for Loading Indication
+// Loader Component
 const Loader = () => (
   <div className="flex justify-center items-center w-full h-screen bg-gray-100">
     <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
   </div>
 );
 
-// Animated Intro Overlay using anime.js
+// Animated Intro Overlay
 const IntroOverlay = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     const textWrapper = document.querySelector(".intro-text");
@@ -30,10 +30,7 @@ const IntroOverlay = ({ onComplete }: { onComplete: () => void }) => {
       .join("");
 
     anime
-      .timeline({
-        easing: "easeOutExpo",
-        complete: onComplete,
-      })
+      .timeline({ easing: "easeOutExpo", complete: onComplete })
       .add({
         targets: ".intro-text .letter",
         opacity: [0, 1],
@@ -63,11 +60,11 @@ const IntroOverlay = ({ onComplete }: { onComplete: () => void }) => {
   );
 };
 
-// Navbar Component with Dynamic Links
+// Navbar Component
 const Navbar = () => (
   <nav className="bg-white shadow-md fixed top-0 w-full z-50 py-4 px-6 backdrop-blur-sm bg-opacity-80">
     <div className="container mx-auto flex justify-between items-center">
-      <Link href="/" className="text-3xl font-bold text-gray-900" aria-label="Fatima Photography Home">
+      <Link href="/" className="text-3xl font-bold text-gray-900">
         FatimaPhotography
       </Link>
       <ul className="flex space-x-6 text-gray-700 font-medium">
@@ -75,7 +72,6 @@ const Navbar = () => (
           <li key={page}>
             <Link
               href={page === "Home" ? "/" : `/${page.toLowerCase()}`}
-              aria-label={page}
               className="hover:text-blue-600 transition duration-300"
             >
               {page}
@@ -92,12 +88,11 @@ const HeroSection = ({ images }: { images: string[] }) => (
   <section className="relative w-full h-screen bg-gradient-to-r from-blue-50 to-gray-50">
     <Swiper
       modules={[Autoplay, Navigation, Pagination]}
-      loop={true}
+      loop
       spaceBetween={0}
       slidesPerView={1}
       autoplay={{ delay: 2500, disableOnInteraction: false }}
       className="h-full w-full"
-      style={{ height: "100vh" }}
     >
       {images.map((image, index) => (
         <SwiperSlide key={`${image}-${index}`} className="h-full">
@@ -107,7 +102,7 @@ const HeroSection = ({ images }: { images: string[] }) => (
               alt={`Gallery Image ${index + 1}`}
               layout="fill"
               objectFit="cover"
-              className="object-cover transition-transform duration-500 hover:scale-105"
+              className="object-cover"
               priority
               sizes="(max-width: 768px) 100vw, (min-width: 769px) 100vh"
             />
@@ -115,19 +110,6 @@ const HeroSection = ({ images }: { images: string[] }) => (
         </SwiperSlide>
       ))}
     </Swiper>
-    <div className="absolute inset-0 flex items-center justify-center text-center text-white">
-      <div className="transform transition-transform duration-500 hover:scale-105 px-4 md:px-0">
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-md">Capturing Windsor's Finest Moments</h1>
-        <p className="text-lg md:text-2xl font-light mb-6 drop-shadow-lg">
-          Professional Photography Services in Windsor, Ontario
-        </p>
-        <Link href="/contact" aria-label="Contact Us">
-          <button className="px-8 py-3 text-lg bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-500 transition duration-300">
-            Contact Us
-          </button>
-        </Link>
-      </div>
-    </div>
   </section>
 );
 
@@ -165,61 +147,47 @@ const ServicesSection = () => {
             <Link
               key={index}
               href={service.href}
-              aria-label={service.title}
               className="relative w-64 h-96 group cursor-pointer"
             >
-              {/* Left Image */}
+              {/* Stacked Images */}
               <div
-                className="absolute w-full h-full rounded-lg shadow-lg overflow-hidden transition-all duration-300 transform group-hover:-translate-x-24 group-hover:rotate-[-15deg]"
-                style={{
-                  zIndex: 1,
-                  left: "0",
-                }}
+                className="absolute w-full h-full rounded-lg shadow-lg overflow-hidden transition-all duration-300 transform group-hover:translate-x-24 group-hover:rotate-[-10deg]"
+                style={{ left: "0", zIndex: 1 }}
               >
                 <Image
                   src={`/pictures-gallery/${service.images[0]}`}
                   alt={`${service.title} 1`}
                   layout="fill"
                   objectFit="cover"
-                  className="object-cover transition-transform duration-300"
+                  className="object-cover"
                 />
               </div>
-
-              {/* Center Image */}
               <div
                 className="absolute w-full h-full rounded-lg shadow-lg overflow-hidden transition-all duration-300 transform group-hover:scale-105"
-                style={{
-                  zIndex: 2,
-                }}
+                style={{ zIndex: 2 }}
               >
                 <Image
                   src={`/pictures-gallery/${service.images[1]}`}
                   alt={`${service.title} 2`}
                   layout="fill"
                   objectFit="cover"
-                  className="object-cover transition-transform duration-300"
+                  className="object-cover"
                 />
               </div>
-
-              {/* Right Image */}
               <div
-                className="absolute w-full h-full rounded-lg shadow-lg overflow-hidden transition-all duration-300 transform group-hover:translate-x-24 group-hover:rotate-[15deg]"
-                style={{
-                  zIndex: 1,
-                  right: "0",
-                }}
+                className="absolute w-full h-full rounded-lg shadow-lg overflow-hidden transition-all duration-300 transform group-hover:translate-x-[-24px] group-hover:rotate-[10deg]"
+                style={{ zIndex: 1, right: "0" }}
               >
                 <Image
                   src={`/pictures-gallery/${service.images[2]}`}
                   alt={`${service.title} 3`}
                   layout="fill"
                   objectFit="cover"
-                  className="object-cover transition-transform duration-300"
+                  className="object-cover"
                 />
               </div>
-
-              {/* Overlay Text */}
-              <div className="absolute inset-0 flex items-center justify-center text-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {/* Overlay Title */}
+              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
               </div>
             </Link>
@@ -230,23 +198,19 @@ const ServicesSection = () => {
   );
 };
 
-
 // Footer Component
 const Footer = () => (
-  <footer className="bg-gradient-to-t from-gray-900 to-gray-800 text-white py-10 relative">
-    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 w-16 h-16 text-white opacity-10">
-      <FaCamera size={64} />
-    </div>
+  <footer className="bg-gradient-to-t from-gray-900 to-gray-800 text-white py-10">
     <div className="container mx-auto text-center">
       <p className="text-lg font-light mb-6">Connect with Us</p>
       <div className="flex justify-center space-x-6 text-2xl">
-        <a href={seoData.contact.social.facebook} className="hover:text-blue-500 transition duration-300" aria-label="Follow us on Facebook">
+        <a href={seoData.contact.social.facebook} className="hover:text-blue-500">
           <FaFacebookF />
         </a>
-        <a href={seoData.contact.social.instagram} className="hover:text-pink-500 transition duration-300" aria-label="Follow us on Instagram">
+        <a href={seoData.contact.social.instagram} className="hover:text-pink-500">
           <FaInstagram />
         </a>
-        <a href={seoData.contact.social.twitter} className="hover:text-blue-400 transition duration-300" aria-label="Follow us on Twitter">
+        <a href={seoData.contact.social.twitter} className="hover:text-blue-400">
           <FaTwitter />
         </a>
       </div>
@@ -292,7 +256,6 @@ export default function Home() {
       </Head>
 
       {showIntro && <IntroOverlay onComplete={() => setShowIntro(false)} />}
-
       <div className={`${showIntro ? "hidden" : "block"} bg-white text-gray-900`}>
         <Navbar />
         {loading ? <Loader /> : <HeroSection images={images} />}
