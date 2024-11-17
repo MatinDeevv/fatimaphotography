@@ -53,7 +53,7 @@ const IntroOverlay = ({ onComplete }: { onComplete: () => void }) => {
           Welcome to 𝐹𝒶𝓉𝒾𝓂𝒶𝒫𝒽𝑜𝓉𝑜𝑔𝓇𝒶𝓅𝒽𝓎
         </h1>
         <p className="text-base md:text-lg font-light text-gray-300 mt-4">
-          Capturing Windsor's Finest Moments
+          Capturing Windsor's Best Moments
         </p>
       </div>
     </div>
