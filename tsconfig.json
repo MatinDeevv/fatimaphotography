@@ -1,6 +1,4 @@
 {
-
-  
   "compilerOptions": {
     "types": ["swiper"],
     "target": "ES2017",
@@ -25,6 +23,15 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types", "app/**/*","types/**/*.d.ts", "app/**/*" ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types",
+    "app/**/*",
+    "types/**/*.d.ts",
+    "app/**/*"
+  ],
   "exclude": ["node_modules"]
 }

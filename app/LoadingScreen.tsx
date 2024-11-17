@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 export default function LoadingScreen() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 3000); // Adjust the timing as needed
+      setIsVisible(false)
+    }, 3000) // Adjust the timing as needed
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <AnimatePresence>
@@ -64,5 +64,5 @@ export default function LoadingScreen() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }
