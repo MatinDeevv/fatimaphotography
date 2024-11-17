@@ -1,5 +1,5 @@
 'use client'
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { useEffect, useState } from 'react'
 import anime from 'animejs'
 import Link from 'next/link'

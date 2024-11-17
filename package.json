@@ -1,5 +1,5 @@
 {
-  "name": "fatima-photograpy",
+  "name": "fatima-photography",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@heroicons/react": "^2.1.5",
     "@types/swiper": "^5.4.3",
+    "@vercel/speed-insights": "^1.1.0",
     "animejs": "^3.2.2",
     "axios": "^1.7.7",
     "chart.js": "^4.4.6",
