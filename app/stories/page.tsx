@@ -1,28 +1,22 @@
-// app/stories/page.tsx
+'use client';
 
-'use client'
-import { useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import Head from 'next/head';
+import { useState, useEffect } from 'react';
 
-// Story type
-type Story = {
-  id: number
-  couple: string
-  date: string
-  thumbnail: string
-  images: string[]
-  description: string
-}
+// Placeholder SEO Data
+const seoData = {
+  siteName: 'Fatima Photography',
+};
 
 // Sample stories data
-const stories: Story[] = [
+const stories = [
   {
     id: 1,
     couple: 'Story 1',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/1.jpg',
-    images: ['/pictures-gallery/1.jpg'],
     description: 'A captivating moment captured in time.',
   },
   {
@@ -30,7 +24,6 @@ const stories: Story[] = [
     couple: 'Story 2',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/15.jpg',
-    images: ['/pictures-gallery/15.jpg'],
     description: 'An unforgettable scene full of emotion.',
   },
   {
@@ -38,7 +31,6 @@ const stories: Story[] = [
     couple: 'Story 3',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/19.jpg',
-    images: ['/pictures-gallery/19.jpg'],
     description: 'A beautiful memory frozen forever.',
   },
   {
@@ -46,7 +38,6 @@ const stories: Story[] = [
     couple: 'Story 4',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/20.jpg',
-    images: ['/pictures-gallery/20.jpg'],
     description: 'Captured emotions and cherished moments.',
   },
   {
@@ -54,123 +45,124 @@ const stories: Story[] = [
     couple: 'Story 5',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/7.jpg',
-    images: ['/pictures-gallery/7.jpg'],
     description: 'A serene scene filled with love and warmth.',
   },
-  // Additional stories would go here
-]
+];
 
-// Navbar Component
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+export default function StoriesPage() {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const router = useRouter();
 
   return (
-    <nav className="bg-white fixed top-0 w-full z-50 p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link
-          href="/"
-          className="text-3xl font-extrabold text-gray-800 hover:text-blue-600"
-        >
-          FatimaPhotography
-        </Link>
-        <div className="md:hidden z-50">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-800 text-2xl"
-          >
-            {isOpen ? '✕' : '☰'}
-          </button>
-        </div>
-        <ul
-          className={`${
-            isOpen ? 'flex' : 'hidden'
-          } absolute top-0 left-0 w-full h-screen bg-white flex-col items-center justify-center space-y-8 text-lg font-medium z-40 md:flex md:static md:h-auto md:bg-transparent md:space-y-0 md:space-x-8 md:flex-row`}
-        >
-          {['Home', 'About', 'Stories', 'Gallery', 'Contact'].map(
-            (page, index) => (
-              <li key={index} className="py-2 md:py-0">
+    <>
+      <Head>
+        <title>Love Stories | Fatima Photography</title>
+        <meta name="description" content="Browse captivating love stories captured by Fatima Photography." />
+        <meta name="keywords" content="photography, stories, gallery, love, couples" />
+      </Head>
+
+      {/* Navbar */}
+      <nav className="bg-white fixed top-0 w-full z-50 shadow-md">
+        <div className="container mx-auto flex justify-between items-center px-4 py-2">
+          {/* Logo */}
+          <Link href="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">
+            {seoData.siteName}
+          </Link>
+
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex space-x-6 text-sm font-medium">
+            {['Home', 'Services', 'Stories', 'Contact'].map((link) => (
+              <li key={link}>
                 <Link
-                  href={page === 'Home' ? '/' : `/${page.toLowerCase()}`}
-                  className="text-gray-800 hover:text-blue-600"
-                  onClick={() => setIsOpen(false)}
+                  href={link === 'Home' ? '/' : `/${link.toLowerCase()}`}
+                  className="hover:text-blue-600 transition"
                 >
-                  {page}
+                  {link}
                 </Link>
               </li>
-            )
-          )}
-        </ul>
-      </div>
-    </nav>
-  )
-}
+            ))}
+          </ul>
 
-// Footer Component
-const Footer = () => (
-  <footer className="bg-gray-900 text-white py-10">
-    <div className="container mx-auto text-center px-4">
-      <p className="text-lg font-light mb-6">Follow Us</p>
-      <div className="flex justify-center mb-8 space-x-6 text-2xl">
-        {['Facebook', 'Instagram', 'Twitter'].map((platform, index) => (
-          <a
-            key={index}
-            href="#"
-            className="hover:text-blue-500"
-            aria-label={`Follow us on ${platform}`}
+          {/* Mobile Hamburger Menu */}
+          <button
+            className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none"
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
           >
-            {platform}
-          </a>
-        ))}
-      </div>
-      <p className="text-sm text-gray-400">
-        © 2024 FatimaPhotography. All rights reserved.
-      </p>
-    </div>
-  </footer>
-)
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
 
-// Stories Page Component
-export default function StoriesPage() {
-  const router = useRouter()
-
-  return (
-    <div className="bg-white text-gray-900 font-['Roboto']">
-      {/* Navbar */}
-      <Navbar />
+        {/* Mobile Navigation Menu */}
+        {showMobileMenu && (
+          <div className="md:hidden bg-white shadow-md">
+            <ul className="flex flex-col space-y-1 py-2 px-4">
+              {['Home', 'Gallery', 'Services', 'Testimonials', 'Contact'].map((link) => (
+                <li key={link}>
+                  <Link
+                    href={link === 'Home' ? '/' : `/${link.toLowerCase()}`}
+                    className="block text-gray-700 hover:text-blue-600 transition py-1"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </nav>
 
       {/* Hero Section */}
-      <div
-        className="bg-cover bg-center h-64 flex items-center justify-center mt-16"
+      <header
+        className="h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: "url('/about.jpg')" }}
       >
-        <h1 className="text-4xl font-bold text-black">Love Stories</h1>
-      </div>
+        <h1 className="text-4xl font-bold text-white">Love Stories</h1>
+      </header>
 
       {/* Stories Grid */}
-      <div className="container mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+      <main className="container mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {stories.map((story) => (
-          <div
-            key={story.id}
-            className="relative bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-            onClick={() => router.push(`/stories/${story.id}`)}
-          >
-            <img
-              src={story.thumbnail}
-              alt={`${story.couple}'s Story`}
-              className="w-full h-48 object-cover rounded-t-lg"
-              loading="lazy"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold">{story.couple}</h2>
-              <p className="text-gray-500">{story.date}</p>
-              <p className="mt-2 text-gray-700">{story.description}</p>
-            </div>
-          </div>
+       <div
+       key={story.id}
+       className="relative group rounded-lg overflow-hidden shadow-md transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+       onClick={() => router.push(`/stories/${story.id}`)}
+     >
+       {/* Thumbnail */}
+       <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' /* 16:9 Aspect Ratio */ }}>
+         <img
+           src={story.thumbnail}
+           alt={story.couple}
+           className="absolute inset-0 w-full h-full object-cover"
+         />
+       </div>
+     
+       {/* Content */}
+       <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent to-transparent text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+         <h2 className="text-lg font-semibold">{story.couple}</h2>
+         <p className="text-sm">{story.date}</p>
+         <p className="text-sm mt-2">{story.description}</p>
+       </div>
+     </div>
+     
         ))}
-      </div>
+      </main>
 
       {/* Footer */}
-      <Footer />
-    </div>
-  )
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="container mx-auto text-center">
+          <p className="text-sm">© 2024 Fatima Photography. All rights reserved.</p>
+        </div>
+      </footer>
+    </>
+  );
 }

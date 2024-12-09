@@ -1,38 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:700|Funnel%20Display:400');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #e4e4e4;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Custom Background Classes */
+@layer utilities {
+  .bg-background-light {
+    background-color: #ffffff; /* Light mode background */
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-@keyframes gradientBackground {
-  0% {
-    background-position: 0% 50%;
+  .bg-background-dark {
+    background-color: #0a0a0a; /* Dark mode background */
   }
-  50% {
-    background-position: 100% 50%;
+  .text-foreground-light {
+    color: #0a0a0a; /* Light mode text */
   }
-  100% {
-    background-position: 0% 50%;
+  .text-foreground-dark {
+    color: #e4e4e4; /* Dark mode text */
   }
-}
-
-.animated-background {
-  background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb);
-  background-size: 800% 800%;
-  animation: gradientBackground 15s ease infinite;
 }

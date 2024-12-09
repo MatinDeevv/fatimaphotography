@@ -1,79 +1,96 @@
-// /app/admin/page.tsx
+'use client';
 
-'use client'
-
-import { useState, useEffect } from 'react'
-import { Bar } from 'react-chartjs-2'
-import 'chart.js/auto'
+import { useState, useEffect } from 'react';
+import { Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 // Define the type for booking data
 type Booking = {
-  id: number
-  fullName: string
-  email: string
-  phone: string
-  eventType: string
-  date: string
-  serviceType: string
-  venue: string
-  specialRequests?: string
-  status: 'pending' | 'completed' | 'canceled' | 'archived' | 'responded'
-}
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  eventType: string;
+  date: string;
+  serviceType: string;
+  venue: string;
+  specialRequests?: string;
+  status: 'pending' | 'completed' | 'canceled' | 'archived' | 'responded';
+};
 
 export default function BookingManagementPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [searchQuery, setSearchQuery] = useState('')
-  const [showArchived, setShowArchived] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showArchived, setShowArchived] = useState(false);
 
   // Mock login
   const handleLogin = () => {
     if (username === 'admin' && password === 'password') {
-      setIsAuthenticated(true)
-      loadBookings()
+      setIsAuthenticated(true);
+      loadBookings();
     } else {
-      alert('Invalid credentials. Please try again.')
+      alert('Invalid credentials. Please try again.');
     }
-  }
+  };
 
-  // Load bookings from localStorage on component mount
+  // Load bookings from localStorage
   const loadBookings = () => {
-    const storedBookings = JSON.parse(
-      localStorage.getItem('bookingsList') || '[]'
-    )
-    setBookings(storedBookings)
-  }
+    const storedBookings = JSON.parse(localStorage.getItem('bookingsList') || '[]');
+    setBookings(storedBookings);
+  };
+
+  // Set up real-time updates for bookings
+  useEffect(() => {
+    const interval = setInterval(loadBookings, 5000); // Poll every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
+  }, []);
 
   // Update booking status and save to localStorage
   const updateBookingStatus = (id: number, newStatus: Booking['status']) => {
     const updatedBookings = bookings.map((booking) =>
       booking.id === id ? { ...booking, status: newStatus } : booking
-    )
-    setBookings(updatedBookings)
-    localStorage.setItem('bookingsList', JSON.stringify(updatedBookings))
-  }
+    );
+    setBookings(updatedBookings);
+    localStorage.setItem('bookingsList', JSON.stringify(updatedBookings));
+  };
 
   // Permanently delete an archived booking
   const deleteBooking = (id: number) => {
-    const updatedBookings = bookings.filter((booking) => booking.id !== id)
-    setBookings(updatedBookings)
-    localStorage.setItem('bookingsList', JSON.stringify(updatedBookings))
-  }
+    const updatedBookings = bookings.filter((booking) => booking.id !== id);
+    setBookings(updatedBookings);
+    localStorage.setItem('bookingsList', JSON.stringify(updatedBookings));
+  };
 
   // Filtered bookings based on search, selected status, and showArchived toggle
   const filteredBookings = bookings.filter((booking) => {
-    const matchesSearch = booking.fullName
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    const matchesSearch = booking.fullName.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesArchivedFilter = showArchived
       ? booking.status === 'archived'
-      : booking.status !== 'archived'
-    return matchesSearch && matchesArchivedFilter
-  })
+      : booking.status !== 'archived';
+    return matchesSearch && matchesArchivedFilter;
+  });
 
-  // Conditional rendering for login or main page
+  // Data for the analytics chart
+  const chartData = {
+    labels: ['Pending', 'Completed', 'Canceled', 'Archived', 'Responded'],
+    datasets: [
+      {
+        label: 'Booking Status',
+        data: [
+          bookings.filter((b) => b.status === 'pending').length,
+          bookings.filter((b) => b.status === 'completed').length,
+          bookings.filter((b) => b.status === 'canceled').length,
+          bookings.filter((b) => b.status === 'archived').length,
+          bookings.filter((b) => b.status === 'responded').length,
+        ],
+        backgroundColor: ['#ffce56', '#4bc0c0', '#ff6384', '#c0c0c0', '#ffc107'],
+      },
+    ],
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -101,7 +118,7 @@ export default function BookingManagementPage() {
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -126,7 +143,7 @@ export default function BookingManagementPage() {
         className="border rounded w-full p-2 mb-4"
       />
 
-      {/* Booking List with Inline Status Update and Delete for Archived */}
+      {/* Booking List */}
       <div className="bg-white p-4 rounded shadow">
         {filteredBookings.map((booking) => (
           <div
@@ -135,10 +152,10 @@ export default function BookingManagementPage() {
               booking.status === 'canceled'
                 ? 'bg-red-100'
                 : booking.status === 'completed'
-                  ? 'bg-green-100'
-                  : booking.status === 'responded'
-                    ? 'bg-yellow-100'
-                    : ''
+                ? 'bg-green-100'
+                : booking.status === 'responded'
+                ? 'bg-yellow-100'
+                : ''
             }`}
           >
             <div className="flex justify-between items-center">
@@ -214,37 +231,8 @@ export default function BookingManagementPage() {
       {/* Analytics */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Booking Analytics</h2>
-        <Bar
-          data={{
-            labels: [
-              'Pending',
-              'Completed',
-              'Canceled',
-              'Archived',
-              'Responded',
-            ],
-            datasets: [
-              {
-                label: 'Booking Status',
-                data: [
-                  bookings.filter((b) => b.status === 'pending').length,
-                  bookings.filter((b) => b.status === 'completed').length,
-                  bookings.filter((b) => b.status === 'canceled').length,
-                  bookings.filter((b) => b.status === 'archived').length,
-                  bookings.filter((b) => b.status === 'responded').length,
-                ],
-                backgroundColor: [
-                  '#ffce56',
-                  '#4bc0c0',
-                  '#ff6384',
-                  '#c0c0c0',
-                  '#ffc107',
-                ],
-              },
-            ],
-          }}
-        />
+        <Bar data={chartData} />
       </div>
     </div>
-  )
+  );
 }
