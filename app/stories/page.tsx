@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Placeholder SEO Data
 const seoData = {
@@ -61,99 +61,104 @@ export default function StoriesPage() {
         <meta name="keywords" content="photography, stories, gallery, love, couples" />
       </Head>
 
-      {/* Navbar */}
-      <nav className="bg-white fixed top-0 w-full z-50 shadow-md">
-        <div className="container mx-auto flex justify-between items-center px-4 py-2">
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">
-            {seoData.siteName}
-          </Link>
+     {/* Navbar */}
+     <nav className="bg-white fixed top-0 w-full z-50 shadow-md m-0">
+  <div className="container mx-auto flex justify-between items-center px-4 py-2">
+    {/* Left Section (Navigation Links) */}
+    <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
+      <Link href="/" className="hover:text-blue-600 transition">
+        Home
+      </Link>
+      <Link href="/investment" className="hover:text-blue-600 transition">
+        Investment
+      </Link>
+    </div>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-6 text-sm font-medium">
-            {['Home', 'Services', 'Stories', 'Contact'].map((link) => (
-              <li key={link}>
-                <Link
-                  href={link === 'Home' ? '/' : `/${link.toLowerCase()}`}
-                  className="hover:text-blue-600 transition"
-                >
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    {/* Centered Logo Section */}
+    <div className="flex justify-center flex-shrink-0">
+      <Link href="/">
+        <img
+          src="/logo.png"
+          alt="Logo"
+          className="object-contain h-20 w-190"
+        />
+      </Link>
+    </div>
 
-          {/* Mobile Hamburger Menu */}
-          <button
-            className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none"
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
+    {/* Right Section (Navigation Links) */}
+    <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
+      <Link href="/stories" className="hover:text-blue-600 transition">
+        Stories
+      </Link>
+      <Link href="/contact" className="hover:text-blue-600 transition">
+        Contact
+      </Link>
+    </div>
+
+    {/* Mobile Hamburger Menu */}
+    <button
+      className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none ml-4"
+      onClick={() => setShowMobileMenu((prev) => !prev)}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  {/* Mobile Menu */}
+  {showMobileMenu && (
+    <div className="md:hidden bg-white shadow-md">
+      <ul className="flex flex-col space-y-1 py-2 px-4">
+        {["Home", "Packages", "Stories", "Contact"].map((link) => (
+          <li key={link}>
+            <Link
+              href={`/${link.toLowerCase()}`}
+              className="block text-gray-700 hover:text-blue-600 transition py-1"
+              onClick={() => setShowMobileMenu(false)}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
+              {link}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+</nav>
 
-        {/* Mobile Navigation Menu */}
-        {showMobileMenu && (
-          <div className="md:hidden bg-white shadow-md">
-            <ul className="flex flex-col space-y-1 py-2 px-4">
-              {['Home', 'Gallery', 'Services', 'Testimonials', 'Contact'].map((link) => (
-                <li key={link}>
-                  <Link
-                    href={link === 'Home' ? '/' : `/${link.toLowerCase()}`}
-                    className="block text-gray-700 hover:text-blue-600 transition py-1"
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    {link}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </nav>
 
       {/* Hero Section */}
       <header
         className="h-64 bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: "url('/about.jpg')" }}
       >
-        <h1 className="text-4xl font-bold text-white">Love Stories</h1>
+        <h1 className="text-4xl font-bold text-white drop-shadow-lg">Love Stories</h1>
       </header>
 
       {/* Stories Grid */}
       <main className="container mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {stories.map((story) => (
-       <div
-       key={story.id}
-       className="relative group rounded-lg overflow-hidden shadow-md transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-       onClick={() => router.push(`/stories/${story.id}`)}
-     >
-       {/* Thumbnail */}
-       <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' /* 16:9 Aspect Ratio */ }}>
-         <img
-           src={story.thumbnail}
-           alt={story.couple}
-           className="absolute inset-0 w-full h-full object-cover"
-         />
-       </div>
-     
-       {/* Content */}
-       <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent to-transparent text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-         <h2 className="text-lg font-semibold">{story.couple}</h2>
-         <p className="text-sm">{story.date}</p>
-         <p className="text-sm mt-2">{story.description}</p>
-       </div>
-     </div>
-     
+          <div
+            key={story.id}
+            className="relative group rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+            onClick={() => router.push(`/stories/${story.id}`)}
+          >
+            {/* Thumbnail */}
+            <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' /* 16:9 Aspect Ratio */ }}>
+              <img
+                src={story.thumbnail}
+                alt={story.couple}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Overlay Content */}
+            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent to-transparent text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <h2 className="text-xl font-bold">{story.couple}</h2>
+              <p className="text-sm">{story.date}</p>
+              <p className="text-sm mt-2">{story.description}</p>
+            </div>
+          </div>
         ))}
       </main>
 

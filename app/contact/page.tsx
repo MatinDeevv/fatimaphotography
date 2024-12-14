@@ -351,7 +351,9 @@ export default function Booking() {
             Submit Booking
           </button>
         </form>
+<section className='bg-white '>
 
+</section>
         <footer className="bg-gray-800 text-gray-400 py-8">
           <div className="container mx-auto text-center">
             <p>© 2024 Fatima Photography. All rights reserved.</p>

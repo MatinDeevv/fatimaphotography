@@ -11,7 +11,7 @@ const REVIEWS = [
   },
   {
     id: 0,
-    name: "Tanu & ****",
+    name: "Tanu & Ritesh",
     avatar: "reviews/tanu.jpg",
     review: `I would suggest Fatima to everyone. She really did amazing with our pre-wedding and engagement shoot and made me feel so comfortable as we both are camera-shy.`,
   },
@@ -19,8 +19,7 @@ const REVIEWS = [
     id: 2,
     name: "Sunny & ****",
     avatar: "reviews/sunny.jpg",
-    review: `Fatima did an awesome work in just 2 hours. They made the entire session very easy, and the final product turned out to be a great memory of our engagement everlasting.
-Like`,
+    review: `Fatima did an awesome work in just 2 hours. They made the entire session very easy, and the final product turned out to be a great memory of our engagement everlasting.`,
   },
   {
     id: 3,
@@ -28,10 +27,8 @@ Like`,
     avatar: "reviews/roberto.jpg",
     review: `Best team ever! Highly recommended. She knows how to capture “moments”. I’ll let the photos speak for itself ❤️🥰
 
-P.S photos are filtered for vintage theme
-`,
-  }
-  
+P.S photos are filtered for vintage theme`,
+  },
 ];
 
 const Slider: React.FC = () => {
@@ -51,7 +48,7 @@ const Slider: React.FC = () => {
   }, [currentIndex]);
 
   return (
-    <div className="flex justify-center items-center bg-gray-100 min-h-screen relative px-4">
+    <div className="flex justify-center items-center bg-green-950 h-[650px] relative  px-4 ">
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap');
@@ -63,34 +60,23 @@ const Slider: React.FC = () => {
         `}</style>
       </Head>
 
-      <main className="bg-white w-full h-full max-w-none rounded-none text-center mt-0 p-8 sm:p-16 flex flex-col justify-center items-center">
-      <h2 className="text-4xl font-serif text-center text-gray-800 mb-12">
-            What Our Clients Say
-          </h2>
+      <main className="bg-green-950 text-white w-full max-w-screen-xl rounded-none text-center mt-0 px-4 sm:px-8 flex flex-col justify-center items-center">
+        <h2 className="text-5xl sm:text-4xl font-serif text-center text-white mb-20">
+          WHAT OUR CLIENTS SAY
+        </h2>
 
-        <div className="flex flex-row justify-center items-center w-full h-full">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full">
           {currentCard && (
             <>
               <img
-                className="w-72 h-72 object-cover mb-10px border-8 border-white shadow-xl"
+                className="w-[450px] h-[450px] object-cover border-3 border-white shadow-lg"
                 src={currentCard.avatar}
                 alt={`${currentCard.name}'s avatar`}
               />
-              <div className="details flex flex-col mt-3 items-start gap-4 w-1/3 h-full justify-center pl-8">
-                <blockquote
-                  className="bg-white text-black p-12 w-full h-[250px] rounded-lg shadow-xl mb-8 baskervville-sc-regular"
-                  style={{
-                    fontSize: "small",
-                    overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    minHeight: "250px",
-                    paddingBottom: "10px", // To ensure enough space between the text and box
-                  }}
-                >
-                  <p className="text-2xl mb-4 text-center baskervville-sc-regular">{currentCard.name}</p>
-                  {currentCard.review}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                <blockquote className="text-white p-4 md:p-6 rounded-lg baskervville-sc-regular">
+                  <p className="text-xl ml-24 font-semibold mb-2">{currentCard.name}</p>
+                  <p className="text-sm ml-24 sm:text-base">{currentCard.review}</p>
                 </blockquote>
               </div>
             </>
@@ -99,13 +85,13 @@ const Slider: React.FC = () => {
       </main>
 
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl bg-black rounded-full p-3"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl p-3"
         onClick={handlePrev}
       >
         &#8592;
       </button>
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl bg-black rounded-full p-3"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl p-3"
         onClick={handleNext}
       >
         &#8594;

@@ -18,7 +18,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
     setAutoplayEnabled(false); // Pause autoplay
   };
 
-  const handleDoubleClick = () => {
+  const handleClose = () => {
     setExpandedGroup(null); // Collapse the expanded group
     setAutoplayEnabled(true); // Resume autoplay for all groups
   };
@@ -33,27 +33,21 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
     : [];
 
   return (
-    <div className="flex flex-col mb-0  items-center justify-center bg-gray-100 ">
-      <h1 className="text-4xl font-serif mb-16 text-gray-900">Our Photo Gallery</h1>
+    <div className="flex flex-col items-center justify-center bg-gray-100">
+      <h1 className="text-5xl font-serif  mt-24 text-gray-900">THE LATEST SHOTS</h1>
+      <h3 className="text-xl font-serif  mb-16 text-gray-900">SERVIVCING TORONTO, MISSISSUGA, KITCHNER, LONDON, WINDSOR AND SROUNDINGS</h3>
       <Swiper
-        loop={true} // Enable looping only when a stack is expanded
-        autoplay={
-          autoplayEnabled
-            ? {
-                delay: 5000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }
-            : false
-        }
-        slidesPerView={3} // Show 3 slides at a time
-        centeredSlides={true} // Center the middle slide
-        spaceBetween={0} // Remove margin between slides
-        modules={[Autoplay]}
-        className="w-full"
-        style={{
-          height: "calc(100vh - 200px)", // Swiper takes up most of the screen
+        loop={true}
+        autoplay={{ delay: 1500, disableOnInteraction: false }} 
+        slidesPerView={3}
+        centeredSlides={true}
+        spaceBetween={50}
+        breakpoints={{
+          640: { slidesPerView: 1 },
+          1024: { slidesPerView: 3 },
         }}
+        modules={[Autoplay]}
+        className="w-full mb-32"
       >
         {expandedGroup === null
           ? visibleGroups.map((group) => (
@@ -62,7 +56,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
                 className="flex items-center justify-center"
                 onClick={() => handleGroupClick(group.id)}
               >
-                <div className="relative flex items-center justify-center w-full max-w-[400px] h-[400px] cursor-pointer">
+                <div className="relative flex items-center justify-center w-full max-w-[500px] h-[650px] cursor-pointer">
                   {group.images.map((image, index) => {
                     const totalImages = group.images.length;
                     const zIndex = totalImages - index;
@@ -70,11 +64,9 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
                     return (
                       <div
                         key={index}
-                        className={`absolute top-0 left-0 w-full h-full rounded-lg shadow-lg transition-transform duration-500 ease-in-out opacity-90 hover:opacity-100`}
+                        className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg opacity-90 hover:opacity-100"
                         style={{
-                          transform: expandedGroup
-                            ? `translateX(${(index - (totalImages - 1) / 2) * 410}px) rotate(0deg)` // Adjust spacing for expanded images
-                            : `translateX(0px) rotate(${index * 10 - 10}deg)`,
+                          transform: `rotate(${index * 6 - 6}deg)`,
                           zIndex,
                         }}
                       >
@@ -93,14 +85,19 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
               <SwiperSlide
                 key={index}
                 className="flex items-center justify-center"
-                onDoubleClick={handleDoubleClick} // Close the expanded group on double-click
               >
-                <div className="relative flex items-center justify-center w-full max-w-[400px] h-[400px]">
+                <div className="relative flex items-center justify-center w-full max-w-[600px] h-[800px]">
                   <img
                     src={image}
                     alt={`Image ${index + 1}`}
                     className="w-full h-full object-cover rounded-lg shadow-lg"
                   />
+                  <button
+                    onClick={handleClose}
+                    className="absolute top-2 right-2 bg-red-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-red-600"
+                  >
+                    Close
+                  </button>
                 </div>
               </SwiperSlide>
             ))}
