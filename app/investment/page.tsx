@@ -1,208 +1,159 @@
+// pages/investment.tsx
 'use client';
 
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import NavBar from '@/app/components/NavBar';
 import Link from 'next/link';
-import Head from 'next/head';
-import { useState } from 'react';
 
-// Placeholder SEO Data
-const seoData = {
-  siteName: 'Fatima Photography',
+const fetchImages = async () => {
+  const response = await fetch('/api/randomimages');
+  const data: string[] = await response.json();
+  return data;
 };
 
-// Packages Data
-const packages = [
-  {
-    id: 1,
-    title: 'Weddings',
-    price: '$6650',
-    description: 'For couples looking to receive full day coverage for a large wedding with elegant service.',
-    details: [
-      '8 hour minimum',
-      '40+ guests',
-      'Professional Editing & Retouching',
-      'Starting at $6650',
-    ],
-    image: '/pictures-gallery/wedding.jpg',
-    moreInfo: 'Our wedding packages are designed to capture the full essence of your special day with cinematic quality and artistic flair.',
-  },
-  {
-    id: 2,
-    title: 'Micro Weddings',
-    price: '$2950',
-    description: 'Small, intimate weddings for couples seeking a more personal touch with close friends and family.',
-    details: [
-      '3 hour minimum',
-      'Less than 40 guests',
-      'Documentary-style photography',
-      'Starting at $2950',
-    ],
-    image: '/pictures-gallery/kids.jpg',
-    moreInfo: 'Perfect for small gatherings, capturing timeless moments in a relaxed, candid style.',
-  },
-  {
-    id: 3,
-    title: 'Minimonies',
-    price: '$1250',
-    description: 'Quick, intimate ceremonies, ideal for couples who want a private and memorable experience.',
-    details: [
-      '1-2 hours',
-      '6-10 guests',
-      'Simple & Elegant Ceremony Coverage',
-      'Starting at $1250',
-    ],
-    image: '/pictures-gallery/7.jpg',
-    moreInfo: 'We specialize in short, yet intimate wedding ceremonies that will be cherished forever.',
-  },
-  {
-    id: 4,
-    title: 'Engagements, Proposals, & Families',
-    price: '$850',
-    description: 'Perfect for engagement sessions, proposals, and family portraits with a professional touch.',
-    details: [
-      '1-2 hours',
-      'Up to 5 people',
-      'Studio or outdoor options available',
-      'Starting at $850',
-    ],
-    image: '/pictures-gallery/family.jpg',
-    moreInfo: 'Capture the excitement and joy of your engagement or family moments with beautiful and high-quality photography.',
-  },
-];
+const HeroSection = () => (
+  <section className="relative h-screen overflow-hidden">
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: 'url(/hero-placeholder.jpg)' }}
+    ></div>
+    <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div className="relative flex justify-center items-center h-full">
+      <div className="text-center px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-5xl md:text-6xl font-bold mb-4"
+        >
+          INVESTMENT
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+        >
+          Let’s chat about your photography investment and how we might play a role in telling your
+          story.
+        </motion.p>
+      </div>
+    </div>
+  </section>
+);
 
-const addOns = [
-  'Engagement Session',
-  'Second Shooter',
-  'Additional Hours',
-  'Wedding Albums',
-  'Rehearsal Dinner Coverage',
-  'Travel Availability',
-];
+const PackageSection = ({ group, index }: { group: string[]; index: number }) => {
+  const imageAnimation = {
+    hidden: { opacity: 0, scale: 0.8, y: 50 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8 } },
+    hover: { scale: 1.05, rotate: 2, transition: { duration: 0.3 } }
+  };
 
-const weddingIncludes = [
-  'Printing Rights',
-  'Vendor Recommendations',
-  'Wedding Day Guide',
-  'Timeline Assistance',
-  'Gallery Delivery Within 8 Weeks',
-];
-
-export default function PackagesPage() {
-  const [hoveredPackage, setHoveredPackage] = useState<number | null>(null);
+  const weightedShapeClasses = () => {
+    const shapeClasses = [
+      'rounded-lg',
+      'rounded-md',
+      'clip-path-[polygon(0%_0%,_50%_100%,_100%_0%)]',
+      'clip-path-[ellipse(50%_40%_at_50%_50%)]'
+    ];
+    return shapeClasses[Math.floor(Math.random() * shapeClasses.length)];
+  };
 
   return (
-    <>
-      <Head>
-        <title>Packages | Fatima Photography</title>
-        <meta name="description" content="Explore our premium photography packages, tailored for different events." />
-        <meta name="keywords" content="photography, packages, wedding, portrait, event, family, engagement" />
-      </Head>
-
-      {/* Navbar */}
-      <nav className="bg-white fixed top-0 w-full z-50 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center px-6 py-4">
-          {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-gray-800 hover:text-blue-600">
-            {seoData.siteName}
-          </Link>
-
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex space-x-8 text-lg font-medium">
-            {['Home', 'Investment', 'Stories', 'Contact'].map((link) => (
-              <li key={link}>
-                <Link
-                  href={link === 'Home' ? '/' : `/${link.toLowerCase()}`}
-                  className="text-gray-600 hover:text-blue-600 transition"
-                >
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <section
+      className={`py-20 relative ${index % 2 === 0 ? 'bg-white text-black' : 'bg-green-900 text-white'}`}
+    >
+      <div className="max-w-7xl mx-auto relative grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="z-10 px-4"
+        >
+          <h2 className="text-4xl font-bold mb-6">{`PACKAGE ${index + 1}`}</h2>
+          <p className="text-lg leading-relaxed mb-6">
+            {`Our package ${index + 1} offers a unique storytelling experience with ${
+              3 + index
+            } hours of coverage, 2 photographers, personalized galleries, and consultation to capture your dream moments.`}
+          </p>
+          <p className="text-2xl font-bold">Starting at ${2500 + index * 500}</p>
+        </motion.div>
+        <div className="relative h-[500px] md:h-[700px] w-full">
+          {group.map((image, i) => (
+            <motion.div
+              key={i}
+              variants={imageAnimation}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true }}
+              className={`absolute shadow-lg ${weightedShapeClasses()} transition-transform duration-300 ease-in-out ${
+                i === 2
+                  ? 'top-0 left-1/3 w-2/3 h-3/4 z-10'
+                  : i === 0
+                    ? 'top-0 left-0 w-1/3 h-1/2'
+                    : 'bottom-0 right-0 w-1/3 h-1/2 rotate-3'
+              }`}
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            ></motion.div>
+          ))}
         </div>
-      </nav>
-
-      {/* Hero Section */}
-      <header
-        className="h-96 bg-cover bg-center flex items-center justify-center font-body text-black"
-        style={{ backgroundImage: "url('/hero-image.jpg')" }}
-      >
-        <h1 className="text-5xl font-extrabold drop-shadow-lg">Explore Our Wedding Packages</h1>
-      </header>
-
-      {/* Packages Grid */}
-      <main className="container mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-4">
-        {packages.map((pkg) => (
-          <div
-            key={pkg.id}
-            className="bg-white p-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-500"
-            onMouseEnter={() => setHoveredPackage(pkg.id)}
-            onMouseLeave={() => setHoveredPackage(null)}
-          >
-            <img src={pkg.image} alt={pkg.title} className="w-full h-64 object-cover rounded-md" />
-            <h2 className="text-2xl font-bold text-center text-gray-800 mt-4">{pkg.title}</h2>
-            <p className="text-center text-xl font-semibold text-gray-700">{pkg.price}</p>
-            <p className="mt-4 text-center text-gray-600">{pkg.description}</p>
-            <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              {pkg.details.map((detail, index) => (
-                <li key={index} className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 text-green-500 mr-2"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12l5 5L19 7" />
-                  </svg>
-                  {detail}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-center font-medium text-gray-800">{pkg.moreInfo}</p>
-            <div className="flex justify-center mt-6">
-              <button className="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                <Link href="/contact">Book Now</Link>
-              </button>
-            </div>
-          </div>
-        ))}
-      </main>
-
-      {/* Wedding Packages Include */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Wedding Packages Include</h2>
-          <ul className="list-disc text-left text-lg text-gray-700 mx-auto w-3/4">
-            {weddingIncludes.map((item, index) => (
-              <li key={index} className="mb-2">{item}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Add-Ons & Extras Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Add-Ons & Extras</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-            {addOns.map((addOn, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-lg font-semibold text-gray-800">{addOn}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto text-center">
-          <p className="text-sm">© 2024 Fatima Photography. All rights reserved.</p>
-        </div>
-      </footer>
-    </>
+      </div>
+    </section>
   );
-}
+};
+
+const CTASection = () => (
+  <section className="py-16 bg-black text-center text-white px-6">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="max-w-3xl mx-auto"
+    >
+      <h2 className="text-4xl font-bold mb-4">READY TO CAPTURE YOUR STORY?</h2>
+      <Link
+        href="/contact"
+        className="inline-block px-8 py-3 mt-4 bg-green-800 text-white rounded hover:bg-green-700"
+      >
+        Contact Us
+      </Link>
+    </motion.div>
+  </section>
+);
+
+const InvestmentPage = () => {
+  const [images, setImages] = useState<string[][]>([]);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const data = await fetchImages();
+      const groupedImages = [];
+      for (let i = 0; i < data.length; i += 5) {
+        groupedImages.push(data.slice(i, i + 5));
+      }
+      setImages(groupedImages);
+    };
+    loadImages();
+  }, []);
+
+  return (
+    <main className="bg-green-950 text-white font-[\'Playfair Display\', serif]">
+      <NavBar />
+      <HeroSection />
+      {images.map((group, index) => (
+        <PackageSection key={index} group={group} index={index} />
+      ))}
+      <CTASection />
+    </main>
+  );
+};
+
+export default InvestmentPage;

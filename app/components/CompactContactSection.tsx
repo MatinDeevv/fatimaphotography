@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const CompactContactSection: React.FC = () => {
   const [formData, setFormData] = useState<{
@@ -12,12 +12,12 @@ const CompactContactSection: React.FC = () => {
     eventType: string;
     customEvent: string;
   }>({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    eventType: "",
-    customEvent: "",
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    eventType: '',
+    customEvent: ''
   });
 
   const handleChange = (
@@ -31,12 +31,12 @@ const CompactContactSection: React.FC = () => {
     e.preventDefault();
     alert("Thank you for reaching out! We'll get back to you soon.");
     setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-      eventType: "",
-      customEvent: "",
+      name: '',
+      email: '',
+      phone: '',
+      message: '',
+      eventType: '',
+      customEvent: ''
     });
   };
 
@@ -48,9 +48,10 @@ const CompactContactSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-4xl font-body mb-6">Let's Connect</h2>
+        <h2 className="text-4xl font-body mb-6">Let&apos;s Connect</h2>
         <p className="text-lg md:text-xl mb-10">
-          Have questions or want to book a session? Fill out the form below, and let's create something amazing together!
+          Have questions or want to book a session? Fill out the form below, and let&apos;s create
+          something amazing together!
         </p>
 
         <form
@@ -134,7 +135,7 @@ const CompactContactSection: React.FC = () => {
           </div>
 
           {/* Custom Event Field */}
-          {formData.eventType === "other" && (
+          {formData.eventType === 'other' && (
             <div className="flex flex-col">
               <label htmlFor="customEvent" className="mb-2 font-medium">
                 Specify Event Type
@@ -187,8 +188,7 @@ const CompactContactSection: React.FC = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-        >
-        </motion.div>
+        ></motion.div>
       </motion.div>
     </section>
   );

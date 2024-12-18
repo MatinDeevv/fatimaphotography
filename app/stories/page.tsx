@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useState } from 'react';
-
+import Navbar from '@/app/components/NavBar';
 // Placeholder SEO Data
 const seoData = {
-  siteName: 'Fatima Photography',
+  siteName: 'Fatima Photography'
 };
 
 // Sample stories data
@@ -17,36 +17,36 @@ const stories = [
     couple: 'Story 1',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/1.jpg',
-    description: 'A captivating moment captured in time.',
+    description: 'A captivating moment captured in time.'
   },
   {
     id: 2,
     couple: 'Story 2',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/15.jpg',
-    description: 'An unforgettable scene full of emotion.',
+    description: 'An unforgettable scene full of emotion.'
   },
   {
     id: 3,
     couple: 'Story 3',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/19.jpg',
-    description: 'A beautiful memory frozen forever.',
+    description: 'A beautiful memory frozen forever.'
   },
   {
     id: 4,
     couple: 'Story 4',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/20.jpg',
-    description: 'Captured emotions and cherished moments.',
+    description: 'Captured emotions and cherished moments.'
   },
   {
     id: 5,
     couple: 'Story 5',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/7.jpg',
-    description: 'A serene scene filled with love and warmth.',
-  },
+    description: 'A serene scene filled with love and warmth.'
+  }
 ];
 
 export default function StoriesPage() {
@@ -57,75 +57,15 @@ export default function StoriesPage() {
     <>
       <Head>
         <title>Love Stories | Fatima Photography</title>
-        <meta name="description" content="Browse captivating love stories captured by Fatima Photography." />
+        <meta
+          name="description"
+          content="Browse captivating love stories captured by Fatima Photography."
+        />
         <meta name="keywords" content="photography, stories, gallery, love, couples" />
       </Head>
 
-     {/* Navbar */}
-     <nav className="bg-white fixed top-0 w-full z-50 shadow-md m-0">
-  <div className="container mx-auto flex justify-between items-center px-4 py-2">
-    {/* Left Section (Navigation Links) */}
-    <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
-      <Link href="/" className="hover:text-blue-600 transition">
-        Home
-      </Link>
-      <Link href="/investment" className="hover:text-blue-600 transition">
-        Investment
-      </Link>
-    </div>
-
-    {/* Centered Logo Section */}
-    <div className="flex justify-center flex-shrink-0">
-      <Link href="/">
-        <img
-          src="/logo.png"
-          alt="Logo"
-          className="object-contain h-20 w-190"
-        />
-      </Link>
-    </div>
-
-    {/* Right Section (Navigation Links) */}
-    <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
-      <Link href="/stories" className="hover:text-blue-600 transition">
-        Stories
-      </Link>
-      <Link href="/contact" className="hover:text-blue-600 transition">
-        Contact
-      </Link>
-    </div>
-
-    {/* Mobile Hamburger Menu */}
-    <button
-      className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none ml-4"
-      onClick={() => setShowMobileMenu((prev) => !prev)}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
-  </div>
-
-  {/* Mobile Menu */}
-  {showMobileMenu && (
-    <div className="md:hidden bg-white shadow-md">
-      <ul className="flex flex-col space-y-1 py-2 px-4">
-        {["Home", "Packages", "Stories", "Contact"].map((link) => (
-          <li key={link}>
-            <Link
-              href={`/${link.toLowerCase()}`}
-              className="block text-gray-700 hover:text-blue-600 transition py-1"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {link}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )}
-</nav>
-
+      {/* Navbar */}
+      <Navbar />
 
       {/* Hero Section */}
       <header
@@ -144,7 +84,10 @@ export default function StoriesPage() {
             onClick={() => router.push(`/stories/${story.id}`)}
           >
             {/* Thumbnail */}
-            <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' /* 16:9 Aspect Ratio */ }}>
+            <div
+              className="relative w-full h-0"
+              style={{ paddingBottom: '56.25%' /* 16:9 Aspect Ratio */ }}
+            >
               <img
                 src={story.thumbnail}
                 alt={story.couple}

@@ -1,6 +1,6 @@
-import path from "path";
-import fs from "fs";
-import { NextResponse } from "next/server";
+import path from 'path';
+import fs from 'fs';
+import { NextResponse } from 'next/server';
 
 // Helper function to shuffle an array
 function shuffleArray(array) {
@@ -14,7 +14,7 @@ function shuffleArray(array) {
 export async function GET() {
   try {
     // Path to the public directory's pictures-gallery folder
-    const baseDirectory = path.join(process.cwd(), "public");
+    const baseDirectory = path.join(process.cwd(), 'public');
 
     // Recursively get all image files in the pictures-gallery directory
     function getAllFiles(dirPath, arrayOfFiles) {
@@ -34,19 +34,11 @@ export async function GET() {
       return arrayOfFiles;
     }
 
-    const allImageFiles = getAllFiles(path.join(baseDirectory, "pictures-gallery"));
-
-    // If no images are found
-    if (allImageFiles.length === 0) {
-      return NextResponse.json(
-        { error: "No images found in the 'pictures-gallery' directory." },
-        { status: 404 }
-      );
-    }
+    const allImageFiles = getAllFiles(path.join(baseDirectory, 'pictures-gallery'));
 
     // Generate URLs for the images (relative to the 'public' folder)
     const imageUrls = allImageFiles.map((file) =>
-      file.replace(baseDirectory, "").replace(/\\/g, "/")
+      file.replace(baseDirectory, '').replace(/\\/g, '/')
     );
 
     // Shuffle the array to randomize the order of images
@@ -54,9 +46,9 @@ export async function GET() {
 
     return NextResponse.json(shuffledImageUrls, { status: 200 });
   } catch (error) {
-    console.error("Error fetching images:", error.message);
+    console.error('Error fetching images:', error.message);
     return NextResponse.json(
-      { error: "An error occurred while fetching images." },
+      { error: 'An error occurred while fetching images.' },
       { status: 500 }
     );
   }

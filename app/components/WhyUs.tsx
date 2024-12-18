@@ -10,7 +10,7 @@ const WhyUsSection = () => {
       translateY: [20, 0],
       easing: 'easeOutExpo',
       duration: 1000,
-      delay: anime.stagger(200),
+      delay: anime.stagger(200)
     });
   }, []);
 
@@ -22,19 +22,27 @@ const WhyUsSection = () => {
         </h1>
         <div className="flex space-x-8">
           <div className="w-[450px] h-[300px] mt-96 flex items-center justify-center static">
-            <span className="text-gray-400"><img src="04 (2).jpg" alt="Image 1" /></span>
+            <span className="text-gray-400">
+              <img src="04 (2).jpg" alt="Image 1" />
+            </span>
           </div>
           <div className="w-[500px] h-[700px] flex items-center justify-center static">
-            <span className="text-gray-400"><img src="02.jpg" alt="Image 2" /></span>
+            <span className="text-gray-400">
+              <img src="02.jpg" alt="Image 2" />
+            </span>
           </div>
           <div className="w-[300px] h-[450px] flex items-center justify-center static">
-            <span className="text-gray-400"><img src="01.jpg" alt="Image 3" /></span>
+            <span className="text-gray-400">
+              <img src="01.jpg" alt="Image 3" />
+            </span>
           </div>
         </div>
 
         {/* Adjusted positioning to align with the top of the image */}
         <h2 className="text-3xl mt-[50px] mb-[200px] h-[350px] w-[600px] tracking-tighter drop-shadow-2xl	 absolute top-[195px] font-body left-[33.5%] transform -translate-x-1/2 md:text-3xl leading-none text-left">
-          LET'S CHAT ABOUT <br />YOUR PHOTOGRAPHY <br />INVESTMENT
+          LET&apos;S CHAT ABOUT <br />
+          YOUR PHOTOGRAPHY <br />
+          INVESTMENT
         </h2>
 
         <Link href="/your-investment" legacyBehavior>

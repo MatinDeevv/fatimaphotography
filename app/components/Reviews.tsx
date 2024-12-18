@@ -1,34 +1,34 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 
 const REVIEWS = [
   {
     id: 6,
-    name: "Dania & Ahsan",
-    avatar: "reviews/dania.jpg",
-    review: `I got engaged on 1 September I got my engagement photo shoot, Photography and Videography from Fatima Photography. She has been amazing, I loved the Photo Shoot pictures and video. She is absolutely amazing at her work and I loved the professionalism and dedication that she puts in her work. I was absolutely delighted to see her hard work. I would highly recommend her, if you have weddings, birthdays, engagements, pre-wedding shoots and any other events do consider her. She has been very supportive and wonderful at her job.`,
+    name: 'Dania & Ahsan',
+    avatar: 'reviews/dania.jpg',
+    review: `I got engaged on 1 September I got my engagement photo shoot, Photography and Videography from Fatima Photography. She has been amazing, I loved the Photo Shoot pictures and video. She is absolutely amazing at her work and I loved the professionalism and dedication that she puts in her work. I was absolutely delighted to see her hard work. I would highly recommend her, if you have weddings, birthdays, engagements, pre-wedding shoots and any other events do consider her. She has been very supportive and wonderful at her job.`
   },
   {
     id: 0,
-    name: "Tanu & Ritesh",
-    avatar: "reviews/tanu.jpg",
-    review: `I would suggest Fatima to everyone. She really did amazing with our pre-wedding and engagement shoot and made me feel so comfortable as we both are camera-shy.`,
+    name: 'Tanu & Ritesh',
+    avatar: 'reviews/tanu.jpg',
+    review: `I would suggest Fatima to everyone. She really did amazing with our pre-wedding and engagement shoot and made me feel so comfortable as we both are camera-shy.`
   },
   {
     id: 2,
-    name: "Sunny & ****",
-    avatar: "reviews/sunny.jpg",
-    review: `Fatima did an awesome work in just 2 hours. They made the entire session very easy, and the final product turned out to be a great memory of our engagement everlasting.`,
+    name: 'Sunny & ****',
+    avatar: 'reviews/sunny.jpg',
+    review: `Fatima did an awesome work in just 2 hours. They made the entire session very easy, and the final product turned out to be a great memory of our engagement everlasting.`
   },
   {
     id: 3,
-    name: "Herschel & Roberto",
-    avatar: "reviews/roberto.jpg",
+    name: 'Herschel & Roberto',
+    avatar: 'reviews/roberto.jpg',
     review: `Best team ever! Highly recommended. She knows how to capture “moments”. I’ll let the photos speak for itself ❤️🥰
 
-P.S photos are filtered for vintage theme`,
-  },
+P.S photos are filtered for vintage theme`
+  }
 ];
 
 const Slider: React.FC = () => {

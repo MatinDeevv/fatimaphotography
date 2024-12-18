@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Autoplay } from "swiper/modules";
+import React, { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Autoplay } from 'swiper/modules';
 
 interface CircularGalleryProps {
   imageGroups: { id: string; name: string; images: string[] }[];
@@ -35,16 +35,18 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
       <h1 className="text-5xl font-serif  mt-24 text-gray-900">THE LATEST SHOTS</h1>
-      <h3 className="text-xl font-serif  mb-16 text-gray-900">SERVIVCING TORONTO, MISSISSUGA, KITCHNER, LONDON, WINDSOR AND SROUNDINGS</h3>
+      <h3 className="text-xl font-serif  mb-16 text-gray-900">
+        SERVIVCING TORONTO, MISSISSUGA, KITCHNER, LONDON, WINDSOR AND SROUNDINGS
+      </h3>
       <Swiper
         loop={true}
-        autoplay={{ delay: 1500, disableOnInteraction: false }} 
+        autoplay={{ delay: 1500, disableOnInteraction: false }}
         slidesPerView={3}
         centeredSlides={true}
         spaceBetween={50}
         breakpoints={{
           640: { slidesPerView: 1 },
-          1024: { slidesPerView: 3 },
+          1024: { slidesPerView: 3 }
         }}
         modules={[Autoplay]}
         className="w-full mb-32"
@@ -67,7 +69,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
                         className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg opacity-90 hover:opacity-100"
                         style={{
                           transform: `rotate(${index * 6 - 6}deg)`,
-                          zIndex,
+                          zIndex
                         }}
                       >
                         <img
@@ -82,10 +84,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
               </SwiperSlide>
             ))
           : activeImages.map((image, index) => (
-              <SwiperSlide
-                key={index}
-                className="flex items-center justify-center"
-              >
+              <SwiperSlide key={index} className="flex items-center justify-center">
                 <div className="relative flex items-center justify-center w-full max-w-[600px] h-[800px]">
                   <img
                     src={image}

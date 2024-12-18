@@ -84,11 +84,11 @@ export default function BookingManagementPage() {
           bookings.filter((b) => b.status === 'completed').length,
           bookings.filter((b) => b.status === 'canceled').length,
           bookings.filter((b) => b.status === 'archived').length,
-          bookings.filter((b) => b.status === 'responded').length,
+          bookings.filter((b) => b.status === 'responded').length
         ],
-        backgroundColor: ['#ffce56', '#4bc0c0', '#ff6384', '#c0c0c0', '#ffc107'],
-      },
-    ],
+        backgroundColor: ['#ffce56', '#4bc0c0', '#ff6384', '#c0c0c0', '#ffc107']
+      }
+    ]
   };
 
   if (!isAuthenticated) {
@@ -152,10 +152,10 @@ export default function BookingManagementPage() {
               booking.status === 'canceled'
                 ? 'bg-red-100'
                 : booking.status === 'completed'
-                ? 'bg-green-100'
-                : booking.status === 'responded'
-                ? 'bg-yellow-100'
-                : ''
+                  ? 'bg-green-100'
+                  : booking.status === 'responded'
+                    ? 'bg-yellow-100'
+                    : ''
             }`}
           >
             <div className="flex justify-between items-center">

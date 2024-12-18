@@ -8,7 +8,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Ensure folder name is a string
   if (typeof folder !== 'string') {
-    console.error("Folder parameter is invalid");
+    console.error('Folder parameter is invalid');
     return res.status(400).json({ message: 'Invalid folder name' });
   }
 
@@ -16,21 +16,21 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const folderPath = path.join(process.cwd(), 'public', 'stories', folder);
 
   // Log folder path for debugging purposes
-  console.log("Fetching images from:", folderPath);
+  console.log('Fetching images from:', folderPath);
 
   // Read the folder contents
   fs.readdir(folderPath, (err, files) => {
     if (err) {
-      console.error("Error reading folder:", err);
+      console.error('Error reading folder:', err);
       return res.status(500).json({ message: 'Failed to read folder' });
     }
 
     // Filter only image files based on the file extensions
-    const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file));
-    const imageUrls = imageFiles.map(file => `/stories/${folder}/${file}`);
+    const imageFiles = files.filter((file) => /\.(jpg|jpeg|png|gif|webp)$/i.test(file));
+    const imageUrls = imageFiles.map((file) => `/stories/${folder}/${file}`);
 
     // Log image URLs to ensure they are correct
-    console.log("Image URLs:", imageUrls);
+    console.log('Image URLs:', imageUrls);
 
     res.status(200).json({ images: imageUrls });
   });
