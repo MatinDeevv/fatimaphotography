@@ -1,57 +1,60 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import Head from 'next/head';
 import { useState } from 'react';
+import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
+
 // Placeholder SEO Data
 const seoData = {
   siteName: 'Fatima Photography'
 };
 
-// Sample stories data
+// Sample stories data with Pixieset links
 const stories = [
   {
     id: 1,
     couple: 'Story 1',
     date: 'November 2024',
-    thumbnail: '/pictures-gallery/1.jpg',
-    description: 'A captivating moment captured in time.'
+    thumbnail: '333.png',
+    description: 'A captivating moment captured in time.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/almaandyunes/'
   },
   {
     id: 2,
     couple: 'Story 2',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/15.jpg',
-    description: 'An unforgettable scene full of emotion.'
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://example.pixieset.com/story2'
   },
   {
     id: 3,
     couple: 'Story 3',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/19.jpg',
-    description: 'A beautiful memory frozen forever.'
+    description: 'A beautiful memory frozen forever.',
+    pixiesetLink: 'https://example.pixieset.com/story3'
   },
   {
     id: 4,
     couple: 'Story 4',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/20.jpg',
-    description: 'Captured emotions and cherished moments.'
+    description: 'Captured emotions and cherished moments.',
+    pixiesetLink: 'https://example.pixieset.com/story4'
   },
   {
     id: 5,
     couple: 'Story 5',
     date: 'November 2024',
     thumbnail: '/pictures-gallery/7.jpg',
-    description: 'A serene scene filled with love and warmth.'
+    description: 'A serene scene filled with love and warmth.',
+    pixiesetLink: 'https://example.pixieset.com/story5'
   }
 ];
 
 export default function StoriesPage() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const router = useRouter();
 
   return (
     <>
@@ -69,8 +72,7 @@ export default function StoriesPage() {
 
       {/* Hero Section */}
       <header
-        className="h-64 bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/about.jpg')" }}
+        className="h-64 bg-green-950 bg-center flex items-center justify-center"
       >
         <h1 className="text-4xl font-bold text-white drop-shadow-lg">Love Stories</h1>
       </header>
@@ -78,14 +80,16 @@ export default function StoriesPage() {
       {/* Stories Grid */}
       <main className="container mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {stories.map((story) => (
-          <div
+          <a
             key={story.id}
+            href={story.pixiesetLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="relative group rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-            onClick={() => router.push(`/stories/${story.id}`)}
           >
             {/* Thumbnail */}
             <div
-              className="relative w-full h-0"
+              className="relative w-40 h-32"
               style={{ paddingBottom: '56.25%' /* 16:9 Aspect Ratio */ }}
             >
               <img
@@ -101,7 +105,7 @@ export default function StoriesPage() {
               <p className="text-sm">{story.date}</p>
               <p className="text-sm mt-2">{story.description}</p>
             </div>
-          </div>
+          </a>
         ))}
       </main>
 
