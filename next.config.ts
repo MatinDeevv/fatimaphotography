@@ -1,13 +1,16 @@
 import type { NextConfig } from 'next';
-module.exports = {
-  devIndicators: {
-    buildActivity: false, // Disable build activity indicator
-    errorOverlay: false, // Disable the error overlay
-  },
-};
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true, // Keep this if you need it
+  reactStrictMode: true,
+  devIndicators: {
+    buildActivity: false,  // Disable build activity indicator
+  },
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.devtool = false;  // Disables error overlay during development
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

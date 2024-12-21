@@ -156,12 +156,25 @@ export default function Page() {
         <WhyUs />
         <CompactContactSection />
 
-        <footer className="bg-white text-black py-8 text-center">
-          <p>
-            © 2024 Fatima Photography. All rights reserved. Windsor, London, Toronto |
-            fashamifatemeh@gmail.com | Tel: 226-759-6075
-          </p>
-        </footer>
+        <footer className="bg-white border-t border-gray-200 py-6">
+  <div className="container mx-auto flex justify-center items-center px-4">
+    {/* Centered Section */}
+    <div className="text-base font-medium text-gray-700 text-center">
+      Windsor, London, Toronto |{' '}
+      <a
+        href="mailto:fashamifatemeh@gmail.com"
+        className="hover:text-green-600 transition"
+      >
+        fashamifatemeh@gmail.com
+      </a>{' '}
+      |{' '}
+      <a href="tel:2267596075" className="hover:text-green-600 transition">
+        Tel: 226-759-6075
+      </a>
+    </div>
+  </div>
+</footer>
+
       </main>
     </>
   );

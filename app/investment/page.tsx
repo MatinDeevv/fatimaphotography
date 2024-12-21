@@ -6,7 +6,6 @@ import anime from 'animejs/lib/anime.es.js';
 import NavBar from '@/app/components/NavBar';
 import Link from 'next/link';
 
-// Placeholder API endpoint for random images (replace with your actual route)
 const fetchRandomImages = async () => {
   const response = await fetch('/api/randomimages');
   const data = await response.json();
@@ -64,22 +63,7 @@ const HeroSection = () => {
   );
 };
 
-// Package Section with more apart, larger margins, and random image sizes/positions
 const PackageSection = ({ group, index }: { group: string[]; index: number }) => {
-  const [images, setImages] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Trigger anime.js animations when images load
-    anime({
-      targets: `.package-${index} img`,
-      scale: [0.5, 1],
-      opacity: [0, 1],
-      duration: 1000,
-      delay: anime.stagger(300),
-      easing: 'easeOutExpo',
-    });
-  }, [index]);
-
   const packageDetails = [
     {
       title: 'WEDDINGS',
@@ -117,70 +101,37 @@ const PackageSection = ({ group, index }: { group: string[]; index: number }) =>
 
   const currentPackage = packageDetails[index % packageDetails.length];
 
-  // Function to generate random size and position for images inside the section
-  const getRandomStyle = () => {
-    const width = Math.floor(Math.random() * (700 - 150 + 1)) + 150; // Random width between 150 and 700
-    const height = Math.floor(Math.random() * (800 - 300 + 1)) + 300; // Random height between 300 and 800
-    const top = Math.random() * 600; // Larger random vertical position
-    const left = Math.random() * 800; // Larger random horizontal position
-    const rotate = Math.random() * 10 - 5; // Random rotation between -5 and 5 degrees
-
-    return {
-      width: `${width}px`,
-      height: `${height}px`,
-      top: `${top}px`,
-      left: `${left}px`,
-      transform: `rotate(${rotate}deg)`, // Random rotation for some dynamic feel
-    };
-  };
-
   return (
-    <section className={`py-20 relative text-white`}>
-      <div className="max-w-7xl mx-auto relative">
-        {/* Centered Text Content */}
-        <motion.div
-          className="text-center mx-auto space-y-4 mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <h2 className="text-5xl font-bold mb-6">{currentPackage.title}</h2>
+    <section className="py-20 bg-green-950 text-white">
+      <div className="container mx-auto px-6">
+        {/* Text Content */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4">{currentPackage.title}</h2>
           <p className="text-lg">{currentPackage.description}</p>
-          <p className="text-2xl font-bold">{currentPackage.pricing}</p>
+          <p className="text-2xl font-bold my-2">{currentPackage.pricing}</p>
           <p className="text-sm">{currentPackage.extras}</p>
-        </motion.div>
+        </div>
 
-        {/* Custom Image Layout with More Apart and Larger Margins */}
-        <div className={`package-${index} relative`}>
-          {group.map((image, i) => {
-            const randomStyle = getRandomStyle(); // Get random style for each image
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.2 }}
-                className="absolute"
-                style={{
-                  ...randomStyle, // Apply the random styles
-                  backgroundImage: `url(${image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  borderRadius: '15px',
-                  boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.15)',
-                }}
-              ></motion.div>
-            );
-          })}
+        {/* Images Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {group.map((image, i) => (
+            <div
+              key={i}
+              className="relative overflow-hidden rounded-lg shadow-lg"
+            >
+              <img
+                src={image}
+                alt={`Package image ${i}`}
+                className="w-full h-full object-cover transition-transform transform hover:scale-105"
+              />
+            </div>
+          ))}
         </div>
       </div>
-      <hr className="my-16 border-t-2 border-gray-300" />
     </section>
   );
 };
 
-// Call to Action Section
 const CTASection = () => (
   <section className="py-16 bg-black text-center text-white px-6">
     <motion.div
@@ -201,7 +152,26 @@ const CTASection = () => (
   </section>
 );
 
-// Main Investment Page
+const Footer = () => (
+  <footer className="bg-white border-t border-gray-200 py-6">
+    <div className="container mx-auto flex justify-center items-center px-4">
+      <div className="text-base font-medium text-gray-700 text-center">
+        Windsor, London, Toronto |{' '}
+        <a
+          href="mailto:fashamifatemeh@gmail.com"
+          className="hover:text-blue-600 transition"
+        >
+          fashamifatemeh@gmail.com
+        </a>{' '}
+        |{' '}
+        <a href="tel:2267596075" className="hover:text-blue-600 transition">
+          Tel: 226-759-6075
+        </a>
+      </div>
+    </div>
+  </footer>
+);
+
 const InvestmentPage = () => {
   const [images, setImages] = useState<string[][]>([]);
 
@@ -225,6 +195,7 @@ const InvestmentPage = () => {
         <PackageSection key={index} group={group} index={index} />
       ))}
       <CTASection />
+      <Footer />
     </main>
   );
 };

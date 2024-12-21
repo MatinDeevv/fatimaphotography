@@ -45,8 +45,8 @@ const Navbar: React.FC = () => {
 
         {/* Right Section (Navigation Links) */}
         <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
-          <Link href="/stories" className="hover:text-blue-600 transition">
-            Stories
+          <Link href="/portfilio" className="hover:text-blue-600 transition">
+            portfilio
           </Link>
           <Link href="/contact" className="hover:text-blue-600 transition">
             Contact
@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
       {showMobileMenu && (
         <div className="md:hidden bg-white shadow-md">
           <ul className="flex flex-col space-y-1 py-2 px-4">
-            {['Home', 'Investment', 'Stories', 'Contact'].map((link) => (
+            {['Home', 'Investment', 'portfilio', 'Contact'].map((link) => (
               <li key={link}>
                 <Link
                   href={`/${link.toLowerCase()}`}
