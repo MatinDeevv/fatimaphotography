@@ -151,7 +151,7 @@ export default function Page() {
               </p>
             </div>
             <div>
-            <img src="about.jpg" alt="fatima" className="w-full h-full max-w-full object-cover rounded-lg shadow-lg" />
+            <img src="about.png" alt="fatima" className="w-full h-full max-w-full object-cover rounded-lg shadow-lg" />
 
 
             </div>
