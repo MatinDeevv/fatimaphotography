@@ -112,6 +112,7 @@ const WhyUsSection: React.FC = () => {
           <h2
             data-tr
             className="
+            mr-60
               text-3xl
               mt-[50px]
               mb-[200px]
@@ -122,7 +123,7 @@ const WhyUsSection: React.FC = () => {
               absolute
               top-[195px]
               font-body
-              left-[33.5%]
+              left-[7.5%]
               transform
               -translate-x-1/2
               leading-none
