@@ -12,13 +12,13 @@ const REVIEWS = [
   {
     id: 0,
     name: 'Tanu & Ritesh',
-    avatar: 'reviews/tanu.jpg',
+    avatar: 'reviews/Tanu.jpg',
     review: `I would suggest Fatima to everyone. She really did amazing with our pre-wedding and engagement shoot and made me feel so comfortable as we both are camera-shy.`
   },
   {
     id: 2,
     name: 'Sunny & ****',
-    avatar: 'reviews/sunny.jpg',
+    avatar: 'reviews/Sunny.jpg',
     review: `Fatima did an awesome work in just 2 hours. They made the entire session very easy, and the final product turned out to be a great memory of our engagement everlasting.`
   },
   {
