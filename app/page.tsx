@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
@@ -10,7 +10,7 @@ import Review from '@/app/components/Reviews';
 import CompactContactSection from '@/app/components/CompactContactSection';
 import WhyUs from '@/app/components/WhyUs';
 import NavBar from '@/app/components/NavBar';
-
+import Image from 'next/image';
 const imageGroups = [
   {
     id: 'couple1',
@@ -25,7 +25,7 @@ const imageGroups = [
   },
   {
     id: 'couple6',
-    name: 'Areefa & hasan',
+    name: 'Areefa & Hasan',
     images: [
       'story-6/ar05.jpg',
       'story-6/ar03.jpg',
@@ -114,6 +114,12 @@ export default function Page() {
               autoplay={{ delay: 800 }}
               slidesPerView={3}
               loop
+              breakpoints={{
+                60: { slidesPerView: 1 },
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
               onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
               className="h-full w-full"
               spaceBetween={0}
@@ -141,12 +147,12 @@ export default function Page() {
                 My name is <span className="text-green-200">FATIMA</span>
               </h1>
               <p className="text-lg text-white leading-relaxed">
-                I strive to freeze moments that matter the most. I&apos;m a PhD student of mechanical
-                engineering and a passionate photographer.
+              I strive to freeze moments that matter the most. I'm a PhD student of mechanical engineering and a passionate photographer. I use my engineering skills at photography to capture perfect view of your beautiful moments.
               </p>
             </div>
             <div>
-              <img src="about.jpg" alt="Fatima" className="w-9/12 h-auto rounded-lg shadow-lg" />
+            <img src="about.jpg" alt="Fatima" className="w-9/12 h-auto rounded-lg shadow-lg" />
+
             </div>
           </div>
         </section>
@@ -157,24 +163,22 @@ export default function Page() {
         <CompactContactSection />
 
         <footer className="bg-white border-t border-gray-200 py-6">
-  <div className="container mx-auto flex justify-center items-center px-4">
-    {/* Centered Section */}
-    <div className="text-base font-medium text-gray-700 text-center">
-      Windsor, London, Toronto |{' '}
-      <a
-        href="mailto:fashamifatemeh@gmail.com"
-        className="hover:text-green-600 transition"
-      >
-        fashamifatemeh@gmail.com
-      </a>{' '}
-      |{' '}
-      <a href="tel:2267596075" className="hover:text-green-600 transition">
-        Tel: 226-759-6075
-      </a>
-    </div>
-  </div>
-</footer>
-
+          <div className="container mx-auto flex justify-center items-center px-4">
+            <div className="text-base font-medium text-gray-700 text-center">
+              Windsor, London, Toronto |{' '}
+              <a
+                href="mailto:fashamifatemeh@gmail.com"
+                className="hover:text-green-600 transition"
+              >
+                fashamifatemeh@gmail.com
+              </a>{' '}
+              |{' '}
+              <a href="tel:2267596075" className="hover:text-green-600 transition">
+                Tel: 226-759-6075
+              </a>
+            </div>
+          </div>
+        </footer>
       </main>
     </>
   );

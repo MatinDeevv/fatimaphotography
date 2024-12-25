@@ -25,15 +25,21 @@ const REVIEWS = [
     id: 3,
     name: 'Herschel & Roberto',
     avatar: 'reviews/roberto.jpg',
-    review: `Best team ever! Highly recommended. She knows how to capture “moments”. I’ll let the photos speak for itself ❤️🥰
-
-P.S photos are filtered for vintage theme`
+    review: `Best team ever! Highly recommended. She knows how to capture “moments”. I’ll let the photos speak for itself ❤️🥰 P.S photos are filtered for vintage theme`
   }
 ];
 
 const Slider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCard, setCurrentCard] = useState<any>(null);
+
+  useEffect(() => {
+    setCurrentCard(REVIEWS[currentIndex]);
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % REVIEWS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + REVIEWS.length) % REVIEWS.length);
@@ -43,12 +49,8 @@ const Slider: React.FC = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % REVIEWS.length);
   };
 
-  useEffect(() => {
-    setCurrentCard(REVIEWS[currentIndex]);
-  }, [currentIndex]);
-
   return (
-    <div className="flex justify-center items-center bg-green-950 h-[650px] relative  px-4 ">
+    <div className="flex justify-center items-center bg-green-950 min-h-screen w-full relative px-4">
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap');
@@ -60,8 +62,8 @@ const Slider: React.FC = () => {
         `}</style>
       </Head>
 
-      <main className="bg-green-950 text-white w-full max-w-screen-xl rounded-none text-center mt-0 px-4 sm:px-8 flex flex-col justify-center items-center">
-        <h2 className="text-5xl sm:text-4xl font-serif text-center text-white mb-20">
+      <main className="bg-green-950 text-white w-full max-w-screen-xl rounded-none text-center px-4 sm:px-8 flex flex-col justify-center items-center">
+        <h2 className="text-4xl sm:text-5xl font-serif text-center text-white mb-12 sm:mb-20">
           WHAT OUR CLIENTS SAY
         </h2>
 
@@ -69,14 +71,14 @@ const Slider: React.FC = () => {
           {currentCard && (
             <>
               <img
-                className="w-[450px] h-[450px] object-cover border-3 border-white shadow-lg"
+                className="w-[300px] sm:w-[400px] md:w-[450px] h-[300px] sm:h-[400px] md:h-[450px] object-cover border-4 border-white shadow-lg"
                 src={currentCard.avatar}
                 alt={`${currentCard.name}'s avatar`}
               />
-              <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <blockquote className="text-white p-4 md:p-6 rounded-lg baskervville-sc-regular">
-                  <p className="text-xl ml-24 font-semibold mb-2">{currentCard.name}</p>
-                  <p className="text-sm ml-24 sm:text-base">{currentCard.review}</p>
+              <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-[600px]">
+                <blockquote className="text-white p-4 sm:p-6 rounded-lg baskervville-sc-regular">
+                  <p className="text-lg sm:text-xl font-semibold mb-2">{currentCard.name}</p>
+                  <p className="text-sm sm:text-base">{currentCard.review}</p>
                 </blockquote>
               </div>
             </>
@@ -85,13 +87,13 @@ const Slider: React.FC = () => {
       </main>
 
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl p-3"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-3xl sm:text-4xl p-3"
         onClick={handlePrev}
       >
         &#8592;
       </button>
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl p-3"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-3xl sm:text-4xl p-3"
         onClick={handleNext}
       >
         &#8594;

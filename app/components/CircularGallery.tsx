@@ -14,42 +14,48 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
 
   const handleGroupClick = (groupId: string) => {
-    setExpandedGroup(groupId); // Expand the selected group
-    setAutoplayEnabled(false); // Pause autoplay
+    setExpandedGroup(groupId);
+    setAutoplayEnabled(false);
   };
 
   const handleClose = () => {
-    setExpandedGroup(null); // Collapse the expanded group
-    setAutoplayEnabled(true); // Resume autoplay for all groups
+    setExpandedGroup(null);
+    setAutoplayEnabled(true);
   };
 
-  // Determine which images to display based on the expanded group
   const visibleGroups = expandedGroup
     ? imageGroups.filter((group) => group.id === expandedGroup)
     : imageGroups;
 
   const activeImages = expandedGroup
-    ? visibleGroups[0]?.images || [] // Show only expanded group's images
+    ? visibleGroups[0]?.images || []
     : [];
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-5xl font-serif  mt-24 text-gray-900">THE LATEST SHOTS</h1>
-      <h3 className="text-xl font-serif  mb-16 text-gray-900">
-        SERVIVCING TORONTO, MISSISSUGA, KITCHNER, LONDON, WINDSOR AND SROUNDINGS
+      {/* No px-4 / md:px-8 here */}
+      <h1 className="text-3xl sm:text-5xl font-serif mt-16 sm:mt-24 text-gray-900 text-center">
+        THE LATEST SHOTS
+      </h1>
+      <h3 className="text-lg sm:text-xl font-serif mb-12 sm:mb-16 text-gray-900 text-center">
+      SERVICING TORONTO, MISSISSAUGA, KITCHENER, LONDON, WINDSOR, AND SURROUNDING AREAS.
       </h3>
+
+      {/* Removed max-w-7xl, set spaceBetween to 0 */}
       <Swiper
         loop={true}
-        autoplay={{ delay: 1500, disableOnInteraction: false }}
-        slidesPerView={3}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
+        slidesPerView={1}
         centeredSlides={true}
-        spaceBetween={50}
+        spaceBetween={0} 
         breakpoints={{
-          640: { slidesPerView: 1 },
-          1024: { slidesPerView: 3 }
+          40: { slidesPerView: 1, spaceBetween: 0 },
+          640: { slidesPerView: 1, spaceBetween: 0 },
+          768: { slidesPerView: 2, spaceBetween: 0 },
+          1024: { slidesPerView: 3, spaceBetween: 0 },
         }}
         modules={[Autoplay]}
-        className="w-full mb-32"
+        className="w-full h-full mb-24" // full width, no horizontal margin
       >
         {expandedGroup === null
           ? visibleGroups.map((group) => (
@@ -58,18 +64,17 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
                 className="flex items-center justify-center"
                 onClick={() => handleGroupClick(group.id)}
               >
-                <div className="relative flex items-center justify-center w-full max-w-[500px] h-[650px] cursor-pointer">
+                <div className="relative flex items-center justify-center w-full max-w-[90%] sm:max-w-[500px] h-[400px] sm:h-[550px] md:h-[650px] cursor-pointer">
                   {group.images.map((image, index) => {
                     const totalImages = group.images.length;
                     const zIndex = totalImages - index;
-
                     return (
                       <div
                         key={index}
                         className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg opacity-90 hover:opacity-100"
                         style={{
                           transform: `rotate(${index * 6 - 6}deg)`,
-                          zIndex
+                          zIndex,
                         }}
                       >
                         <img
@@ -85,7 +90,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
             ))
           : activeImages.map((image, index) => (
               <SwiperSlide key={index} className="flex items-center justify-center">
-                <div className="relative flex items-center justify-center w-full max-w-[600px] h-[800px]">
+                <div className="relative flex items-center justify-center w-full max-w-[90%] sm:max-w-[600px] h-[500px] sm:h-[700px] md:h-[800px]">
                   <img
                     src={image}
                     alt={`Image ${index + 1}`}
@@ -93,7 +98,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
                   />
                   <button
                     onClick={handleClose}
-                    className="absolute top-2 right-2 bg-red-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-red-600"
+                    className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-red-600"
                   >
                     Close
                   </button>
