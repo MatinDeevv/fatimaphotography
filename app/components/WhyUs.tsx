@@ -123,7 +123,7 @@ const WhyUsSection: React.FC = () => {
               absolute
               top-[195px]
               font-body
-              left-[7.5%]
+              left-[4.5%]
               transform
               -translate-x-1/2
               leading-none
