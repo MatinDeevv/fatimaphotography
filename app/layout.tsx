@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
 import './globals.css';
 import { Italiana } from 'next/font/google';
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: 'Fatima Photography',
