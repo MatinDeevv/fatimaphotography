@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body,
+html,
+h1,
+p,
+span,
+div {
+  font-family: italiana;
+}
+
 /* Custom Background Classes */
 @layer utilities {
   .bg-background-light {

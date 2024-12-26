@@ -63,7 +63,7 @@ const Slider: React.FC = () => {
       </Head>
 
       <main className="bg-green-950 text-white w-full max-w-screen-xl rounded-none text-center px-4 sm:px-8 flex flex-col justify-center items-center">
-        <h2 className="text-4xl sm:text-5xl font-serif text-center text-white mb-12 sm:mb-20">
+        <h2 className="text-4xl sm:text-5xl text-center text-white mb-12 sm:mb-20">
           WHAT OUR CLIENTS SAY
         </h2>
 
@@ -77,8 +77,8 @@ const Slider: React.FC = () => {
               />
               <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-[600px]">
                 <blockquote className="text-white p-4 sm:p-6 rounded-lg baskervville-sc-regular">
-                  <p className="text-lg sm:text-xl font-semibold mb-2">{currentCard.name}</p>
-                  <p className="text-sm sm:text-base">{currentCard.review}</p>
+                  <p className="text-lg sm:text-xl font-semibold font-sans mb-2">{currentCard.name}</p>
+                  <p className="text-sm sm:text-base font-sans">{currentCard.review}</p>
                 </blockquote>
               </div>
             </>

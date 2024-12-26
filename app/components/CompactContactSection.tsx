@@ -48,8 +48,8 @@ const CompactContactSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-4xl font-body mb-6">Let&apos;s Connect</h2>
-        <p className="text-lg md:text-xl mb-10">
+        <h2 className="text-4xl  mb-6">Let&apos;s Connect</h2>
+        <p className="text-lg md:text-xl font-sans mb-10">
           Have questions or want to book a session? Fill out the form below, and let&apos;s create
           something amazing together!
         </p>
@@ -60,7 +60,7 @@ const CompactContactSection: React.FC = () => {
         >
           {/* Name Field */}
           <div className="flex flex-col">
-            <label htmlFor="name" className="mb-2 font-medium">
+            <label htmlFor="name" className="mb-2 font-sans">
               Your Name
             </label>
             <motion.input
@@ -78,7 +78,7 @@ const CompactContactSection: React.FC = () => {
 
           {/* Email Field */}
           <div className="flex flex-col">
-            <label htmlFor="email" className="mb-2 font-medium">
+            <label htmlFor="email" className="mb-2 font-sans">
               Your Email
             </label>
             <motion.input
@@ -96,7 +96,7 @@ const CompactContactSection: React.FC = () => {
 
           {/* Phone Number */}
           <div className="flex flex-col">
-            <label htmlFor="phone" className="mb-2 font-medium">
+            <label htmlFor="phone" className="mb-2 font-sans">
               Phone Number
             </label>
             <motion.input
@@ -114,7 +114,7 @@ const CompactContactSection: React.FC = () => {
 
           {/* Event Type Dropdown */}
           <div className="flex flex-col">
-            <label htmlFor="eventType" className="mb-2 font-medium">
+            <label htmlFor="eventType" className="mb-2 font-sans">
               Event Type
             </label>
             <select
@@ -122,14 +122,13 @@ const CompactContactSection: React.FC = () => {
               name="eventType"
               value={formData.eventType}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border focus:ring focus:ring-green-400"
+              className="w-full px-4 py-2 rounded-md border focus:ring font-sans focus:ring-green-400"
               required
             >
               <option value="">Select Event Type</option>
               <option value="wedding">Wedding</option>
               <option value="engagement">Engagement</option>
-              <option value="portrait">Portrait</option>
-              <option value="corporate">Corporate</option>
+              <option value="Maternity">Maternity</option>
               <option value="other">Other</option>
             </select>
           </div>
@@ -137,7 +136,7 @@ const CompactContactSection: React.FC = () => {
           {/* Custom Event Field */}
           {formData.eventType === 'other' && (
             <div className="flex flex-col">
-              <label htmlFor="customEvent" className="mb-2 font-medium">
+              <label htmlFor="customEvent" className="mb-2 font-sans">
                 Specify Event Type
               </label>
               <motion.input
@@ -155,7 +154,7 @@ const CompactContactSection: React.FC = () => {
 
           {/* Message Field */}
           <div className="flex flex-col">
-            <label htmlFor="message" className="mb-2 font-medium">
+            <label htmlFor="message" className="mb-2 font-sans">
               Your Message
             </label>
             <motion.textarea

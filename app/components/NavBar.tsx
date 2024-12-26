@@ -24,15 +24,15 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className="bg-white fixed top-0 w-full z-50 shadow-md">
+    <nav className="bg-white fixed top-0 w-full z-50  font-sans shadow-md">
       <div className="container mx-auto flex justify-between items-center px-4 py-2">
         {/* Left Section (Navigation Links) */}
-        <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
-          <Link href="/" className="hover:text-blue-600 transition">
-            Home
+        <div className="hidden md:flex space-x-4 text-base font-bold text-gray-700">
+          <Link href="/" className="hover:text-green-600 transition">
+            HOME
           </Link>
-          <Link href="/investment" className="hover:text-blue-600 transition">
-            Investment
+          <Link href="/investment" className="hover:text-green-600 transition">
+            INVESTMENT
           </Link>
         </div>
 
@@ -44,18 +44,18 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Right Section (Navigation Links) */}
-        <div className="hidden md:flex space-x-4 text-base font-medium text-gray-700">
-          <Link href="/portfilio" className="hover:text-blue-600 transition">
-            portfilio
+        <div className="hidden md:flex space-x-4 text-base font-bold text-gray-700">
+          <Link href="/portfilio" className="hover:text-green-600 transition">
+            PORTFILIO
           </Link>
-          <Link href="/contact" className="hover:text-blue-600 transition">
-            Contact
+          <Link href="/contact" className="hover:text-green-600 transition">
+            CONTACT
           </Link>
         </div>
 
         {/* Mobile Hamburger Menu */}
         <button
-          className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none ml-4"
+          className="md:hidden text-gray-700 hover:text-green-600 focus:outline-none ml-4"
           onClick={() => setShowMobileMenu((prev) => !prev)}
         >
           <svg
@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
               <li key={link}>
                 <Link
                   href={`/${link.toLowerCase()}`}
-                  className="block text-gray-700 hover:text-blue-600 transition py-1"
+                  className="block text-gray-700 hover:text-green-600 transition py-1"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {link}

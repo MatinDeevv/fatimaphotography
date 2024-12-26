@@ -104,7 +104,7 @@ export default function Page() {
         <meta name="description" content="Capturing life's precious moments" />
       </Head>
 
-      <main className="bg-green-950 text-white font-body">
+      <main className="bg-green-950 text-white font">
         <NavBar />
 
         <header className="relative h-screen mb-40">
@@ -146,7 +146,7 @@ export default function Page() {
               <h1 className="text-4xl font-bold mt-44 mb-0">
                 My name is <span className="text-green-200">FATIMA</span>
               </h1>
-              <p className="text-lg text-white leading-relaxed">
+              <p className=" text-white leading-relaxed font-sans text-xl">
               I strive to freeze moments that matter the most. I'm a PhD student of mechanical engineering and a passionate photographer. I use my engineering skills at photography to capture perfect view of your beautiful moments.
               </p>
             </div>

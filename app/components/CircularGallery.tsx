@@ -34,10 +34,10 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
       {/* No px-4 / md:px-8 here */}
-      <h1 className="text-3xl sm:text-5xl font-serif mt-16 sm:mt-24 text-gray-900 text-center">
+      <h1 className="text-3xl sm:text-5xl font-bold  mt-16 sm:mt-24 text-gray-900 text-center">
         THE LATEST SHOOTS
       </h1>
-      <h3 className="text-lg sm:text-xl font-serif mb-12 sm:mb-16 text-gray-900 text-center">
+      <h3 className="text-lg sm:text-xl font-bold mb-12 sm:mb-16 text-gray-900 text-center">
       SERVICING TORONTO, MISSISSAUGA, KITCHENER, LONDON, WINDSOR, AND SURROUNDING AREAS.
       </h3>
 

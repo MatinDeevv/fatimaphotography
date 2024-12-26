@@ -79,12 +79,12 @@ const WhyUsSection: React.FC = () => {
               h-[300px]
               w-[600px]
               ml-[1350px]
-              tracking-tighter
+tracking-wide
               mt-[589px]
               drop-shadow-2xl
               leading-none
               absolute
-              font-body
+font-bold
               text-green-900
               text-left
             "
@@ -118,11 +118,12 @@ const WhyUsSection: React.FC = () => {
               mb-[200px]
               h-[350px]
               w-[600px]
-              tracking-tighter
+
               drop-shadow-2xl
               absolute
               top-[195px]
-              font-body
+font-bold
+tracking-wide
               left-[4.5%]
               transform
               -translate-x-1/2

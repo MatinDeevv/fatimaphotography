@@ -1,16 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import anime from 'animejs/lib/anime.es.js';
 import NavBar from '@/app/components/NavBar';
-import Link from 'next/link';
+import CompactContactSection from '@/app/components/CompactContactSection';
 
-const fetchRandomImages = async () => {
-  const response = await fetch('/api/randomimages');
-  const data = await response.json();
-  return data;
-};
+// 1) Define an interface for your package shape
+interface PackageInfo {
+  title: string;
+  description: string;
+  pricing: string;
+  pictures: string[];          // Must be an array of strings
+  extras: string[] | string;   // Extras can be an array of strings or just a string
+}
+
+// 2) Define an interface for your PackageSection props
+interface PackageSectionProps {
+  pkg: PackageInfo;
+}
 
 const HeroSection = () => {
   useEffect(() => {
@@ -32,16 +40,16 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-black text-white">
+    <section className="relative h-screen overflow-hidden bg-white text-black font-body">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: 'url(/hero-placeholder.jpg)' }}
-      ></div>
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        style={{ backgroundImage: 'url(/Investmdent.jpg)' }}
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-40" />
       <div className="relative flex justify-center items-center h-full">
         <div className="text-center px-4">
           <motion.h1
-            className="text-5xl md:text-6xl font-bold mb-4 hero-title"
+            className="text-5xl md:text-6xl text-white font-bold mb-4 hero-title"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -49,7 +57,7 @@ const HeroSection = () => {
             INVESTMENT
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed hero-description"
+            className="text-lg md:text-xl max-w-2xl text-white font-bold mx-auto leading-relaxed hero-description"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2 }}
@@ -63,65 +71,38 @@ const HeroSection = () => {
   );
 };
 
-const PackageSection = ({ group, index }: { group: string[]; index: number }) => {
-  const packageDetails = [
-    {
-      title: 'WEDDINGS',
-      description: 'Full day wedding coverage beginning with 6 hours',
-      pricing: 'Starting at $4,600',
-      extras:
-        'All wedding packages include 2 photographers, consultations, and a beautiful online gallery of memories.',
-    },
-    {
-      title: 'ELOPEMENTS',
-      description: 'Elopements beginning with 2 hours of coverage',
-      pricing: 'Starting at $2,500',
-      extras:
-        'All elopement packages include 2 photographers, planning assistance, and an online gallery.',
-    },
-    {
-      title: 'ENGAGEMENT + COUPLES',
-      description: 'All sessions include 2 photographers and an online gallery',
-      pricing: 'Flat rate of $750',
-      extras: 'All engagement sessions include a professional gallery of memories.',
-    },
-    {
-      title: 'FAMILY + MATERNITY',
-      description: 'Family and maternity sessions for precious moments',
-      pricing: 'Flat rate of $850',
-      extras: 'Sessions include a professional gallery of memories for families and expectant mothers.',
-    },
-    {
-      title: 'BOUDOIR',
-      description: 'Celebrate yourself with a luxury boudoir session',
-      pricing: 'Starting at $1,200',
-      extras: 'Boudoir sessions include professional retouching and a private gallery.',
-    },
-  ];
-
-  const currentPackage = packageDetails[index % packageDetails.length];
+// 3) Use the PackageSectionProps interface here
+const PackageSection = ({ pkg }: PackageSectionProps) => {
+  const { title, description, pricing, pictures, extras } = pkg;
 
   return (
     <section className="py-20 bg-green-950 text-white">
       <div className="container mx-auto px-6">
         {/* Text Content */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">{currentPackage.title}</h2>
-          <p className="text-lg">{currentPackage.description}</p>
-          <p className="text-2xl font-bold my-2">{currentPackage.pricing}</p>
-          <p className="text-sm">{currentPackage.extras}</p>
+          <h2 className="text-4xl font-bold mb-4">{title}</h2>
+          <p className="text-xl font-sans">{description}</p>
+          <p className="text-2xl font-bold my-2">{pricing}</p>
+
+          {/* extras can be array or string */}
+          {Array.isArray(extras) ? (
+            extras.map((item: string, idx: number) => (
+              <p key={idx} className="text-md font-sans my-1">
+                {item}
+              </p>
+            ))
+          ) : (
+            <p className="text-md font-sans">{extras}</p>
+          )}
         </div>
 
         {/* Images Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {group.map((image, i) => (
-            <div
-              key={i}
-              className="relative overflow-hidden rounded-lg shadow-lg"
-            >
+          {pictures.map((imgUrl: string, i: number) => (
+            <div key={i} className="relative overflow-hidden rounded-lg shadow-lg">
               <img
-                src={image}
-                alt={`Package image ${i}`}
+                src={imgUrl}
+                alt={`package image ${i}`}
                 className="w-full h-full object-cover transition-transform transform hover:scale-105"
               />
             </div>
@@ -132,35 +113,14 @@ const PackageSection = ({ group, index }: { group: string[]; index: number }) =>
   );
 };
 
-const CTASection = () => (
-  <section className="py-16 bg-black text-center text-white px-6">
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="max-w-3xl mx-auto"
-    >
-      <h2 className="text-4xl font-bold mb-4">READY TO CAPTURE YOUR STORY?</h2>
-      <Link
-        href="/contact"
-        className="inline-block px-8 py-3 mt-4 bg-green-800 text-white rounded hover:bg-green-700"
-      >
-        Contact Us
-      </Link>
-    </motion.div>
-  </section>
-);
+const CTASection = () => <CompactContactSection />;
 
 const Footer = () => (
   <footer className="bg-white border-t border-gray-200 py-6">
     <div className="container mx-auto flex justify-center items-center px-4">
       <div className="text-base font-medium text-gray-700 text-center">
         Windsor, London, Toronto |{' '}
-        <a
-          href="mailto:fashamifatemeh@gmail.com"
-          className="hover:text-blue-600 transition"
-        >
+        <a href="mailto:fashamifatemeh@gmail.com" className="hover:text-blue-600 transition">
           fashamifatemeh@gmail.com
         </a>{' '}
         |{' '}
@@ -172,28 +132,63 @@ const Footer = () => (
   </footer>
 );
 
+// 4) Change the type of packageDetails to PackageInfo[]
 const InvestmentPage = () => {
-  const [images, setImages] = useState<string[][]>([]);
 
-  useEffect(() => {
-    const loadImages = async () => {
-      const data = await fetchRandomImages();
-      const groupedImages = [];
-      for (let i = 0; i < data.length; i += 3) {
-        groupedImages.push(data.slice(i, i + 3));
-      }
-      setImages(groupedImages);
-    };
-    loadImages();
-  }, []);
+  // Remove the 'public' prefix — 
+  // place these images in 'public/story-2', 'public/story-4', etc. 
+  // Then reference them as '/story-2/Her08.png', etc.
+  const packageDetails: PackageInfo[] = [
+    {
+      title: 'WEDDINGS',
+      description: 'Half day wedding coverage beginning with 6 hours',
+      pricing: 'Starting at $1,900',
+      pictures: [
+        '/story-2/Her08.png',
+        '/story-4/L02.jpg',
+        '/story-4/6.jpg',
+      ],
+      extras: [
+        'All wedding packages include 1 photographer, 1 videographer, free consultation meeting, and a beautiful online gallery of memories.',
+        'All taken photos, 300 edited photos, 20 highly retouched photos, a 1-minute highlight video, and a fully mixed video will be provided.',
+      ],
+    },
+    {
+      title: 'ENGAGEMENT , PREWEDDING',
+      description: 'Session starting with 2 hours photography coverage',
+      pricing: 'Starting at $350',
+      pictures: [
+        '/story-4/2.jpg',
+        '/story-3/Pun06.jpg',
+        '/story-5/sab06.jpg',
+      ],
+      extras: 'All engagement sessions include a professional gallery of memories.',
+    },
+    {
+      title: 'MATERNITY',
+      description: 'Family and maternity sessions for precious moments',
+      pricing: 'Starting at $350',
+      pictures: [
+        '/Mat/Mat01.png',
+        '/Mat/Mat02.png',
+        '/Mat/Mat03.png',
+      ],
+      extras:
+        'Sessions include a professional gallery of memories for families and expectant mothers.',
+    },
+    // More packages can go here ...
+  ];
 
   return (
-    <main className="bg-green-950 text-white font-[\'Playfair Display\', serif]">
+    <main className="bg-green-950 text-white font-['Playfair Display', serif]">
       <NavBar />
       <HeroSection />
-      {images.map((group, index) => (
-        <PackageSection key={index} group={group} index={index} />
+
+      {/* Render only 3 packages max */}
+      {packageDetails.slice(0, 3).map((pkg, index) => (
+        <PackageSection key={index} pkg={pkg} />
       ))}
+
       <CTASection />
       <Footer />
     </main>

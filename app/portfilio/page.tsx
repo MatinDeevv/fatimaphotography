@@ -21,7 +21,7 @@ const stories = [
     thumbnail: '/pictures-gallery/15.jpg',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/malekandshelair/',
-    tags: ['Wedding', 'Luxury']
+    tags: ['Wedding', 'South Asian']
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const stories = [
     thumbnail: '/pictures-gallery/20.jpg',
     description: 'Captured emotions and cherished moments.',
     pixiesetLink: 'https://example.pixieset.com/story4',
-    tags: ['Birthday', 'Celebration']
+    tags: ['Maternity', 'Canadian']
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const stories = [
     thumbnail: '/pictures-gallery/7.jpg',
     description: 'A serene scene filled with love and warmth.',
     pixiesetLink: 'https://example.pixieset.com/story5',
-    tags: ['Family']
+    tags: ['Family', 'Persian', 'Arab', 'Prewedding', 'Engagement']
   }
 ];
 
