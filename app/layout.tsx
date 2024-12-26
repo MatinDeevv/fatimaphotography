@@ -16,11 +16,13 @@ const italiana = Italiana({
   subsets: ['latin'],
   display: 'swap',
 });
+<Analytics/>
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={italiana.className}>
       <head>
+      <Analytics/>
         <SpeedInsights />
       </head>
       <body className="antialiased">
