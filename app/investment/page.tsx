@@ -140,7 +140,7 @@ const InvestmentPage = () => {
   // Then reference them as '/story-2/Her08.png', etc.
   const packageDetails: PackageInfo[] = [
     {
-      title: 'WEDDINGS',
+      title: 'WEDDING',
       description: 'Half day wedding coverage beginning with 6 hours',
       pricing: 'Starting at $1,900',
       pictures: [
