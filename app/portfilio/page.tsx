@@ -23,7 +23,7 @@ const staticStories: Story[] = [
     thumbnail: 'story-5/sab01.jpg',
     description: 'A captivating moment captured in time.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/sabaandvaji/',
-    tags: ['Wedding', 'Asian']
+    tags: ['Wedding', 'Asian', 'Persian']
   },
   {
     id: 2,
@@ -59,7 +59,7 @@ const staticStories: Story[] = [
       thumbnail: '/pictures-gallery/DSC_8350.jpg',
       description: 'An unforgettable scene full of emotion.',
       pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniehandshayan/',
-      tags: ['Wedding', 'South Asian' ]
+      tags: ['Pre-Wedding','Persian' ]
     },
     
 ];
