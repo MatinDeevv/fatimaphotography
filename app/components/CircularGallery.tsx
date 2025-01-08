@@ -38,7 +38,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
         THE LATEST SHOOTS
       </h1>
       <h3 className="text-lg sm:text-xl font-bold mb-12 sm:mb-16 text-gray-900 text-center">
-      SERVICING TORONTO, MISSISSAUGA, KITCHENER, LONDON, WINDSOR, AND SURROUNDING AREAS.
+      
       </h3>
 
       {/* Removed max-w-7xl, set spaceBetween to 0 */}

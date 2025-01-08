@@ -106,7 +106,8 @@ export default function Page() {
 
       <main className="bg-green-950 text-white font">
         <NavBar />
-
+        <h1></h1>
+🔔
         <header className="relative h-screen mb-40">
           {images.length > 0 ? (
             <Swiper

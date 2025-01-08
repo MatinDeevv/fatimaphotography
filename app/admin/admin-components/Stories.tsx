@@ -1,188 +1,214 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
+import Head from 'next/head';
 
-// Story type
-interface Story {
-  id: string;
-  title: string;
+type Story = {
+  id: number;
+  couple: string;
+  date: string;
+  thumbnail: string;
   description: string;
-  image: string;
-}
+  pixiesetLink: string;
+  tags: string[];
+};
 
-export default function Stories() {
-  const [stories, setStories] = useState<Story[]>([]);
-  const [newStory, setNewStory] = useState({
-    title: '',
-    description: '',
-    image: '',
-  });
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState<boolean>(false);
+// Static Stories
+const staticStories: Story[] = [
+  {
+    id: 1,
+    couple: 'Saba & Vaji',
+    date: 'October 20th, 2024',
+    thumbnail: 'story-5/sab01.jpg',
+    description: 'A captivating moment captured in time.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/sabaandvaji/',
+    tags: ['Wedding', 'Asian'],
+  },
+  {
+    id: 2,
+    couple: 'Malek & Shelair',
+    date: 'November 2024',
+    thumbnail: '/pictures-gallery/15.jpg',
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/malekandshelair/',
+    tags: ['Wedding', 'South Asian'],
+  },
+];
 
-  // Load stories from localStorage
+export default function PortfolioPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTag, setSelectedTag] = useState('All');
+  const [visibleStories, setVisibleStories] = useState(6);
+  const [uploadedStories, setUploadedStories] = useState<Story[]>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+
+  // Fetch uploaded stories from API
   useEffect(() => {
-    const storedStories = JSON.parse(
-      localStorage.getItem('storiesList') || '[]'
-    );
-    setStories(storedStories);
+    const fetchUploads = async () => {
+      try {
+        const response = await fetch('/api/getUploads');
+        const data = await response.json();
+
+        const uploads: Story[] = data.files.map(
+          (file: { name: string; url: string }, index: number) => ({
+            id: staticStories.length + index + 1,
+            couple: file.name.split('.')[0],
+            date: 'Uploaded Story',
+            thumbnail: file.url,
+            description: 'Uploaded via admin panel.',
+            pixiesetLink: file.url,
+            tags: ['Upload'],
+          })
+        );
+
+        setUploadedStories(uploads);
+      } catch (error) {
+        console.error('Error fetching uploads:', error);
+      }
+    };
+
+    fetchUploads();
   }, []);
 
-  // Save stories to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('storiesList', JSON.stringify(stories));
-  }, [stories]);
+  const allStories = [...staticStories, ...uploadedStories];
+  const uniqueTags = ['All', ...new Set(allStories.flatMap((story) => story.tags))];
 
-  // Handle image upload
-  const handleImageUpload = async () => {
-    if (!imageFile) {
-      alert('Please select an image');
+  const filteredStories = allStories.filter((story) => {
+    const matchesSearch =
+      story.couple.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesTag = selectedTag === 'All' || story.tags.includes(selectedTag);
+    return matchesSearch && matchesTag;
+  });
+
+  const visibleFilteredStories = filteredStories.slice(0, visibleStories);
+
+  const handleLoadMore = () => {
+    setVisibleStories((prev) => prev + 6);
+  };
+
+  // Handle File Upload
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      alert('No file selected');
       return;
     }
 
     const formData = new FormData();
-    formData.append('file', imageFile);
+    formData.append('file', selectedFile);
 
-    setUploading(true);
     try {
-      const response = await fetch('/api/upload', {
+      const response = await fetch('/api/Uploads', {
         method: 'POST',
         body: formData,
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        const data = await response.json();
-        const uploadedImagePath = `/uploads/${data.fileName}`;
-        setNewStory({ ...newStory, image: uploadedImagePath });
+        setUploadStatus('File uploaded successfully!');
+        alert('File uploaded successfully');
+        setUploadedStories((prev) => [
+          ...prev,
+          {
+            id: prev.length + 1,
+            couple: selectedFile.name.split('.')[0],
+            date: 'Uploaded Story',
+            thumbnail: data.path,
+            description: 'Uploaded via admin panel.',
+            pixiesetLink: data.path,
+            tags: ['Upload'],
+          },
+        ]);
       } else {
-        alert('Image upload failed.');
+        setUploadStatus(`Error: ${data.message}`);
+        alert('Upload failed: ' + data.message);
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
-      alert('Error uploading file.');
-    } finally {
-      setUploading(false);
+      setUploadStatus('Upload failed');
+      alert('An error occurred during the upload.');
     }
-  };
-
-  // Add story to the list
-  const handleAddStory = () => {
-    if (!newStory.title || !newStory.description || !newStory.image) {
-      alert('Please fill all fields and upload an image.');
-      return;
-    }
-
-    const newEntry: Story = {
-      id: uuidv4(),
-      ...newStory,
-    };
-
-    setStories([...stories, newEntry]);
-    setNewStory({ title: '', description: '', image: '' });
-    setImageFile(null);
-  };
-
-  // Delete story from the list
-  const deleteStory = (id: string) => {
-    const updatedStories = stories.filter((s) => s.id !== id);
-    setStories(updatedStories);
   };
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-4xl font-bold mb-6">Add New Story</h2>
-        <div className="space-y-4">
-          <input
-            type="text"
-            placeholder="Story Title"
-            value={newStory.title}
-            onChange={(e) =>
-              setNewStory({ ...newStory, title: e.target.value })
-            }
-            className="w-full p-3 border rounded-lg"
-          />
-          <textarea
-            placeholder="Description"
-            value={newStory.description}
-            onChange={(e) =>
-              setNewStory({ ...newStory, description: e.target.value })
-            }
-            className="w-full p-3 border rounded-lg"
-          ></textarea>
+    <>
+      <Head>
+        <title>Portfolio | Fatima Photography</title>
+        <meta
+          name="description"
+          content="Browse captivating stories and portfolio by Fatima Photography."
+        />
+      </Head>
 
-          {/* Image Upload */}
-          <div className="flex items-center space-x-4">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) =>
-                setImageFile(e.target.files ? e.target.files[0] : null)
-              }
-              className="w-full p-3 border rounded-lg"
-            />
-            <button
-              type="button"
-              onClick={handleImageUpload}
-              disabled={uploading}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg"
-            >
-              {uploading ? 'Uploading...' : 'Upload Image'}
-            </button>
-          </div>
-
-          {newStory.image && (
-            <div className="relative w-64 h-40 mt-4">
-              <Image
-                src={newStory.image}
-                alt="Story Thumbnail"
-                layout="fill"
-                className="object-cover rounded-lg"
-              />
-            </div>
-          )}
-
-          <button
-            onClick={handleAddStory}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg"
-          >
-            Add Story
-          </button>
-        </div>
-
-        <div className="mt-12">
-          <h2 className="text-3xl font-bold mb-6">Existing Stories</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {stories.map((story) => (
-              <div
-                key={story.id}
-                className="bg-gray-50 p-6 rounded-xl shadow-lg flex justify-between items-center"
-              >
-                <div>
-                  <h3 className="text-2xl font-semibold">{story.title}</h3>
-                  <p>{story.description}</p>
-                </div>
-                <div className="relative w-24 h-24">
-                  <Image
-                    src={story.image}
-                    alt={story.title}
-                    layout="fill"
-                    className="rounded-lg object-cover"
-                  />
-                </div>
-                <button
-                  onClick={() => deleteStory(story.id)}
-                  className="ml-4 bg-red-500 text-white px-4 py-2 rounded-lg"
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Upload Section */}
+      <div className="p-8 bg-white shadow-lg rounded-lg max-w-xl mx-auto mt-16">
+        <h2 className="text-3xl font-bold text-center mb-6">Upload New Story</h2>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+          className="block w-full p-4 border border-gray-300 rounded-lg shadow-md focus:outline-none"
+        />
+        <button
+          onClick={handleUpload}
+          className="mt-6 bg-green-600 text-white px-6 py-3 rounded-lg w-full hover:bg-green-700"
+        >
+          Upload
+        </button>
+        {uploadStatus && <p className="mt-4 text-center">{uploadStatus}</p>}
       </div>
-    </div>
+
+      {/* Search and Filter */}
+      <section className="container mx-auto my-10 px-4">
+        <input
+          type="text"
+          placeholder="Search stories by name or description..."
+          className="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+
+        <div className="flex flex-wrap justify-center space-x-2 mt-6">
+          {uniqueTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setSelectedTag(tag)}
+              className={`px-4 py-2 rounded-full ${
+                selectedTag === tag
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-200 text-gray-800'
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Stories Grid */}
+      <main className="container mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {visibleFilteredStories.map((story) => (
+            <a
+              key={story.id}
+              href={story.pixiesetLink}
+              className="block rounded-lg overflow-hidden shadow-lg"
+            >
+              <img src={story.thumbnail} alt={story.couple} className="w-full h-64 object-cover" />
+              <div className="p-4">
+                <h3 className="text-xl font-bold">{story.couple}</h3>
+                <p>{story.date}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        {visibleStories < filteredStories.length && (
+          <button onClick={handleLoadMore} className="mt-10 px-6 py-3 bg-green-700 text-white">
+            Load More
+          </button>
+        )}
+      </main>
+    </>
   );
 }
