@@ -130,7 +130,7 @@ export default function PortfolioPage() {
 
       {/* Hero Section */}
       <header className="h-64 bg-green-950 flex items-center justify-center">
-        <h1 className="text-5xl mt-24 text-white drop-shadow-xl">PORTFOLIO</h1>
+        <h1 className="text-5xl mt-24 text-white drop-shadow-xl">Portfolio</h1>
       </header>
 
       {/* Main Content */}
