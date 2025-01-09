@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
-
+import NoContextMenuPage from '@/app/components/DisableContextMenu';
 type Story = {
   id: number;
   couple: string;
@@ -116,6 +116,7 @@ export default function PortfolioPage() {
 
   return (
     <>
+    <NoContextMenuPage />
       <Head>
         <title>Portfolio | Fatima Photography</title>
         <meta

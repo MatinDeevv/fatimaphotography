@@ -15,11 +15,14 @@ const REVIEWS = [
     avatar: 'reviews/tanu.png',
     review: `I would suggest Fatima to everyone. She really did amazing with our pre-wedding and engagement shoot and made me feel so comfortable as we both are camera-shy.`
   },
+  
   {
-    id: 2,
-    name: 'Sunny & ****',
-    avatar: 'reviews/sunny.png',
-    review: `Fatima did an awesome work in just 2 hours. They made the entire session very easy, and the final product turned out to be a great memory of our engagement everlasting.`
+    id: 3,
+    name: 'Simran & Ramandeep',
+    avatar: 'pictures-gallery/DSC_2604.jpg',
+    review: `I am absolutely thrilled with the wedding shots, the photos are so stunning , I feel fortune that I chose Fatima as my wedding photographer, she was an absolute pleasure to work with. Thankyou for being do flexible and always be there for us when we needed the most. She took the time to discuss with us, and even advise better on some occasions. Very detail oriented and meticulous work. I would say " what an amazing experience from Start to finish " 
+Good job Fatima. Portraits,  the way you assemble speaks of itself. 
+I would highly recommend Fatima.`
   },
   {
     id: 3,

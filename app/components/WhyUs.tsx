@@ -105,7 +105,7 @@ font-bold
             </div>
             <div className="w-[300px] h-[450px] flex items-center justify-center static">
               <span className="text-gray-400">
-                <img src="01.jpg" alt="Image 3" />
+                <img src="pictures-gallery\sh01.png" alt="Image 3" />
               </span>
             </div>
           </div>
