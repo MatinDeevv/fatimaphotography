@@ -306,12 +306,12 @@ export default function Booking() {
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-blue-300 outline-none"
             >
-              <option value="">Select an event type</option>
-              <option value="wedding">Wedding</option>
+               <option value="">Select Event Type</option>
               <option value="engagement">Engagement</option>
-              <option value="portrait">Portrait</option>
-              <option value="corporate">Corporate</option>
+              <option value="prewedding">PreWedding</option>
+              <option value="maternity">Maternity</option>
               <option value="other">Other</option>
+              <option value="wedding">Wedding</option>
             </select>
             {formData.eventType === 'other' && (
               <input
