@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto flex justify-between items-center px-4 py-2">
         {/* Left Section (Navigation Links) */}
         <div className="hidden md:flex space-x-4 text-base font-bold text-gray-700">
-          <Link href="fatimaphotograpy.ca" className="hover:text-green-600 transition">
+          <Link href="/" className="hover:text-green-600 transition">
             HOME
           </Link>
           <Link href="/investment" className="hover:text-green-600 transition">
