@@ -56,7 +56,7 @@ const staticStories: Story[] = [
       id: 5,
       couple: 'Hanieh & Shayan',
       date: 'September 2024',
-      thumbnail: '/pictures-gallery/Han11',
+      thumbnail: '/pictures-gallery/Han11.png',
       description: 'An unforgettable scene full of emotion.',
       pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniehandshayan/',
       tags: ['Pre-Wedding','Persian' ]

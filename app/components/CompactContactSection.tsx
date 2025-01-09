@@ -244,11 +244,11 @@ const CompactContactSection: React.FC = () => {
               required
             >
               <option value="">Select Event Type</option>
-              <option value="wedding">Wedding</option>
               <option value="engagement">Engagement</option>
               <option value="prewedding">PreWedding</option>
               <option value="maternity">Maternity</option>
               <option value="other">Other</option>
+              <option value="wedding">Wedding</option>
             </select>
           </div>
 
