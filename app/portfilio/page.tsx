@@ -32,7 +32,7 @@ const staticStories: Story[] = [
     thumbnail: '/pictures-gallery/DSC_3448.JPG',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/malekandshelair/',
-    tags: ['Wedding', 'South Asian']
+    tags: ['Wedding', 'Arab']
   },
     {
       id: 3,
