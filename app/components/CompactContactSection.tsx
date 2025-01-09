@@ -246,8 +246,8 @@ const CompactContactSection: React.FC = () => {
               <option value="">Select Event Type</option>
               <option value="wedding">Wedding</option>
               <option value="engagement">Engagement</option>
-              <option value="portrait">Portrait</option>
-              <option value="corporate">Corporate</option>
+              <option value="prewedding">PreWedding</option>
+              <option value="maternity">Maternity</option>
               <option value="other">Other</option>
             </select>
           </div>
@@ -333,8 +333,8 @@ const CompactContactSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           {/* Add any additional contact information or links here */}
-          <p>Contact us at <a href="mailto:info@fatimaphotography.com" className="underline">info@fatimaphotography.com</a></p>
-          <p>Follow us on <a href="https://instagram.com/fatimaphotography" target="_blank" rel="noopener noreferrer" className="underline">Instagram</a></p>
+          <p>Contact us at <a href="mailto:fashamifatemeh@gmail.com" className="underline">fashamifatemeh@gmail.com</a></p>
+          <p>Follow us on <a href="https://instagram.com/fatimaphotography.ca" target="_blank" rel="noopener noreferrer" className="underline">Instagram</a></p>
         </motion.div>
       </motion.div>
     </section>
