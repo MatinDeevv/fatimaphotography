@@ -19,7 +19,7 @@ const REVIEWS = [
   {
     id: 3,
     name: 'Simran & Ramandeep',
-    avatar: 'pictures-gallery/DSC_2604.jpg',
+    avatar: 'pictures-gallery/Sim01.png',
     review: `I am absolutely thrilled with the wedding shots, the photos are so stunning , I feel fortune that I chose Fatima as my wedding photographer, she was an absolute pleasure to work with. Thankyou for being do flexible and always be there for us when we needed the most. She took the time to discuss with us, and even advise better on some occasions. Very detail oriented and meticulous work. I would say " what an amazing experience from Start to finish " 
 Good job Fatima. Portraits,  the way you assemble speaks of itself. 
 I would highly recommend Fatima.`
@@ -74,7 +74,7 @@ const Slider: React.FC = () => {
           {currentCard && (
             <>
               <img
-                className="w-[300px] sm:w-[400px] md:w-[450px] h-[300px] sm:h-[400px] md:h-[450px] object-cover border-4 border-white shadow-lg"
+                className="w-[300px] sm:w-[400px] md:w-[400px] h-[300px] sm:h-[400px] md:h-[400px] object-cover border-4 border-white shadow-lg"
                 src={currentCard.avatar}
                 alt={`${currentCard.name}'s avatar`}
               />
