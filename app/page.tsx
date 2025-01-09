@@ -164,7 +164,7 @@ export default function Page() {
         <WhyUs />
         <CompactContactSection />
 
-        <footer className="bg-white border-t border-gray-200 py-6">
+        <footer className="bg-white border-t font-body border-gray-200 py-6">
           <div className="container mx-auto flex justify-center items-center px-4">
             <div className="text-base font-medium text-gray-700 text-center">
               Windsor, London, Toronto |{' '}
