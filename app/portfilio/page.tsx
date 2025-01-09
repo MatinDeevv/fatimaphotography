@@ -61,6 +61,15 @@ const staticStories: Story[] = [
       pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniehandshayan/',
       tags: ['Pre-Wedding','Persian' ]
     },
+    {
+      id: 6,
+      couple: 'Lida & Tam',
+      date: 'Augest 2024',
+      thumbnail: '/pictures-gallery/L01.jpg',
+      description: 'An unforgettable scene full of emotion.',
+      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/lidaandtam/',
+      tags: ['Wedding','Asian' ]
+    },
     
 ];
 
