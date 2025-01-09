@@ -70,6 +70,15 @@ const staticStories: Story[] = [
       pixiesetLink: 'https://fatimaphotographyca.pixieset.com/lidaandtam/',
       tags: ['Wedding','Asian' ]
     },
+    {
+      id: 7,
+      couple: 'Hersehell & Roberto',
+      date: 'October 2024',
+      thumbnail: 'story-2/Her07.jpg',
+      description: 'An unforgettable scene full of emotion.',
+      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/hersehellandroberto/',
+      tags: ['Wedding','Asian' ]
+    },
     
 ];
 
