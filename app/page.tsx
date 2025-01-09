@@ -112,7 +112,7 @@ export default function Page() {
           {images.length > 0 ? (
             <Swiper
               modules={[Autoplay]}
-              autoplay={{ delay: 800 }}
+              autoplay={{ delay: 3000 }}
               slidesPerView={3}
               loop
               breakpoints={{

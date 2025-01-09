@@ -1,4 +1,4 @@
-
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
@@ -112,7 +112,7 @@ export default function Page() {
           {images.length > 0 ? (
             <Swiper
               modules={[Autoplay]}
-              autoplay={{ delay: 1500 }}
+              autoplay={{ delay: 3000 }}
               slidesPerView={3}
               loop
               breakpoints={{
