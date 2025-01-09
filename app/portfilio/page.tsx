@@ -23,7 +23,7 @@ const staticStories: Story[] = [
     thumbnail: 'story-5/sab01.jpg',
     description: 'A captivating moment captured in time.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/sabaandvaji/',
-    tags: ['Wedding', 'Asian', 'Persian']
+    tags: ['Pre-Wedding', 'Persian']
   },
   {
     id: 2,
