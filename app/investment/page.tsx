@@ -159,7 +159,7 @@ const InvestmentPage = () => {
     {
       title: 'ENGAGEMENT , PREWEDDING',
       description: 'Session starting with 2 hours photography coverage',
-      pricing: 'Starting at $350',
+      pricing: 'Starting at $400',
       pictures: [
         '/story-4/2.jpg',
         '/story-3/Pun06.jpg',
@@ -170,7 +170,7 @@ const InvestmentPage = () => {
     {
       title: 'MATERNITY',
       description: 'Family and maternity sessions for precious moments',
-      pricing: 'Starting at $350',
+      pricing: 'Starting at $400',
       pictures: [
         '/Mat/Mat01.png',
         '/Mat/Mat02.png',
