@@ -145,7 +145,7 @@ const InvestmentPage = () => {
     {
       title: 'WEDDING',
       description: 'Half day wedding coverage beginning with 6 hours',
-      pricing: 'Starting at $1,900',
+      pricing: 'Starting at $2,200',
       pictures: [
         '/story-2/Her08.png',
         '/story-4/L02.jpg',
