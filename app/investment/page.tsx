@@ -153,7 +153,7 @@ const InvestmentPage = () => {
       ],
       extras: [
         'All wedding packages include 1 photographer, 1 videographer, free consultation meeting, and a beautiful online gallery of memories.',
-        'All taken photos, 300 edited photos, 20 highly retouched photos, a 1-minute highlight video, and a fully mixed video will be provided.',
+        'All taken photos, 300 edited photos, a 1-minute highlight video, and a fully mixed video will be provided.',
       ],
     },
     {
