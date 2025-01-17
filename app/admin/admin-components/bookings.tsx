@@ -96,21 +96,21 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
               bookings.map((booking) => (
                 <tr
                   key={booking.id}
-                  className="hover:bg-gray-100 transition-all duration-300"
+                  className="hover:bg-gray-100 font-body transition-all duration-300"
                 >
-                  <td className="px-6 py-4 text-gray-800 text-xl font-medium">
+                  <td className="px-6 py-4 text-gray-800 font-body text-xl font-medium">
                     {booking.fullName}
                   </td>
-                  <td className="px-6 py-4 text-gray-600 text-xl">{booking.email}</td>
-                  <td className="px-6 py-4 text-gray-600 text-xl">{booking.phone}</td>
-                  <td className="px-6 py-4 text-gray-600 text-xl">
+                  <td className="px-6 py-4 font-body text-gray-600 text-xl">{booking.email}</td>
+                  <td className="px-6 py-4 font-body text-gray-600 text-xl">{booking.phone}</td>
+                  <td className="px-6 py-4 font-body text-gray-600 text-xl">
                     {new Date(booking.date).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 text-gray-600 text-xl">
+                  <td className="px-6 py-4 font-body text-gray-600 text-xl">
                     {booking.eventType === 'other' ? booking.customEvent : booking.eventType}
                   </td>
                   <td
-                    className={`px-6 py-4 text-xl font-bold ${
+                    className={`px-6 py-4 font-body text-xl font-bold ${
                       booking.status === 'pending'
                         ? 'text-yellow-500'
                         : booking.status === 'completed'
@@ -120,21 +120,21 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
                   >
                     {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                   </td>
-                  <td className="px-6 py-4 text-gray-600 text-xl">
+                  <td className="px-6 py-4 font-body text-gray-600 text-xl">
                     {new Date(booking.submittedAt).toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 text-center">
-                    <div className="flex justify-center space-x-4">
+                  <td className="px-6 py-4 font-body text-center">
+                    <div className="flex font-body justify-center space-x-4">
                       {booking.status !== 'completed' && (
                         <button
-                          className="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg shadow-md text-lg transition-all duration-300"
+                          className="bg-green-500 font-body hover:bg-green-600 text-white px-5 py-2 rounded-lg shadow-md text-lg transition-all duration-300"
                           onClick={() => updateStatus(booking.id, 'completed')}
                         >
                           ✅ Complete
                         </button>
                       )}
                       <button
-                        className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg shadow-md text-lg transition-all duration-300"
+                        className="bg-red-500 font-body hover:bg-red-600 text-white px-5 py-2 rounded-lg shadow-md text-lg transition-all duration-300"
                         onClick={() => deleteBooking(booking.id)}
                       >
                         🗑️ Delete
