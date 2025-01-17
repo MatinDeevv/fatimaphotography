@@ -18,6 +18,7 @@ type Booking = {
 };
 
 const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = ({ bookings, reloadBookings }) => {
+  // Function to update booking status
   const updateStatus = async (id: number, newStatus: string) => {
     try {
       const { error } = await supabase
@@ -30,11 +31,38 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
         alert('Failed to update booking status.');
       } else {
         alert(`Booking marked as ${newStatus}!`);
-        reloadBookings(); // Reload the bookings to reflect the updated status
+        reloadBookings(); // Reload bookings to reflect changes
       }
     } catch (err) {
       console.error('Unexpected error:', err);
       alert('An unexpected error occurred.');
+    }
+  };
+
+  // Function to delete a booking
+  const deleteBooking = async (id: number) => {
+    const confirmation = prompt(
+      'To confirm deletion, type "Delete Booking" exactly.'
+    );
+
+    if (confirmation !== 'Delete Booking') {
+      alert('Booking deletion canceled.');
+      return;
+    }
+
+    try {
+      const { error } = await supabase.from('bookings').delete().eq('id', id);
+
+      if (error) {
+        console.error('Error deleting booking:', error);
+        alert('Failed to delete the booking.');
+      } else {
+        alert('Booking successfully deleted!');
+        reloadBookings(); // Reload bookings to reflect deletion
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      alert('An unexpected error occurred while deleting.');
     }
   };
 
@@ -105,14 +133,12 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
                           ✅ Complete
                         </button>
                       )}
-                      {booking.status !== 'deleted' && (
-                        <button
-                          className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg shadow-md text-lg transition-all duration-300"
-                          onClick={() => updateStatus(booking.id, 'deleted')}
-                        >
-                          🗑️ Delete
-                        </button>
-                      )}
+                      <button
+                        className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg shadow-md text-lg transition-all duration-300"
+                        onClick={() => deleteBooking(booking.id)}
+                      >
+                        🗑️ Delete
+                      </button>
                     </div>
                   </td>
                 </tr>
