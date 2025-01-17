@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
-// Type Definitions
+import { supabase } from '@/app/admin/supabaseClient'; // Import Supabase client
+
 type FormDataKeys =
   | 'fullName'
   | 'email'
@@ -27,26 +28,6 @@ type FormDataType = {
   [key: string]: string | boolean;
 };
 
-interface SEOData {
-  defaultTitle: string;
-  defaultDescription: string;
-  keywords: string[];
-  siteName: string;
-  contact: {
-    website: string;
-    phone: string;
-    email: string;
-    social: {
-      facebook: string;
-      instagram: string;
-      twitter: string;
-      ogImage: string;
-      twitterCard: string;
-    };
-  };
-  structuredData: Record<string, unknown>;
-}
-
 export default function Booking() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [formData, setFormData] = useState<FormDataType>({
@@ -57,29 +38,10 @@ export default function Booking() {
     referral: '',
     specialRequests: '',
     eventType: '',
-    customEvent: ''
+    customEvent: '',
   });
   const [eventSpecificQuestions, setEventSpecificQuestions] = useState<any[]>([]);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [seoData, setSeoData] = useState<SEOData>({
-    defaultTitle: 'Default Title',
-    defaultDescription: 'Default Description',
-    keywords: ['default', 'keywords'],
-    siteName: 'Your Site Name',
-    contact: {
-      website: 'https://yourwebsite.com',
-      phone: '123-456-7890',
-      email: 'info@yourwebsite.com',
-      social: {
-        facebook: '',
-        instagram: '',
-        twitter: '',
-        ogImage: '/default-og-image.jpg',
-        twitterCard: 'summary_large_image'
-      }
-    },
-    structuredData: {}
-  });
 
   const commonQuestions = [
     {
@@ -87,41 +49,41 @@ export default function Booking() {
       name: 'fullName',
       type: 'text',
       placeholder: 'Your Full Name',
-      required: true
+      required: true,
     },
     {
       label: 'Email',
       name: 'email',
       type: 'email',
       placeholder: 'Your Email',
-      required: true
+      required: true,
     },
     {
       label: 'Phone',
       name: 'phone',
       type: 'text',
       placeholder: 'Your Phone Number',
-      required: true
+      required: true,
     },
     {
       label: 'Date',
       name: 'date',
       type: 'date',
       placeholder: '',
-      required: true
+      required: true,
     },
     {
       label: 'Referral Source',
       name: 'referral',
       type: 'text',
-      placeholder: 'How did you hear about us?'
+      placeholder: 'How did you hear about us?',
     },
     {
       label: 'Special Requests',
       name: 'specialRequests',
       type: 'textarea',
-      placeholder: 'Any special requests?'
-    }
+      placeholder: 'Any special requests?',
+    },
   ];
 
   const questionsByEventType: { [key: string]: any[] } = {
@@ -130,65 +92,46 @@ export default function Booking() {
         label: 'Wedding Theme',
         name: 'weddingTheme',
         type: 'text',
-        placeholder: 'E.g., Rustic, Modern'
+        placeholder: 'E.g., Rustic, Modern',
       },
       {
         label: 'Is it an indoor or outdoor wedding?',
         name: 'weddingLocationType',
         type: 'text',
-        placeholder: 'Indoor/Outdoor'
-      }
+        placeholder: 'Indoor/Outdoor',
+      },
     ],
     engagement: [
       {
         label: 'Preferred Style',
         name: 'engagementStyle',
         type: 'text',
-        placeholder: 'E.g., Casual, Formal'
-      }
+        placeholder: 'E.g., Casual, Formal',
+      },
     ],
     portrait: [
       {
         label: 'Preferred Backdrop',
         name: 'portraitBackdrop',
         type: 'text',
-        placeholder: 'E.g., Natural, Studio'
-      }
+        placeholder: 'E.g., Natural, Studio',
+      },
     ],
     corporate: [
       {
         label: 'Event Purpose',
         name: 'corporatePurpose',
         type: 'text',
-        placeholder: 'E.g., Seminar, Product Launch'
-      }
-    ]
+        placeholder: 'E.g., Seminar, Product Launch',
+      },
+    ],
   };
 
-  // Fetch SEO data
-  useEffect(() => {
-    async function fetchSEO() {
-      try {
-        const response = await fetch('/seo.json');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch SEO data: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setSeoData(data);
-      } catch (err) {
-        console.error('Error loading SEO data:', err);
-      }
-    }
-    fetchSEO();
-  }, []);
-
-  // Update Event-Specific Questions
   useEffect(() => {
     const questions = questionsByEventType[formData.eventType] || [];
     setEventSpecificQuestions(questions);
   }, [formData.eventType]);
 
-  // Fetch Random Background Image
   useEffect(() => {
     async function fetchImages() {
       try {
@@ -207,7 +150,6 @@ export default function Booking() {
     fetchImages();
   }, []);
 
-  // Handle Input Changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -216,51 +158,66 @@ export default function Booking() {
 
     setFormData((prevState) => ({
       ...prevState,
-      [name]: newValue
+      [name]: newValue,
     }));
   };
 
-  // Handle Form Submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const storedBookings = JSON.parse(localStorage.getItem('bookingsList') || '[]');
-    const updatedBookings = [...storedBookings, { ...formData, id: Date.now(), status: 'pending' }];
-    localStorage.setItem('bookingsList', JSON.stringify(updatedBookings));
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      date: '',
-      referral: '',
-      specialRequests: '',
-      eventType: '',
-      customEvent: ''
-    });
-    alert('Thank you for booking! We’ll be in touch soon.');
+
+    // Validate required fields
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.date) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    try {
+      // Insert data into Supabase
+      const { data, error } = await supabase.from('bookings').insert([
+        {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          date: formData.date,
+          referral: formData.referral,
+          specialRequests: formData.specialRequests,
+          eventType: formData.eventType,
+          customEvent: formData.customEvent || null,
+          status: 'pending',
+          submittedAt: new Date().toISOString(),
+        },
+      ]);
+
+      if (error) {
+        throw error;
+      }
+
+      // Reset form data
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        date: '',
+        referral: '',
+        specialRequests: '',
+        eventType: '',
+        customEvent: '',
+      });
+
+      alert('Thank you for booking! We’ll be in touch soon.');
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      alert('Something went wrong. Please try again later.');
+    }
   };
 
   return (
     <>
-      {/* SEO Metadata */}
       <Head>
-        <title>{seoData.defaultTitle}</title>
-        <meta name="description" content={seoData.defaultDescription} />
-        <meta name="keywords" content={seoData.keywords.join(', ')} />
-        <meta property="og:title" content={seoData.defaultTitle} />
-        <meta property="og:description" content={seoData.defaultDescription} />
-        <meta property="og:image" content={seoData.contact.social.ogImage} />
-        <meta property="og:url" content={seoData.contact.website} />
-        <meta name="twitter:card" content={seoData.contact.social.twitterCard} />
-        <meta name="twitter:title" content={seoData.defaultTitle} />
-        <meta name="twitter:description" content={seoData.defaultDescription} />
-        <link rel="canonical" href={seoData.contact.website} />
-        <script type="application/ld+json">{JSON.stringify(seoData.structuredData)}</script>
+        <title>Book Your Session</title>
+        <meta name="description" content="Book your session with us today!" />
       </Head>
-
-      {/* Navigation Bar */}
       <Navbar />
-
-      {/* Main Content */}
       <div
         className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center text-gray-900"
         style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -306,12 +263,12 @@ export default function Booking() {
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-blue-300 outline-none"
             >
-               <option value="">Select Event Type</option>
-              <option value="engagement">Engagement</option>
-              <option value="prewedding">PreWedding</option>
-              <option value="maternity">Maternity</option>
-              <option value="other">Other</option>
+              <option value="">Select Event Type</option>
               <option value="wedding">Wedding</option>
+              <option value="engagement">Engagement</option>
+              <option value="portrait">Portrait</option>
+              <option value="corporate">Corporate</option>
+              <option value="other">Other</option>
             </select>
             {formData.eventType === 'other' && (
               <input
@@ -353,23 +310,6 @@ export default function Booking() {
             Submit Booking
           </button>
         </form>
-        <footer className="bg-white border-t font-body mt-10 border-gray-200 py-6">
-          <div className="container mx-auto flex justify-center items-center px-4">
-            <div className="text-base font-medium text-gray-700 text-center">
-              Windsor, London, Toronto |{' '}
-              <a
-                href="mailto:fashamifatemeh@gmail.com"
-                className="hover:text-green-600 transition"
-              >
-                fashamifatemeh@gmail.com
-              </a>{' '}
-              |{' '}
-              <a href="tel:2267596075" className="hover:text-green-600 transition">
-                Tel: 226-759-6075
-              </a>
-            </div>
-          </div>
-        </footer>
       </div>
     </>
   );

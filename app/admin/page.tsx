@@ -1,42 +1,49 @@
-// File: app/admin/page.tsx
-'use client';
-
-import React from 'react';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
-import NavBar from '@/app/components/NavBar';
-const AdminPage: React.FC = () => {
-  return (
-    <>
-      <Head>
-        <title>Admin Dashboard - Fatima Photography</title>
-        <meta name="description" content="Admin dashboard for managing bookings at Fatima Photography." />
-      </Head>
-<NavBar />
-      <div className="min-h-screen bg-gradient-to-r mt-52 from-gray-100 to-gray-200 p font-body">
-        <div className="max-w-7xl mx-auto bg-white shadow-2xl rounded-3xl">
-          {/* Header */}
-          <header className="flex items-center justify-between p-6 border-b">
-            <h1 className="text-5xl font-extrabold text-gray-800">Admin Dashboard</h1>
-            {/* Optional: Add a logo or user profile here */}
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-600">Welcome, Admin</span>
-              {/* Example Profile Icon */}
-              <img
-                src="/admin-profile.png"
-                alt="Admin Profile"
-                className="w-10 h-10 rounded-full object-cover"
-              />
-            </div>
-          </header>
 
-          {/* Main Content */}
-          <main className="p-8">
-            <Bookings />
-          </main>
-        </div>
-      </div>
-    </>
+// Define the type for Booking
+type Booking = {
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  eventType?: string | null;
+  customEvent?: string | null;
+  date?: string | null;
+  status?: string | null;
+  submittedAt?: string | null;
+};
+
+const AdminPage = () => {
+  const [bookings, setBookings] = useState<Booking[]>([]); // State for bookings
+  const [loading, setLoading] = useState(true); // Loading state
+
+  // Fetch bookings from Supabase
+  useEffect(() => {
+    const fetchBookings = async () => {
+      setLoading(true);
+      const { data, error } = await supabase.from('bookings').select('*');
+      if (error) {
+        console.error('Error fetching bookings:', error);
+      } else {
+        setBookings(data || []); // Set bookings data or empty array
+      }
+      setLoading(false);
+    };
+
+    fetchBookings();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4">Admin Bookings</h1>
+      {loading ? (
+        <p>Loading bookings...</p>
+      ) : (
+        <Bookings bookings={bookings} /> // Pass bookings to Bookings component
+      )}
+    </div>
   );
 };
 
