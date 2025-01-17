@@ -20,12 +20,13 @@ const italiana = Italiana({
 // 3) RootLayout: Applies to *all* pages
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
+    
     <html lang="en" className={italiana.className}>
       <head>
         {/* === Primary Meta Tags === */}
         <title>{seoData.defaultTitle}</title>
         <meta name="description" content={seoData.defaultDescription} />
-
+        <link rel="icon" href="/logofav.png" />
         {/* === Keywords (very large list) === */}
         <meta name="keywords" content={seoData.keywords.join(', ')} />
 
