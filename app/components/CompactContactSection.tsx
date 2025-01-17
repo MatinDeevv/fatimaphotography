@@ -14,6 +14,8 @@ type ContactFormData = {
   fullName: string;
   email: string;
   phone: string;
+  date: string;
+  referral: string;
   specialRequests: string;
   eventType: EventType;
   customEvent?: string;
@@ -33,11 +35,8 @@ type Question = {
   required?: boolean;
 };
 
-// Define the type for event questions configuration
-type EventQuestionsConfig = Record<EventType, Question[]>;
-
 // Event-specific questions configuration
-const eventQuestionsConfig: EventQuestionsConfig = {
+const eventQuestionsConfig: Record<EventType, Question[]> = {
   wedding: [
     {
       label: 'Wedding Theme',
@@ -84,6 +83,8 @@ const CompactContactSection: React.FC = () => {
     fullName: '',
     email: '',
     phone: '',
+    date: '',
+    referral: '',
     specialRequests: '',
     eventType: 'other',
     customEvent: '',
@@ -95,29 +96,22 @@ const CompactContactSection: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    const key = name as keyof ContactFormData;
     setFormData((prevState) => ({
       ...prevState,
-      [key]: value,
+      [name]: value,
     }));
   };
 
   useEffect(() => {
-    const eventKey = formData.eventType as EventType;
-    const questions = eventQuestionsConfig[eventKey] || [];
+    const questions = eventQuestionsConfig[formData.eventType] || [];
     setEventSpecificQuestions(questions);
   }, [formData.eventType]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      !formData.fullName ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.eventType ||
-      (formData.eventType === 'other' && !formData.customEvent)
-    ) {
+    // Validate required fields
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.date) {
       toast.error('Please fill out all required fields.');
       return;
     }
@@ -129,6 +123,8 @@ const CompactContactSection: React.FC = () => {
           fullName: formData.fullName,
           email: formData.email,
           phone: formData.phone,
+          date: formData.date,
+          referral: formData.referral,
           specialRequests: formData.specialRequests,
           eventType: formData.eventType,
           customEvent: formData.customEvent || null,
@@ -141,19 +137,19 @@ const CompactContactSection: React.FC = () => {
         throw error;
       }
 
-      // Reset form data
+      toast.success("Thank you for reaching out! We've received your booking.");
       setFormData({
         fullName: '',
         email: '',
         phone: '',
+        date: '',
+        referral: '',
         specialRequests: '',
         eventType: 'other',
         customEvent: '',
       });
-
-      toast.success("Thank you for reaching out! We've received your booking.");
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch (err) {
+      console.error('Error submitting booking:', err);
       toast.error('Something went wrong. Please try again.');
     }
   };
@@ -161,6 +157,7 @@ const CompactContactSection: React.FC = () => {
   return (
     <section className="bg-green-950 font-body text-white py-16 px-6">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
+
       <motion.div
         className="max-w-4xl mx-auto text-center bg-white text-gray-800 p-8 rounded-xl shadow-2xl"
         initial={{ opacity: 0, y: 50 }}
@@ -171,15 +168,175 @@ const CompactContactSection: React.FC = () => {
         <p className="text-lg md:text-xl font-sans mb-10">
           Have questions or want to book a session? Fill out the form below, and let's create something amazing together!
         </p>
+
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Form Fields */}
           {/* Full Name */}
+          <div className="flex flex-col">
+            <label htmlFor="fullName" className="mb-2 font-sans">
+              Full Name<span className="text-red-500">*</span>
+            </label>
+            <input
+              id="fullName"
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
           {/* Email */}
+          <div className="flex flex-col">
+            <label htmlFor="email" className="mb-2 font-sans">
+              Email<span className="text-red-500">*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
           {/* Phone */}
-          {/* Event Type */}
+          <div className="flex flex-col">
+            <label htmlFor="phone" className="mb-2 font-sans">
+              Phone<span className="text-red-500">*</span>
+            </label>
+            <input
+              id="phone"
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              placeholder="Enter your phone number"
+              required
+            />
+          </div>
+
+          {/* Date */}
+          <div className="flex flex-col">
+            <label htmlFor="date" className="mb-2 font-sans">
+              Date<span className="text-red-500">*</span>
+            </label>
+            <input
+              id="date"
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              required
+            />
+          </div>
+
+          {/* Referral */}
+          <div className="flex flex-col">
+            <label htmlFor="referral" className="mb-2 font-sans">
+              Referral Source
+            </label>
+            <input
+              id="referral"
+              type="text"
+              name="referral"
+              value={formData.referral}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              placeholder="How did you hear about us?"
+            />
+          </div>
+
           {/* Special Requests */}
+          <div className="flex flex-col">
+            <label htmlFor="specialRequests" className="mb-2 font-sans">
+              Special Requests
+            </label>
+            <textarea
+              id="specialRequests"
+              name="specialRequests"
+              value={formData.specialRequests}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              placeholder="Any special requests?"
+              rows={4}
+            ></textarea>
+          </div>
+
+          {/* Event Type */}
+          <div className="flex flex-col">
+            <label htmlFor="eventType" className="mb-2 font-sans">
+              Event Type<span className="text-red-500">*</span>
+            </label>
+            <select
+              id="eventType"
+              name="eventType"
+              value={formData.eventType}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+              required
+            >
+              <option value="wedding">Wedding</option>
+              <option value="engagement">Engagement</option>
+              <option value="portrait">Portrait</option>
+              <option value="corporate">Corporate</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          {/* Custom Event Type */}
+          {formData.eventType === 'other' && (
+            <div className="flex flex-col">
+              <label htmlFor="customEvent" className="mb-2 font-sans">
+                Specify Event Type<span className="text-red-500">*</span>
+              </label>
+              <input
+                id="customEvent"
+                type="text"
+                name="customEvent"
+                value={formData.customEvent}
+                onChange={handleChange}
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                placeholder="Specify your event type"
+              />
+            </div>
+          )}
+
           {/* Event-Specific Questions */}
+          {eventSpecificQuestions.length > 0 && (
+            <div className="space-y-4">
+              {eventSpecificQuestions.map((question, index) => (
+                <div key={index} className="flex flex-col">
+                  <label htmlFor={question.name} className="mb-2 font-sans">
+                    {question.label}
+                  </label>
+                  <input
+                    id={question.name}
+                    type={question.type}
+                    name={question.name}
+                    value={formData[question.name] || ''}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                    placeholder={question.placeholder}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-green-700 text-white py-3 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition transform"
+          >
+            Submit
+          </button>
         </form>
       </motion.div>
     </section>
