@@ -1,26 +1,27 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
 
-// Define the type for Booking
 type Booking = {
   id: number;
   fullName: string;
   email: string;
   phone: string;
-  eventType?: string | null;
-  customEvent?: string | null;
-  date?: string | null;
-  status?: string | null;
-  submittedAt?: string | null;
+  date: string;
+  eventType: string;
+  customEvent?: string;
+  referral?: string;
+  specialRequests?: string;
+  status: string;
+  submittedAt: string;
 };
 
 const AdminPage = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]); // State for bookings
-  const [loading, setLoading] = useState(true); // Loading state
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch bookings from Supabase
   useEffect(() => {
     const fetchBookings = async () => {
       setLoading(true);
@@ -28,7 +29,7 @@ const AdminPage = () => {
       if (error) {
         console.error('Error fetching bookings:', error);
       } else {
-        setBookings(data || []); // Set bookings data or empty array
+        setBookings(data || []);
       }
       setLoading(false);
     };
@@ -42,7 +43,7 @@ const AdminPage = () => {
       {loading ? (
         <p>Loading bookings...</p>
       ) : (
-        <Bookings bookings={bookings} /> // Pass bookings to Bookings component
+        <Bookings bookings={bookings} />
       )}
     </div>
   );
