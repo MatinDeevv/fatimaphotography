@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
 
@@ -22,28 +22,32 @@ const AdminPage = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      setLoading(true);
+  const fetchBookings = async () => {
+    setLoading(true);
+    try {
       const { data, error } = await supabase.from('bookings').select('*');
       if (error) {
         console.error('Error fetching bookings:', error);
       } else {
         setBookings(data || []);
       }
-      setLoading(false);
-    };
+    } catch (err) {
+      console.error('Unexpected error:', err);
+    }
+    setLoading(false);
+  };
 
+  useEffect(() => {
     fetchBookings();
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">Admin Bookings</h1>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <h1 className="text-4xl font-bold text-center mb-8">Admin Bookings</h1>
       {loading ? (
-        <p>Loading bookings...</p>
+        <p className="text-center text-xl text-gray-500">Loading bookings...</p>
       ) : (
-        <Bookings bookings={bookings} />
+        <Bookings bookings={bookings} reloadBookings={fetchBookings} />
       )}
     </div>
   );
