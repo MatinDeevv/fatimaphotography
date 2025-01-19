@@ -8,17 +8,17 @@ export default async function handler(req, res) {
 
     // Create Nodemailer transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // Can use Gmail for this example
+      service: 'gmail', // Using Gmail SMTP
       auth: {
-        user: 'dminphotography@gmail.com', // Replace with your email
-        pass: 'kghuarukqrtzknvy',    // Replace with your app password
+        user: 'dminphotography@gmail.com', // Replace with your Gmail address
+        pass: 'iscvpxixcyspnpau', // Replace with your Gmail app password directly (not process.env)
       },
     });
 
     // Set up email options
     const mailOptions = {
       from: 'dminphotography@gmail.com', // Sender address
-      to: 'pandasmp91@gmail.com', // Replace with the admin's email
+      to: 'pandasmp91@gmail.com', // Replace with admin's email
       subject: `New Booking: ${eventType}`, // Subject line
       text: `
         A new booking has been made. Here are the details:
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     };
 
     try {
-      // Send email
+      // Send the email
       await transporter.sendMail(mailOptions);
       return res.status(200).json({ message: 'Email sent successfully!' });
     } catch (error) {
