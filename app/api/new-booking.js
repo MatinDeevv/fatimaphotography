@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     } = req.body;
 
     // Admin emails to notify
-    const adminEmails = ['admin1@example.com', 'admin2@example.com'];
+    const adminEmails = ['fashamifatemeh@gmail.com'];
 
     // Allow dynamic subject
     const subject = `New Booking: ${eventType} (${status})`;
