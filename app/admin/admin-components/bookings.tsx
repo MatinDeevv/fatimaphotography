@@ -1,8 +1,7 @@
-'use client';
-
 import React from 'react';
 import { supabase } from '@/app/admin/supabaseClient';
-import NewBookingListener from '@/app/admin/newbooking';
+
+// Define types for Booking and functions
 type Booking = {
   id: number;
   fullName: string;
@@ -17,53 +16,84 @@ type Booking = {
   submittedAt: string;
 };
 
+// Function to send email (called in the component)
+const sendBookingEmail = async (booking: Booking) => {
+  try {
+    const response = await fetch('/api/sendBookingEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(booking), // Sending the booking object as JSON
+    });
+
+    const data = await response.json();
+    if (response.status === 200) {
+      console.log('Email sent successfully:', data.message);
+    } else {
+      console.error('Error sending email:', data.error);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Call sendBookingEmail when a new booking is added
+const sendNewBookingEmail = (newBooking: Booking) => {
+  sendBookingEmail(newBooking);  // Send email on new booking
+};
+
+// Function to handle booking status update
+const updateStatus = async (id: number, newStatus: string) => {
+  try {
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({ status: newStatus })
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error updating status:', error);
+      alert('Failed to update booking status.');
+    } else {
+      if (data) {
+        alert(`Booking marked as ${newStatus}!`);
+        sendNewBookingEmail(data[0]); // Send email after update
+      }
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    alert('An unexpected error occurred.');
+  }
+};
+
+// Function to delete a booking
+const deleteBooking = async (id: number) => {
+  const confirmation = prompt('To confirm deletion, type "Delete Booking" exactly.');
+
+  if (confirmation !== 'Delete Booking') {
+    alert('Booking deletion canceled.');
+    return;
+  }
+
+  try {
+    const { error } = await supabase.from('bookings').delete().eq('id', id);
+
+    if (error) {
+      console.error('Error deleting booking:', error);
+      alert('Failed to delete the booking.');
+    } else {
+      alert('Booking successfully deleted!');
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    alert('An unexpected error occurred while deleting.');
+  }
+};
+
 const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = ({
   bookings,
   reloadBookings
 }) => {
-  // Function to update booking status
-  const updateStatus = async (id: number, newStatus: string) => {
-    try {
-      const { error } = await supabase.from('bookings').update({ status: newStatus }).eq('id', id);
-
-      if (error) {
-        console.error('Error updating status:', error);
-        alert('Failed to update booking status.');
-      } else {
-        alert(`Booking marked as ${newStatus}!`);
-        reloadBookings(); // Reload bookings to reflect changes
-      }
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      alert('An unexpected error occurred.');
-    }
-  };
-
-  // Function to delete a booking
-  const deleteBooking = async (id: number) => {
-    const confirmation = prompt('To confirm deletion, type "Delete Booking" exactly.');
-
-    if (confirmation !== 'Delete Booking') {
-      alert('Booking deletion canceled.');
-      return;
-    }
-
-    try {
-      const { error } = await supabase.from('bookings').delete().eq('id', id);
-
-      if (error) {
-        console.error('Error deleting booking:', error);
-        alert('Failed to delete the booking.');
-      } else {
-        alert('Booking successfully deleted!');
-        reloadBookings(); // Reload bookings to reflect deletion
-      }
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      alert('An unexpected error occurred while deleting.');
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 px-8 py-12 font-body">
       <h2 className="text-6xl font-extrabold text-center text-gray-800 mb-12">
@@ -144,7 +174,6 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
             )}
           </tbody>
         </table>
-        <NewBookingListener />
       </div>
     </div>
   );

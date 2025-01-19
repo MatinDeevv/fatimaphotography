@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
-import NewBookingListener from '@/app/admin/newbooking';
+
 type Booking = {
   id: number;
   fullName: string;
@@ -49,7 +49,7 @@ const AdminPage = () => {
       ) : (
         <Bookings bookings={bookings} reloadBookings={fetchBookings} />
       )}
-       <NewBookingListener />
+
     </div>
   );
 };
