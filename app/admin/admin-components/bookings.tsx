@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { supabase } from '@/app/admin/supabaseClient';
-
+import NewBookingListener from '@/app/admin/newbooking';
 type Booking = {
   id: number;
   fullName: string;
@@ -144,6 +144,7 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
             )}
           </tbody>
         </table>
+        <NewBookingListener />
       </div>
     </div>
   );
