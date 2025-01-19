@@ -1,6 +1,6 @@
 // /app/admin/newbooking.js
 import { useEffect } from 'react';
-import { supabase } from '../../supabaseClient'; // Adjust the import path based on your setup
+import { supabase } from '@/app/admin/supabaseClient'; // Adjust the import path based on your setup
 import axios from 'axios';
 
 const NewBookingListener = () => {
