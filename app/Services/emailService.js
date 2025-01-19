@@ -16,7 +16,10 @@ export const sendEmail = async (to, subject, text) => {
     text,
   };
 
+
+
   
+
   try {
     await transporter.sendMail(mailOptions);
     console.log('Email sent successfully!');
