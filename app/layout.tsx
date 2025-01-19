@@ -1,26 +1,25 @@
 // app/layout.tsx
 
-import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Analytics } from '@vercel/analytics/react'
-import type { PropsWithChildren } from 'react'
-import './globals.css'
-import { Italiana } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
+import type { PropsWithChildren } from 'react';
+import './globals.css';
+import { Italiana } from 'next/font/google';
 
 // 1) Import the JSON directly from public/seo.json
 //    Adjust this relative path if needed in your project.
-import seoData from '@/public/seo.json'
+import seoData from '@/public/seo.json';
 
 // 2) Set up Google Font (Italiana). Ensure "weight" is set:
 const italiana = Italiana({
   weight: '400',
   subsets: ['latin'],
-  display: 'swap',
-})
+  display: 'swap'
+});
 
 // 3) RootLayout: Applies to *all* pages
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    
     <html lang="en" className={italiana.className}>
       <head>
         {/* === Primary Meta Tags === */}
@@ -48,7 +47,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(seoData.structuredData),
+            __html: JSON.stringify(seoData.structuredData)
           }}
         />
 
@@ -69,5 +68,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

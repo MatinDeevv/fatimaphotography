@@ -20,8 +20,8 @@ const imageGroups = [
       'story-1/couple1-photo2.jpg',
       'story-1/couple1-photo3.jpg',
       'story-1/couple1-photo4.jpg',
-      'story-1/couple1-photo5.jpg',
-    ],
+      'story-1/couple1-photo5.jpg'
+    ]
   },
   {
     id: 'couple6',
@@ -31,8 +31,8 @@ const imageGroups = [
       'story-6/ar03.jpg',
       'story-6/ar04.jpg',
       'story-6/ar01.jpg',
-      'story-6/ar02.jpg',
-    ],
+      'story-6/ar02.jpg'
+    ]
   },
   {
     id: 'couple5',
@@ -42,8 +42,8 @@ const imageGroups = [
       'story-5/sab02.jpg',
       'story-5/sab03.jpg',
       'story-5/sab04.jpg',
-      'story-5/sab05.jpg',
-    ],
+      'story-5/sab05.jpg'
+    ]
   },
   {
     id: 'couple2',
@@ -53,8 +53,8 @@ const imageGroups = [
       'story-2/Her04.jpg',
       'story-2/Her05.jpg',
       'story-2/Her06.jpg',
-      'story-2/Her07.jpg',
-    ],
+      'story-2/Her07.jpg'
+    ]
   },
   {
     id: 'couple3',
@@ -64,20 +64,14 @@ const imageGroups = [
       'story-3/Pun13.jpg',
       'story-3/Pun06.jpg',
       'story-3/Pun05.jpg',
-      'story-3/Pun04.jpg',
-    ],
+      'story-3/Pun04.jpg'
+    ]
   },
   {
     id: 'couple4',
     name: 'Haniyeh & Shayan',
-    images: [
-      'story-4/4.jpg',
-      'story-4/5.jpg',
-      'story-4/6.jpg',
-      'story-4/2.jpg',
-      'story-4/3.jpg',
-    ],
-  },
+    images: ['story-4/4.jpg', 'story-4/5.jpg', 'story-4/6.jpg', 'story-4/2.jpg', 'story-4/3.jpg']
+  }
 ];
 
 export default function Page() {
@@ -107,7 +101,7 @@ export default function Page() {
       <main className="bg-green-950 text-white font">
         <NavBar />
         <h1></h1>
-🔔
+        🔔
         <header className="relative h-screen mb-40">
           {images.length > 0 ? (
             <Swiper
@@ -119,7 +113,7 @@ export default function Page() {
                 60: { slidesPerView: 1 },
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
+                1024: { slidesPerView: 3 }
               }}
               onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
               className="h-full w-full"
@@ -140,7 +134,6 @@ export default function Page() {
             </div>
           )}
         </header>
-
         <section className="flex items-center mt-30 mb-40 justify-center py-20 px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
@@ -148,30 +141,29 @@ export default function Page() {
                 My name is <span className="text-green-200">FATIMA</span>
               </h1>
               <p className=" text-white leading-relaxed font-sans text-xl">
-              I strive to freeze moments that matter the most. I'm a PhD student of mechanical engineering and a passionate photographer. I use my engineering skills at photography to capture perfect view of your beautiful moments.
+                I strive to freeze moments that matter the most. I&apos;m a PhD student of
+                mechanical engineering and a passionate photographer. I use my engineering skills at
+                photography to capture perfect view of your beautiful moments.
               </p>
             </div>
             <div>
-            <img src="about.png" alt="fatima" className="w-full h-full max-w-full object-cover rounded-lg shadow-lg" />
-
-
+              <img
+                src="about.png"
+                alt="fatima"
+                className="w-full h-full max-w-full object-cover rounded-lg shadow-lg"
+              />
             </div>
           </div>
         </section>
-
         <CircularGallery imageGroups={imageGroups} />
         <Review />
         <WhyUs />
         <CompactContactSection />
-
         <footer className="bg-white border-t font-body border-gray-200 py-6">
           <div className="container mx-auto flex justify-center items-center px-4">
             <div className="text-base font-medium text-gray-700 text-center">
               Windsor, London, Toronto |{' '}
-              <a
-                href="mailto:fashamifatemeh@gmail.com"
-                className="hover:text-green-600 transition"
-              >
+              <a href="mailto:fashamifatemeh@gmail.com" className="hover:text-green-600 transition">
                 fashamifatemeh@gmail.com
               </a>{' '}
               |{' '}

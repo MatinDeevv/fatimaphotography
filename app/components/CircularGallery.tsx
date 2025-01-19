@@ -26,9 +26,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
     ? imageGroups.filter((group) => group.id === expandedGroup)
     : imageGroups;
 
-  const activeImages = expandedGroup
-    ? visibleGroups[0]?.images || []
-    : [];
+  const activeImages = expandedGroup ? visibleGroups[0]?.images || [] : [];
 
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100">
@@ -36,9 +34,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
       <h1 className="text-3xl sm:text-5xl font-bold  mt-16 sm:mt-24 text-gray-900 text-center">
         THE LATEST SHOOTS
       </h1>
-      <h3 className="text-lg sm:text-xl font-bold mb-12 sm:mb-16 text-gray-900 text-center">
-      
-      </h3>
+      <h3 className="text-lg sm:text-xl font-bold mb-12 sm:mb-16 text-gray-900 text-center"></h3>
 
       {/* Removed max-w-7xl, set spaceBetween to 0 */}
       <Swiper
@@ -46,12 +42,12 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
         autoplay={{ delay: 2000, disableOnInteraction: false }}
         slidesPerView={1}
         centeredSlides={true}
-        spaceBetween={0} 
+        spaceBetween={0}
         breakpoints={{
           40: { slidesPerView: 1, spaceBetween: 0 },
           640: { slidesPerView: 1, spaceBetween: 0 },
           768: { slidesPerView: 2, spaceBetween: 0 },
-          1024: { slidesPerView: 3, spaceBetween: 0 },
+          1024: { slidesPerView: 3, spaceBetween: 0 }
         }}
         modules={[Autoplay]}
         className="w-full h-full mb-24" // full width, no horizontal margin
@@ -73,7 +69,7 @@ const CircularGallery: React.FC<CircularGalleryProps> = ({ imageGroups }) => {
                         className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg opacity-90 hover:opacity-100"
                         style={{
                           transform: `rotate(${index * 6 - 6}deg)`,
-                          zIndex,
+                          zIndex
                         }}
                       >
                         <img

@@ -21,12 +21,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
   const handleLogin = () => {
     const validCredentials = [
       { username: 'admin', password: 'admin123', role: 'admin' },
-      { username: 'developer', password: 'dev', role: 'developer' },
+      { username: 'developer', password: 'dev', role: 'developer' }
     ];
 
-    const user = validCredentials.find(
-      (u) => u.username === username && u.password === password
-    );
+    const user = validCredentials.find((u) => u.username === username && u.password === password);
 
     if (user) {
       if (user.role === 'developer') {
@@ -43,9 +41,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
       <div className="relative bg-white bg-opacity-10 p-10 rounded-3xl shadow-2xl w-full max-w-md backdrop-blur-lg">
         <div className="text-center mb-8">
-          <h2 className="text-5xl font-extrabold text-white tracking-wide">
-            Welcome Back
-          </h2>
+          <h2 className="text-5xl font-extrabold text-white tracking-wide">Welcome Back</h2>
           <p className="text-gray-300 mt-2">Sign in to manage your dashboard</p>
         </div>
 
@@ -59,9 +55,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
               onChange={(e) => setUsername(e.target.value)}
               className="w-full p-4 bg-transparent border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white placeholder-gray-400"
             />
-            <span className="absolute top-3 left-4 text-gray-400 text-xl">
-              👤
-            </span>
+            <span className="absolute top-3 left-4 text-gray-400 text-xl">👤</span>
           </div>
 
           {/* Password Input */}
@@ -73,17 +67,11 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-4 bg-transparent border border-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white placeholder-gray-400"
             />
-            <span className="absolute top-3 left-4 text-gray-400 text-xl">
-              🔒
-            </span>
+            <span className="absolute top-3 left-4 text-gray-400 text-xl">🔒</span>
           </div>
 
           {/* Error Message */}
-          {error && (
-            <p className="text-red-400 text-sm text-center animate-pulse">
-              {error}
-            </p>
-          )}
+          {error && <p className="text-red-400 text-sm text-center animate-pulse">{error}</p>}
 
           {/* Login Button */}
           <button
@@ -96,7 +84,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
 
         <div className="text-center mt-8">
           <p className="text-sm text-gray-400">
-            Need help? <a href="#" className="underline hover:text-white">Contact Support</a>
+            Need help?{' '}
+            <a href="#" className="underline hover:text-white">
+              Contact Support
+            </a>
           </p>
         </div>
 

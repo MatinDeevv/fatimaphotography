@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
         {/* Right Section (Navigation Links) */}
         <div className="hidden md:flex space-x-4 text-base font-bold text-gray-700">
           <Link href="/portfilio" className="hover:text-green-600 transition">
-          PORTFOLIO
+            PORTFOLIO
           </Link>
           <Link href="/contact" className="hover:text-green-600 transition">
             CONTACT

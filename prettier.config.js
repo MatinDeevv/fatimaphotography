@@ -4,5 +4,5 @@ module.exports = {
   trailingComma: 'none', // Disable trailing commas
   endOfLine: 'auto',
   tabWidth: 2,
-  printWidth: 100,
+  printWidth: 100
 };

@@ -10,7 +10,7 @@ const AppointmentSection = () => {
       translateY: [20, 0],
       easing: 'easeOutQuad',
       duration: 1000,
-      delay: anime.stagger(200),
+      delay: anime.stagger(200)
     });
     anime({
       targets: '.animate-button',
@@ -18,7 +18,7 @@ const AppointmentSection = () => {
       opacity: [0, 1],
       easing: 'easeOutQuad',
       duration: 1000,
-      delay: 1200,
+      delay: 1200
     });
   }, []);
 
@@ -30,9 +30,7 @@ const AppointmentSection = () => {
           We can have a 15-minute free consulting session to figure out a suitable package for you.
         </p>
         <Link href="/contact" aria-label="Navigate to contact page for booking">
-          <button
-            className="bg-green-800 text-xl text-white py-3 px-6 rounded-lg shadow-lg scale-x-125 w-72 h-32 hover:bg-green-700 animate-button"
-          >
+          <button className="bg-green-800 text-xl text-white py-3 px-6 rounded-lg shadow-lg scale-x-125 w-72 h-32 hover:bg-green-700 animate-button">
             Book Now
           </button>
         </Link>

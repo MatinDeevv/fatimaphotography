@@ -11,8 +11,8 @@ interface PackageInfo {
   title: string;
   description: string;
   pricing: string;
-  pictures: string[];          // Must be an array of strings
-  extras: string[] | string;   // Extras can be an array of strings or just a string
+  pictures: string[]; // Must be an array of strings
+  extras: string[] | string; // Extras can be an array of strings or just a string
 }
 
 // 2) Define an interface for your PackageSection props
@@ -27,7 +27,7 @@ const HeroSection = () => {
       translateY: [100, 0],
       opacity: [0, 1],
       duration: 1000,
-      easing: 'easeOutExpo',
+      easing: 'easeOutExpo'
     });
 
     anime({
@@ -35,7 +35,7 @@ const HeroSection = () => {
       translateY: [100, 0],
       opacity: [0, 1],
       duration: 1200,
-      easing: 'easeOutExpo',
+      easing: 'easeOutExpo'
     });
   }, []);
 
@@ -117,68 +117,52 @@ const CTASection = () => <CompactContactSection />;
 
 const Footer = () => (
   <footer className="bg-white border-t font-body border-gray-200 py-6">
-  <div className="container mx-auto flex justify-center items-center px-4">
-    <div className="text-base font-medium text-gray-700 text-center">
-      Windsor, London, Toronto |{' '}
-      <a
-        href="mailto:fashamifatemeh@gmail.com"
-        className="hover:text-green-600 transition"
-      >
-        fashamifatemeh@gmail.com
-      </a>{' '}
-      |{' '}
-      <a href="tel:2267596075" className="hover:text-green-600 transition">
-        Tel: 226-759-6075
-      </a>
+    <div className="container mx-auto flex justify-center items-center px-4">
+      <div className="text-base font-medium text-gray-700 text-center">
+        Windsor, London, Toronto |{' '}
+        <a href="mailto:fashamifatemeh@gmail.com" className="hover:text-green-600 transition">
+          fashamifatemeh@gmail.com
+        </a>{' '}
+        |{' '}
+        <a href="tel:2267596075" className="hover:text-green-600 transition">
+          Tel: 226-759-6075
+        </a>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 );
 
 // 4) Change the type of packageDetails to PackageInfo[]
 const InvestmentPage = () => {
-
-  // Remove the 'public' prefix — 
-  // place these images in 'public/story-2', 'public/story-4', etc. 
+  // Remove the 'public' prefix —
+  // place these images in 'public/story-2', 'public/story-4', etc.
   // Then reference them as '/story-2/Her08.png', etc.
   const packageDetails: PackageInfo[] = [
     {
       title: 'WEDDING',
       description: 'Half day wedding coverage beginning with 6 hours',
       pricing: 'Starting at $2,200',
-      pictures: [
-        '/story-2/Her08.png',
-        '/story-4/L02.jpg',
-        '/story-4/6.jpg',
-      ],
+      pictures: ['/story-2/Her08.png', '/story-4/L02.jpg', '/story-4/6.jpg'],
       extras: [
         'All wedding packages include 1 photographer, 1 videographer, free consultation meeting, and a beautiful online gallery of memories.',
-        'All taken photos, 300 edited photos, a 1-minute highlight video, and a fully mixed video will be provided.',
-      ],
+        'All taken photos, 300 edited photos, a 1-minute highlight video, and a fully mixed video will be provided.'
+      ]
     },
     {
       title: 'ENGAGEMENT , PREWEDDING',
       description: 'Session starting with 2 hours photography coverage',
       pricing: 'Starting at $400',
-      pictures: [
-        '/story-4/2.jpg',
-        '/story-3/Pun06.jpg',
-        '/story-5/sab06.jpg',
-      ],
-      extras: 'All engagement sessions include a professional gallery of memories.',
+      pictures: ['/story-4/2.jpg', '/story-3/Pun06.jpg', '/story-5/sab06.jpg'],
+      extras: 'All engagement sessions include a professional gallery of memories.'
     },
     {
       title: 'MATERNITY',
       description: 'Family and maternity sessions for precious moments',
       pricing: 'Starting at $400',
-      pictures: [
-        '/Mat/Mat01.png',
-        '/Mat/Mat02.png',
-        '/Mat/Mat03.png',
-      ],
+      pictures: ['/Mat/Mat01.png', '/Mat/Mat02.png', '/Mat/Mat03.png'],
       extras:
-        'Sessions include a professional gallery of memories for families and expectant mothers.',
-    },
+        'Sessions include a professional gallery of memories for families and expectant mothers.'
+    }
     // More packages can go here ...
   ];
 

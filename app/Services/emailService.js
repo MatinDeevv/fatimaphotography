@@ -5,17 +5,17 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'dminphotography@gmail.com', // Your Gmail address
-    pass: 'ngavxtikhaoslmeb',         // Your Gmail App Password
-  },
+    pass: 'ngavxtikhaoslmeb' // Your Gmail App Password
+  }
 });
 
 // Function to send an email
 export const sendEmail = async (to, subject, text) => {
   const mailOptions = {
     from: 'dminphotography@gmail.com', // Sender's email address
-    to,                                // Recipient's email
-    subject,                           // Email subject
-    text,                              // Email body (plain text)
+    to, // Recipient's email
+    subject, // Email subject
+    text // Email body (plain text)
   };
 
   try {

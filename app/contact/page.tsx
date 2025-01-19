@@ -38,7 +38,7 @@ export default function Booking() {
     referral: '',
     specialRequests: '',
     eventType: '',
-    customEvent: '',
+    customEvent: ''
   });
   const [eventSpecificQuestions, setEventSpecificQuestions] = useState<any[]>([]);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -49,41 +49,41 @@ export default function Booking() {
       name: 'fullName',
       type: 'text',
       placeholder: 'Your Full Name',
-      required: true,
+      required: true
     },
     {
       label: 'Email',
       name: 'email',
       type: 'email',
       placeholder: 'Your Email',
-      required: true,
+      required: true
     },
     {
       label: 'Phone',
       name: 'phone',
       type: 'text',
       placeholder: 'Your Phone Number',
-      required: true,
+      required: true
     },
     {
       label: 'Date',
       name: 'date',
       type: 'date',
       placeholder: '',
-      required: true,
+      required: true
     },
     {
       label: 'Referral Source',
       name: 'referral',
       type: 'text',
-      placeholder: 'How did you hear about us?',
+      placeholder: 'How did you hear about us?'
     },
     {
       label: 'Special Requests',
       name: 'specialRequests',
       type: 'textarea',
-      placeholder: 'Any special requests?',
-    },
+      placeholder: 'Any special requests?'
+    }
   ];
 
   const questionsByEventType: { [key: string]: any[] } = {
@@ -92,39 +92,39 @@ export default function Booking() {
         label: 'Wedding Theme',
         name: 'weddingTheme',
         type: 'text',
-        placeholder: 'E.g., Rustic, Modern',
+        placeholder: 'E.g., Rustic, Modern'
       },
       {
         label: 'Is it an indoor or outdoor wedding?',
         name: 'weddingLocationType',
         type: 'text',
-        placeholder: 'Indoor/Outdoor',
-      },
+        placeholder: 'Indoor/Outdoor'
+      }
     ],
     engagement: [
       {
         label: 'Preferred Style',
         name: 'engagementStyle',
         type: 'text',
-        placeholder: 'E.g., Casual, Formal',
-      },
+        placeholder: 'E.g., Casual, Formal'
+      }
     ],
     portrait: [
       {
         label: 'Preferred Backdrop',
         name: 'portraitBackdrop',
         type: 'text',
-        placeholder: 'E.g., Natural, Studio',
-      },
+        placeholder: 'E.g., Natural, Studio'
+      }
     ],
     corporate: [
       {
         label: 'Event Purpose',
         name: 'corporatePurpose',
         type: 'text',
-        placeholder: 'E.g., Seminar, Product Launch',
-      },
-    ],
+        placeholder: 'E.g., Seminar, Product Launch'
+      }
+    ]
   };
 
   useEffect(() => {
@@ -158,7 +158,7 @@ export default function Booking() {
 
     setFormData((prevState) => ({
       ...prevState,
-      [name]: newValue,
+      [name]: newValue
     }));
   };
 
@@ -184,8 +184,8 @@ export default function Booking() {
           eventType: formData.eventType,
           customEvent: formData.customEvent || null,
           status: 'pending',
-          submittedAt: new Date().toISOString(),
-        },
+          submittedAt: new Date().toISOString()
+        }
       ]);
 
       if (error) {
@@ -201,7 +201,7 @@ export default function Booking() {
         referral: '',
         specialRequests: '',
         eventType: '',
-        customEvent: '',
+        customEvent: ''
       });
 
       alert('Thank you for booking! We’ll be in touch soon.');

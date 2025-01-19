@@ -15,7 +15,7 @@ const REVIEWS = [
     avatar: 'reviews/tanu.png',
     review: `I would suggest Fatima to everyone. She really did amazing with our pre-wedding and engagement shoot and made me feel so comfortable as we both are camera-shy.`
   },
-  
+
   {
     id: 3,
     name: 'Simran & Ramandeep',
@@ -80,7 +80,9 @@ const Slider: React.FC = () => {
               />
               <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-[600px]">
                 <blockquote className="text-white p-4 sm:p-6 rounded-lg baskervville-sc-regular">
-                  <p className="text-lg sm:text-xl font-semibold font-sans mb-2">{currentCard.name}</p>
+                  <p className="text-lg sm:text-xl font-semibold font-sans mb-2">
+                    {currentCard.name}
+                  </p>
                   <p className="text-sm sm:text-base font-sans">{currentCard.review}</p>
                 </blockquote>
               </div>

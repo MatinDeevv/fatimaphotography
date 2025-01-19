@@ -17,14 +17,14 @@ type Booking = {
   submittedAt: string;
 };
 
-const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = ({ bookings, reloadBookings }) => {
+const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = ({
+  bookings,
+  reloadBookings
+}) => {
   // Function to update booking status
   const updateStatus = async (id: number, newStatus: string) => {
     try {
-      const { error } = await supabase
-        .from('bookings')
-        .update({ status: newStatus })
-        .eq('id', id);
+      const { error } = await supabase.from('bookings').update({ status: newStatus }).eq('id', id);
 
       if (error) {
         console.error('Error updating status:', error);
@@ -41,9 +41,7 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
 
   // Function to delete a booking
   const deleteBooking = async (id: number) => {
-    const confirmation = prompt(
-      'To confirm deletion, type "Delete Booking" exactly.'
-    );
+    const confirmation = prompt('To confirm deletion, type "Delete Booking" exactly.');
 
     if (confirmation !== 'Delete Booking') {
       alert('Booking deletion canceled.');
@@ -114,8 +112,8 @@ const Bookings: React.FC<{ bookings: Booking[]; reloadBookings: () => void }> = 
                       booking.status === 'pending'
                         ? 'text-yellow-500'
                         : booking.status === 'completed'
-                        ? 'text-green-500'
-                        : 'text-red-500'
+                          ? 'text-green-500'
+                          : 'text-red-500'
                     }`}
                   >
                     {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}

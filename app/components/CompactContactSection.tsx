@@ -42,40 +42,40 @@ const eventQuestionsConfig: Record<EventType, Question[]> = {
       label: 'Wedding Theme',
       name: 'weddingTheme',
       type: 'text',
-      placeholder: 'E.g., Rustic, Modern',
+      placeholder: 'E.g., Rustic, Modern'
     },
     {
       label: 'Is it an indoor or outdoor wedding?',
       name: 'weddingLocationType',
       type: 'text',
-      placeholder: 'Indoor/Outdoor',
-    },
+      placeholder: 'Indoor/Outdoor'
+    }
   ],
   engagement: [
     {
       label: 'Preferred Style',
       name: 'engagementStyle',
       type: 'text',
-      placeholder: 'E.g., Casual, Formal',
-    },
+      placeholder: 'E.g., Casual, Formal'
+    }
   ],
   portrait: [
     {
       label: 'Preferred Backdrop',
       name: 'portraitBackdrop',
       type: 'text',
-      placeholder: 'E.g., Natural, Studio',
-    },
+      placeholder: 'E.g., Natural, Studio'
+    }
   ],
   corporate: [
     {
       label: 'Event Purpose',
       name: 'corporatePurpose',
       type: 'text',
-      placeholder: 'E.g., Seminar, Product Launch',
-    },
+      placeholder: 'E.g., Seminar, Product Launch'
+    }
   ],
-  other: [],
+  other: []
 };
 
 const CompactContactSection: React.FC = () => {
@@ -87,7 +87,7 @@ const CompactContactSection: React.FC = () => {
     referral: '',
     specialRequests: '',
     eventType: 'other',
-    customEvent: '',
+    customEvent: ''
   });
 
   const [eventSpecificQuestions, setEventSpecificQuestions] = useState<Question[]>([]);
@@ -98,7 +98,7 @@ const CompactContactSection: React.FC = () => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -129,8 +129,8 @@ const CompactContactSection: React.FC = () => {
           eventType: formData.eventType,
           customEvent: formData.customEvent || null,
           status: 'pending',
-          submittedAt: new Date().toISOString(),
-        },
+          submittedAt: new Date().toISOString()
+        }
       ]);
 
       if (error) {
@@ -146,7 +146,7 @@ const CompactContactSection: React.FC = () => {
         referral: '',
         specialRequests: '',
         eventType: 'other',
-        customEvent: '',
+        customEvent: ''
       });
     } catch (err) {
       console.error('Error submitting booking:', err);
@@ -164,9 +164,10 @@ const CompactContactSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-4xl mb-6 text-green-700">Let's Connect</h2>
+        <h2 className="text-4xl mb-6 text-green-700">Let&apos;s Connect</h2>
         <p className="text-lg md:text-xl font-sans mb-10">
-          Have questions or want to book a session? Fill out the form below, and let's create something amazing together!
+          Have questions or want to book a session? Fill out the form below, and let&apos;s create
+          something amazing together!
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">

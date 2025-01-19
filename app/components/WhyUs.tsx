@@ -39,7 +39,7 @@ const WhyUsSection: React.FC = () => {
       translateY: [20, 0],
       easing: 'easeOutExpo',
       duration: 1000,
-      delay: anime.stagger(200),
+      delay: anime.stagger(200)
     });
   }, []);
 
@@ -67,7 +67,7 @@ const WhyUsSection: React.FC = () => {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          transformOrigin: 'center', // scale from center
+          transformOrigin: 'center' // scale from center
         }}
       >
         {/* === Your original absolute layout code === */}
@@ -91,7 +91,7 @@ font-bold
           >
             AND HOW WE MIGHT <br /> PLAY A ROLE <br /> IN TELLING YOUR STORY
           </h1>
-          
+
           <div className="flex space-x-8">
             <div className="w-[450px] h-[300px] mt-96 flex items-center justify-center static">
               <span className="text-gray-400">

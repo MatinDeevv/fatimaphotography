@@ -34,52 +34,51 @@ const staticStories: Story[] = [
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/malekandshelair/',
     tags: ['Wedding', 'Arab']
   },
-    {
-      id: 3,
-      couple: 'Simran & Ramandeep',
-      date: 'September 2024',
-      thumbnail: '/pictures-gallery/Sim02.png',
-      description: 'An unforgettable scene full of emotion.',
-      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web-1/',
-      tags: ['Wedding', 'South Asian' ]
-    },
-    {
-      id: 4,
-      couple: 'Savreet & Ramandeep',
-      date: 'September 2024',
-      thumbnail: '/pictures-gallery/DSC_0280.jpg',
-      description: 'An unforgettable scene full of emotion.',
-      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web/',
-      tags: ['Wedding', 'South Asian' ]
-    },
-    {
-      id: 5,
-      couple: 'Hanieh & Shayan',
-      date: 'September 2024',
-      thumbnail: '/pictures-gallery/Han11.png',
-      description: 'An unforgettable scene full of emotion.',
-      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniehandshayan/',
-      tags: ['Pre-Wedding','Persian' ]
-    },
-    {
-      id: 6,
-      couple: 'Lida & Tam',
-      date: 'Augest 2024',
-      thumbnail: '/pictures-gallery/L01.jpg',
-      description: 'An unforgettable scene full of emotion.',
-      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/lidaandtam/',
-      tags: ['Wedding','Asian' ]
-    },
-    {
-      id: 7,
-      couple: 'Hersehell & Roberto',
-      date: 'October 2024',
-      thumbnail: 'story-2/Her07.jpg',
-      description: 'An unforgettable scene full of emotion.',
-      pixiesetLink: 'https://fatimaphotographyca.pixieset.com/hersehellandroberto/',
-      tags: ['Wedding','Asian' ]
-    },
-    
+  {
+    id: 3,
+    couple: 'Simran & Ramandeep',
+    date: 'September 2024',
+    thumbnail: '/pictures-gallery/Sim02.png',
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web-1/',
+    tags: ['Wedding', 'South Asian']
+  },
+  {
+    id: 4,
+    couple: 'Savreet & Ramandeep',
+    date: 'September 2024',
+    thumbnail: '/pictures-gallery/DSC_0280.jpg',
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web/',
+    tags: ['Wedding', 'South Asian']
+  },
+  {
+    id: 5,
+    couple: 'Hanieh & Shayan',
+    date: 'September 2024',
+    thumbnail: '/pictures-gallery/Han11.png',
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniehandshayan/',
+    tags: ['Pre-Wedding', 'Persian']
+  },
+  {
+    id: 6,
+    couple: 'Lida & Tam',
+    date: 'Augest 2024',
+    thumbnail: '/pictures-gallery/L01.jpg',
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/lidaandtam/',
+    tags: ['Wedding', 'Asian']
+  },
+  {
+    id: 7,
+    couple: 'Hersehell & Roberto',
+    date: 'October 2024',
+    thumbnail: 'story-2/Her07.jpg',
+    description: 'An unforgettable scene full of emotion.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/hersehellandroberto/',
+    tags: ['Wedding', 'Asian']
+  }
 ];
 
 export default function PortfolioPage() {
@@ -94,15 +93,17 @@ export default function PortfolioPage() {
       try {
         const response = await fetch('/api/getUploads');
         const data = await response.json();
-        const uploads: Story[] = data.files.map((file: { name: string; url: string }, index: number) => ({
-          id: staticStories.length + index + 1,
-          couple: file.name.split('.')[0], // Use file name as placeholder for couple name
-          date: 'Uploaded Story',
-          thumbnail: file.url,
-          description: 'Uploaded through the admin panel.',
-          pixiesetLink: file.url,
-          tags: ['Upload']
-        }));
+        const uploads: Story[] = data.files.map(
+          (file: { name: string; url: string }, index: number) => ({
+            id: staticStories.length + index + 1,
+            couple: file.name.split('.')[0], // Use file name as placeholder for couple name
+            date: 'Uploaded Story',
+            thumbnail: file.url,
+            description: 'Uploaded through the admin panel.',
+            pixiesetLink: file.url,
+            tags: ['Upload']
+          })
+        );
         setUploadedStories(uploads);
       } catch (error) {
         console.error('Error fetching uploads:', error);
@@ -134,7 +135,7 @@ export default function PortfolioPage() {
 
   return (
     <>
-    <NoContextMenuPage />
+      <NoContextMenuPage />
       <Head>
         <title>Portfolio | Fatima Photography</title>
         <meta
@@ -231,26 +232,25 @@ export default function PortfolioPage() {
               </button>
             </div>
           )}
-                <footer className="bg-white border-t font-body border-gray-200 py-6">
-          <div className="container mx-auto flex justify-center items-center px-4">
-            <div className="text-base font-medium text-gray-700 text-center">
-              Windsor, London, Toronto |{' '}
-              <a
-                href="mailto:fashamifatemeh@gmail.com"
-                className="hover:text-green-600 transition"
-              >
-                fashamifatemeh@gmail.com
-              </a>{' '}
-              |{' '}
-              <a href="tel:2267596075" className="hover:text-green-600 transition">
-                Tel: 226-759-6075
-              </a>
+          <footer className="bg-white border-t font-body border-gray-200 py-6">
+            <div className="container mx-auto flex justify-center items-center px-4">
+              <div className="text-base font-medium text-gray-700 text-center">
+                Windsor, London, Toronto |{' '}
+                <a
+                  href="mailto:fashamifatemeh@gmail.com"
+                  className="hover:text-green-600 transition"
+                >
+                  fashamifatemeh@gmail.com
+                </a>{' '}
+                |{' '}
+                <a href="tel:2267596075" className="hover:text-green-600 transition">
+                  Tel: 226-759-6075
+                </a>
+              </div>
             </div>
-          </div>
-        </footer>
+          </footer>
         </main>
       </div>
-
     </>
   );
 }

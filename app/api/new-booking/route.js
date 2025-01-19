@@ -3,7 +3,7 @@ import { sendEmail } from '../../Services/emailService';
 export async function POST(req) {
   try {
     const body = await req.json(); // Parse JSON body
-    
+
     const {
       fullName,
       email,
@@ -14,13 +14,13 @@ export async function POST(req) {
       status,
       submittedAt,
       referral,
-      specialRequests,
+      specialRequests
     } = body;
 
     // Validate required fields
     if (!fullName || !email || !eventType || !date) {
       return new Response(JSON.stringify({ error: 'Missing required fields.' }), {
-        status: 400,
+        status: 400
       });
     }
 
@@ -51,12 +51,12 @@ export async function POST(req) {
 
     // Respond with success
     return new Response(JSON.stringify({ message: 'Admins notified successfully!' }), {
-      status: 200,
+      status: 200
     });
   } catch (error) {
     console.error('Error notifying admins:', error.message);
     return new Response(JSON.stringify({ error: 'Failed to notify admins.' }), {
-      status: 500,
+      status: 500
     });
   }
 }
