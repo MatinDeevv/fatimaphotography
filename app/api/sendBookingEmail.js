@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     // Set up email options
     const mailOptions = {
       from: 'dminphotography@gmail.com', // Sender address
-      to: 'admin-email@example.com', // Replace with the admin's email
+      to: 'pandasmp91@gmail.com', // Replace with the admin's email
       subject: `New Booking: ${eventType}`, // Subject line
       text: `
         A new booking has been made. Here are the details:
