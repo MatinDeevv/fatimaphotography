@@ -14,7 +14,7 @@ const Footer = () => {
               <a href="tel:2267596075" className="hover:text-green-600 font-body transition">
                 Tel: 226-759-6075
               </a>
-              <Link href="/" className="hover:text-green-600 ml-5 font-body transition">
+              <Link href="/privacypolicy" className="hover:text-green-600 ml-5 font-body transition">
                     PrivacyPolicy
           </Link>
             </div>
