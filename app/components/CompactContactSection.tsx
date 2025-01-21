@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { supabase } from '@/app/admin/supabaseClient';
+import { fail } from 'assert';
 
 // Define possible event types
 type EventType = 'wedding' | 'engagement' | 'portrait' | 'corporate' | 'other';
@@ -343,5 +344,10 @@ const CompactContactSection: React.FC = () => {
     </section>
   );
 };
+
+
+
+
+
 
 export default CompactContactSection;
