@@ -82,7 +82,7 @@ const PrivacyPolicy: React.FC = () => {
           If you have any questions about this Privacy Policy, please contact us:
         </p>
         <ul className="list-disc font-body list-inside space-y-2">
-          <li>Email: <a href="mailto:your-email@example.com" className="text-blue-600 underline">your-email@example.com</a></li>
+          <li>Email: <a href="mailto:fashamifatemeh@gmail.com" className="text-blue-600 underline">fashamifatemeh@gmail.com</a></li>
           <li>Phone: <a href="tel:+1234567890" className="text-blue-600 underline">+1 234 567 890</a></li>
           <li>Website: <a href="https://fatimaphotography.ca" className="text-blue-600 underline">fatimaphotography.ca</a></li>
         </ul>
