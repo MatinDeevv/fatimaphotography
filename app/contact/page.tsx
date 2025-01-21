@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
 import { supabase } from '@/app/admin/supabaseClient'; // Import Supabase client
+import Footer from '../components/Footer';
 
 type FormDataKeys =
   | 'fullName'
@@ -310,6 +311,7 @@ export default function Booking() {
             Submit Booking
           </button>
         </form>
+        <Footer />
       </div>
     </>
   );

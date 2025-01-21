@@ -10,6 +10,7 @@ import Review from '@/app/components/Reviews';
 import CompactContactSection from '@/app/components/CompactContactSection';
 import WhyUs from '@/app/components/WhyUs';
 import NavBar from '@/app/components/NavBar';
+import Footer from '@/app/components/Footer';
 import Image from 'next/image';
 const imageGroups = [
   {
@@ -159,20 +160,7 @@ export default function Page() {
         <Review />
         <WhyUs />
         <CompactContactSection />
-        <footer className="bg-white border-t font-body border-gray-200 py-6">
-          <div className="container mx-auto flex justify-center items-center px-4">
-            <div className="text-base font-medium text-gray-700 text-center">
-              Windsor, London, Toronto |{' '}
-              <a href="mailto:fashamifatemeh@gmail.com" className="hover:text-green-600 transition">
-                fashamifatemeh@gmail.com
-              </a>{' '}
-              |{' '}
-              <a href="tel:2267596075" className="hover:text-green-600 transition">
-                Tel: 226-759-6075
-              </a>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
     </>
   );

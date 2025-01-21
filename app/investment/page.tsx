@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import anime from 'animejs/lib/anime.es.js';
 import NavBar from '@/app/components/NavBar';
 import CompactContactSection from '@/app/components/CompactContactSection';
+import Footer from '@/app/components/Footer';
 
 // 1) Define an interface for your package shape
 interface PackageInfo {
@@ -115,22 +116,7 @@ const PackageSection = ({ pkg }: PackageSectionProps) => {
 
 const CTASection = () => <CompactContactSection />;
 
-const Footer = () => (
-  <footer className="bg-white border-t font-body border-gray-200 py-6">
-    <div className="container mx-auto flex justify-center items-center px-4">
-      <div className="text-base font-medium text-gray-700 text-center">
-        Windsor, London, Toronto |{' '}
-        <a href="mailto:fashamifatemeh@gmail.com" className="hover:text-green-600 transition">
-          fashamifatemeh@gmail.com
-        </a>{' '}
-        |{' '}
-        <a href="tel:2267596075" className="hover:text-green-600 transition">
-          Tel: 226-759-6075
-        </a>
-      </div>
-    </div>
-  </footer>
-);
+
 
 // 4) Change the type of packageDetails to PackageInfo[]
 const InvestmentPage = () => {

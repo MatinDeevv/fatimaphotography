@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
 import NoContextMenuPage from '@/app/components/DisableContextMenu';
+import Footer from '@/app/components/Footer';
 type Story = {
   id: number;
   couple: string;
@@ -232,23 +233,7 @@ export default function PortfolioPage() {
               </button>
             </div>
           )}
-          <footer className="bg-white border-t font-body border-gray-200 py-6">
-            <div className="container mx-auto flex justify-center items-center px-4">
-              <div className="text-base font-medium text-gray-700 text-center">
-                Windsor, London, Toronto |{' '}
-                <a
-                  href="mailto:fashamifatemeh@gmail.com"
-                  className="hover:text-green-600 transition"
-                >
-                  fashamifatemeh@gmail.com
-                </a>{' '}
-                |{' '}
-                <a href="tel:2267596075" className="hover:text-green-600 transition">
-                  Tel: 226-759-6075
-                </a>
-              </div>
-            </div>
-          </footer>
+<Footer />
         </main>
       </div>
     </>
