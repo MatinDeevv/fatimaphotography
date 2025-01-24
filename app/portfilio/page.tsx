@@ -79,7 +79,16 @@ const staticStories: Story[] = [
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/hersehellandroberto/',
     tags: ['Wedding', 'Asian']
-  }
+  },
+  {
+    id: 8,
+    couple: 'Hania & Hadi',
+    date: 'December, 2024',
+    thumbnail: 'story-7/DSC_3486.JPG',
+    description: 'A captivating moment captured in time.',
+    pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniaandhadi-1/',
+    tags: ['engagement']
+  },
 ];
 
 export default function PortfolioPage() {
