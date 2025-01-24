@@ -18,7 +18,7 @@ type Story = {
 // Static Stories
 const staticStories: Story[] = [
   {
-    id: 1,
+    id: 5,
     couple: 'Saba & Vaji',
     date: 'October 20th, 2024',
     thumbnail: 'story-5/sab01.jpg',
@@ -36,7 +36,7 @@ const staticStories: Story[] = [
     tags: ['Wedding', 'Arab']
   },
   {
-    id: 3,
+    id: 6,
     couple: 'Simran & Ramandeep',
     date: 'September 2024',
     thumbnail: '/pictures-gallery/Sim02.png',
@@ -54,7 +54,7 @@ const staticStories: Story[] = [
     tags: ['Wedding', 'South Asian']
   },
   {
-    id: 5,
+    id: 1,
     couple: 'Hanieh & Shayan',
     date: 'September 2024',
     thumbnail: '/pictures-gallery/Han11.png',
@@ -63,7 +63,7 @@ const staticStories: Story[] = [
     tags: ['Pre-Wedding', 'Persian']
   },
   {
-    id: 6,
+    id: 3,
     couple: 'Lida & Tam',
     date: 'Augest 2024',
     thumbnail: '/pictures-gallery/L01.jpg',
