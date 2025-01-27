@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: '"FatimaPhotography Admin" <dminphotography@gmail.com>',
-      to: 'pandasmp91@gmail.com', // Replace with your email
+      to: 'pandasmp91@gmail.com, fashamifatemeh@gmail.com', // Replace with your email
       subject: `New Booking Submission from ${formData.name}`,
       text: `
         You have received a new booking:
