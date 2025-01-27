@@ -32,6 +32,6 @@
     "app/**/*",
     "types/**/*.d.ts",
     "app/**/*"
-  ],
+, "app/api/server.js"  ],
   "exclude": ["node_modules"]
 }

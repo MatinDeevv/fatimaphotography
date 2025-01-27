@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
 import { supabase } from '@/app/admin/supabaseClient'; // Import Supabase client
 import Footer from '../components/Footer';
-
+import sendEmail from '@/app/utils/sendEmailHandler'; // Adjust the import path as necessary
 type FormDataKeys =
   | 'fullName'
   | 'email'
@@ -165,13 +165,13 @@ export default function Booking() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     // Validate required fields
     if (!formData.fullName || !formData.email || !formData.phone || !formData.date) {
       alert('Please fill out all required fields.');
       return;
     }
-
+  
     try {
       // Insert data into Supabase
       const { data, error } = await supabase.from('bookings').insert([
@@ -185,14 +185,35 @@ export default function Booking() {
           eventType: formData.eventType,
           customEvent: formData.customEvent || null,
           status: 'pending',
-          submittedAt: new Date().toISOString()
-        }
+          submittedAt: new Date().toISOString(),
+        },
       ]);
-
+  
       if (error) {
         throw error;
       }
-
+  
+      // Send email with form data
+      const emailResponse = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          date: formData.date,
+          referral: formData.referral,
+          specialRequests: formData.specialRequests,
+          eventType: formData.eventType,
+          customEvent: formData.customEvent || 'N/A',
+        }),
+      });
+  
+      const emailResult = await emailResponse.json();
+      if (!emailResponse.ok) {
+        throw new Error(emailResult.error || 'Failed to send email');
+      }
+  
       // Reset form data
       setFormData({
         fullName: '',
@@ -202,15 +223,16 @@ export default function Booking() {
         referral: '',
         specialRequests: '',
         eventType: '',
-        customEvent: ''
+        customEvent: '',
       });
-
+  
       alert('Thank you for booking! We’ll be in touch soon.');
     } catch (error) {
       console.error('Error submitting booking:', error);
       alert('Something went wrong. Please try again later.');
     }
   };
+  
 
   return (
     <>
