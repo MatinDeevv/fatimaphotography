@@ -13,6 +13,7 @@ import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Image from 'next/image';
 import Carousel from './components/Carousel';
+import SpecialOffersBanner from './components/SpecialOffersBanner';
 const imageGroups = [
   {
     id: 'couple1',
@@ -102,8 +103,7 @@ export default function Page() {
 
       <main className="bg-green-950 text-white font">
         <NavBar />
-        <h1></h1>
-        🔔
+
         <header className="relative h-screen mb-40">
           <Carousel images={images} />
         </header>
