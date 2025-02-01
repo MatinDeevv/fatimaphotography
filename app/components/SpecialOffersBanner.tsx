@@ -11,7 +11,7 @@ const SpecialOffersBanner = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <h2 className="text-3xl font-bold">💘 Valentine's Special Offer! 💘</h2>
+      <h2 className="text-3xl font-bold">💘 Valentine&apos;s Special Offer! 💘</h2>
       <p className="text-lg mt-2">Book now and save 15% on your romantic photoshoot!</p>
       <Link href="/offers">
         <motion.button

@@ -52,7 +52,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            VALENTINE'S DAY SPECIAL ❤️
+            VALENTINE&apos;S DAY SPECIAL ❤️
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl max-w-2xl text-white font-bold mx-auto leading-relaxed hero-description"
@@ -81,9 +81,9 @@ const OfferSection = () => {
   return (
     <section className="py-20 bg-pink-100 text-red-900 text-center">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-6">Valentine’s Love Package 💕</h2>
+        <h2 className="text-4xl font-bold mb-6">Valentine&apos;s Love Package 💕</h2>
         <p className="text-xl max-w-2xl mx-auto">
-          Capture the beauty of love with an exclusive couple’s photoshoot. Perfect for anniversaries, engagements, or just celebrating love!
+          Capture the beauty of love with an exclusive couple&apos;s photoshoot. Perfect for anniversaries, engagements, or just celebrating love!
         </p>
 
         <div className="text-3xl font-bold text-red-700 my-4">💖 15% OFF Limited Time! 💖</div>
