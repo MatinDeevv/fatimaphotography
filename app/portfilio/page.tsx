@@ -158,7 +158,6 @@ export default function PortfolioPage() {
 
       {/* Navbar */}
       <Navbar />
-      <SpecialOffersBanner />
 
       {/* Hero Section */}
       <header className="h-64 bg-green-950 flex items-center justify-center">

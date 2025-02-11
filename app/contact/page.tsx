@@ -242,7 +242,6 @@ export default function Booking() {
         <meta name="description" content="Book your session with us today!" />
       </Head>
       <Navbar />
-      <SpecialOffersBanner />
       <div
         className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center text-gray-900"
         style={{ backgroundImage: `url(${backgroundImage})` }}

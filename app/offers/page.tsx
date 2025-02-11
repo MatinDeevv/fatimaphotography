@@ -84,7 +84,7 @@ const OfferSection = () => {
         <h2 className="text-4xl font-body font-bold mb-6">Valentine&apos;s Love Package 💕</h2>
         
         <p className='text-2xl font-body max-w-2xl mx-auto'>Mini Session starting with 40 minutes PhotoGraphy coverage  $250</p>
-        <p className='text-2xl font-body max-w-2xl mx-auto'>Mini Session starting with 1/5 hour VideoGraphy coverage $400</p>
+        <p className='text-2xl font-body max-w-2xl mx-auto'>Mini Session starting with 1/5 hour VideoGraphy coverage  $400</p>
 
         <div className="text-3xl font-bold text-red-700 my-4">💖 15% OFF Limited Time! 💖</div>
 
