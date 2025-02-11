@@ -43,7 +43,7 @@ const HeroSection = () => {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: 'url(/valentine-bg.jpg)' }}
       />
-      <div className="absolute inset-0 bg-red-900 bg-opacity-40" />
+      <div className="absolute inset-0 bg-pink-600 bg-opacity-40" />
       <div className="relative flex justify-center items-center h-full">
         <div className="text-center px-4">
           <motion.h1
@@ -79,12 +79,12 @@ const HeroSection = () => {
 // Valentine’s Offer Section
 const OfferSection = () => {
   return (
-    <section className="py-20 bg-pink-100 text-red-900 text-center">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-6">Valentine&apos;s Love Package 💕</h2>
-        <p className="text-xl max-w-2xl mx-auto">
-          Capture the beauty of love with an exclusive couple&apos;s photoshoot. Perfect for anniversaries, engagements, or just celebrating love!
-        </p>
+    <section className="py-20 bg-pink-100 font-body text-red-900 text-center">
+      <div className="container font-body mx-auto px-6">
+        <h2 className="text-4xl font-body font-bold mb-6">Valentine&apos;s Love Package 💕</h2>
+        
+        <p className='text-2xl font-body max-w-2xl mx-auto'>Mini Session starting with 40 minutes PhotoGraphy coverage</p>
+        <p className='text-2xl font-body max-w-2xl mx-auto'>Mini Session starting with 1/5 hour VideoGraphy coverage</p>
 
         <div className="text-3xl font-bold text-red-700 my-4">💖 15% OFF Limited Time! 💖</div>
 
@@ -92,21 +92,21 @@ const OfferSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
           <div className="relative overflow-hidden rounded-lg shadow-lg">
             <img
-              src="/valentine1.jpg"
+              src="reviews/IMG_6481.JPG"
               alt="Valentine Special 1"
               className="w-full h-full object-cover transition-transform transform hover:scale-105"
             />
           </div>
           <div className="relative overflow-hidden rounded-lg shadow-lg">
             <img
-              src="/valentine2.jpg"
+              src="reviews/IMG_6094.JPG"
               alt="Valentine Special 2"
               className="w-full h-full object-cover transition-transform transform hover:scale-105"
             />
           </div>
           <div className="relative overflow-hidden rounded-lg shadow-lg">
             <img
-              src="/valentine3.jpg"
+              src="reviews/IMG_6487.JPG"
               alt="Valentine Special 3"
               className="w-full h-full object-cover transition-transform transform hover:scale-105"
             />

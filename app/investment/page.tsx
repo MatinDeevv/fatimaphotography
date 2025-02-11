@@ -6,6 +6,7 @@ import anime from 'animejs/lib/anime.es.js';
 import NavBar from '@/app/components/NavBar';
 import CompactContactSection from '@/app/components/CompactContactSection';
 import Footer from '@/app/components/Footer';
+import SpecialOffersBanner from '../components/SpecialOffersBanner';
 
 // 1) Define an interface for your package shape
 interface PackageInfo {
@@ -155,6 +156,7 @@ const InvestmentPage = () => {
   return (
     <main className="bg-green-950 text-white font-['Playfair Display', serif]">
       <NavBar />
+      <SpecialOffersBanner />
       <HeroSection />
 
       {/* Render only 3 packages max */}

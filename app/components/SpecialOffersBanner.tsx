@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const SpecialOffersBanner = () => {
   return (
     <motion.div
-      className="bg-pink-200 text-red-900 mt-24 mb-3 py-6 px-4 text-center border-t-4 border-red-500"
+      className="bg-pink-200 text-red-900 mt-24 mb-1 py-6 px-4 text-center border-t-4 border-red-500"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}

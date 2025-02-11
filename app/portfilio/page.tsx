@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
 import NoContextMenuPage from '@/app/components/DisableContextMenu';
 import Footer from '@/app/components/Footer';
+import SpecialOffersBanner from '../components/SpecialOffersBanner';
 type Story = {
   id: number;
   couple: string;
@@ -157,6 +158,7 @@ export default function PortfolioPage() {
 
       {/* Navbar */}
       <Navbar />
+      <SpecialOffersBanner />
 
       {/* Hero Section */}
       <header className="h-64 bg-green-950 flex items-center justify-center">

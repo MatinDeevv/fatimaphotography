@@ -103,7 +103,7 @@ export default function Page() {
 
       <main className="bg-green-950 text-white font">
         <NavBar />
-
+<SpecialOffersBanner />
         <header className="relative h-screen mb-40">
           <Carousel images={images} />
         </header>
