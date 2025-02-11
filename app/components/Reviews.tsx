@@ -10,6 +10,12 @@ const REVIEWS = [
     review: `I got engaged on 1 September I got my engagement photo shoot, Photography and Videography from Fatima Photography. She has been amazing, I loved the Photo Shoot pictures and video. She is absolutely amazing at her work and I loved the professionalism and dedication that she puts in her work. I was absolutely delighted to see her hard work. I would highly recommend her, if you have weddings, birthdays, engagements, pre-wedding shoots and any other events do consider her. She has been very supportive and wonderful at her job.`
   },
   {
+    id: 8,
+    name: 'Hania & Hadi',
+    avatar: 'story-7/DSC_3486.JPG',
+    review: `Fatima did an amazing job capturing our engagement! The photos are stunning, and her  talent and professionalism made the entire process seamless. Highly recommend for any special occasion!`
+  },
+  {
     id: 0,
     name: 'Tanu & Ritesh',
     avatar: 'reviews/tanu.png',
