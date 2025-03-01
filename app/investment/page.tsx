@@ -156,7 +156,6 @@ const InvestmentPage = () => {
   return (
     <main className="bg-green-950 text-white font-['Playfair Display', serif]">
       <NavBar />
-      <SpecialOffersBanner />
       <HeroSection />
 
       {/* Render only 3 packages max */}
