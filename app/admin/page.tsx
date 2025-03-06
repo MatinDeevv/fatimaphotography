@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
+import Story from './admin-components/story';
+import Upload from './admin-components/upload';
 
 type Booking = {
   id: number;
@@ -47,8 +49,12 @@ const AdminPage = () => {
       {loading ? (
         <p className="text-center text-xl text-gray-500">Loading bookings...</p>
       ) : (
-        <Bookings bookings={bookings} reloadBookings={fetchBookings} />
-      )}
+<div>
+  <Bookings bookings={bookings} reloadBookings={fetchBookings} />
+  <Story />
+  <Upload />
+</div>
+)}
 
     </div>
   );

@@ -5,7 +5,9 @@ import Head from 'next/head';
 import Navbar from '@/app/components/NavBar';
 import NoContextMenuPage from '@/app/components/DisableContextMenu';
 import Footer from '@/app/components/Footer';
-import SpecialOffersBanner from '../components/SpecialOffersBanner';
+import { supabase } from '@/app/admin/supabaseClient';
+
+// 1) Story interface: unify "tags" as string[] so everything is consistent
 type Story = {
   id: number;
   couple: string;
@@ -13,10 +15,11 @@ type Story = {
   thumbnail: string;
   description: string;
   pixiesetLink: string;
-  tags: string[];
+  tags: string[]; // We'll parse from both static array and DB
 };
 
-// Static Stories
+// 2) Static Stories
+// (Unchanged from your code, except corrected any typos)
 const staticStories: Story[] = [
   {
     id: 5,
@@ -25,7 +28,7 @@ const staticStories: Story[] = [
     thumbnail: 'story-5/sab01.jpg',
     description: 'A captivating moment captured in time.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/sabaandvaji/',
-    tags: ['Pre-Wedding', 'Persian']
+    tags: ['Pre-Wedding', 'Persian'],
   },
   {
     id: 2,
@@ -34,7 +37,7 @@ const staticStories: Story[] = [
     thumbnail: '/pictures-gallery/DSC_3448.JPG',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/malekandshelair/',
-    tags: ['Wedding', 'Arab']
+    tags: ['Wedding', 'Arab'],
   },
   {
     id: 6,
@@ -43,7 +46,7 @@ const staticStories: Story[] = [
     thumbnail: '/pictures-gallery/Sim02.png',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web-1/',
-    tags: ['Wedding', 'South Asian']
+    tags: ['Wedding', 'South Asian'],
   },
   {
     id: 4,
@@ -52,7 +55,7 @@ const staticStories: Story[] = [
     thumbnail: '/pictures-gallery/DSC_0280.jpg',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web/',
-    tags: ['Wedding', 'South Asian']
+    tags: ['Wedding', 'South Asian'],
   },
   {
     id: 1,
@@ -61,16 +64,16 @@ const staticStories: Story[] = [
     thumbnail: '/pictures-gallery/Han11.png',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniehandshayan/',
-    tags: ['Pre-Wedding', 'Persian']
+    tags: ['Pre-Wedding', 'Persian'],
   },
   {
     id: 3,
     couple: 'Lida & Tam',
-    date: 'Augest 2024',
+    date: 'August 2024',
     thumbnail: '/pictures-gallery/L01.jpg',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/lidaandtam/',
-    tags: ['Wedding', 'Asian']
+    tags: ['Wedding', 'Asian'],
   },
   {
     id: 7,
@@ -79,7 +82,7 @@ const staticStories: Story[] = [
     thumbnail: 'story-2/Her07.jpg',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/hersehellandroberto/',
-    tags: ['Wedding', 'Asian']
+    tags: ['Wedding', 'Asian'],
   },
   {
     id: 8,
@@ -88,61 +91,88 @@ const staticStories: Story[] = [
     thumbnail: 'story-7/DSC_3486.JPG',
     description: 'A captivating moment captured in time.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/haniaandhadi-1/',
-    tags: ['engagement']
+    tags: ['engagement'],
   },
 ];
 
 export default function PortfolioPage() {
+  const [allStories, setAllStories] = useState<Story[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // UI states for searching, filtering, load more
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('All');
   const [visibleStories, setVisibleStories] = useState(6);
-  const [uploadedStories, setUploadedStories] = useState<Story[]>([]);
 
-  // Fetch uploaded stories dynamically from /api/getUploads
+  // 3) On mount, fetch DB stories and parse their `tags` from text -> string[]
   useEffect(() => {
-    const fetchUploads = async () => {
+    const fetchDBStories = async () => {
       try {
-        const response = await fetch('/api/getUploads');
-        const data = await response.json();
-        const uploads: Story[] = data.files.map(
-          (file: { name: string; url: string }, index: number) => ({
-            id: staticStories.length + index + 1,
-            couple: file.name.split('.')[0], // Use file name as placeholder for couple name
-            date: 'Uploaded Story',
-            thumbnail: file.url,
-            description: 'Uploaded through the admin panel.',
-            pixiesetLink: file.url,
-            tags: ['Upload']
-          })
-        );
-        setUploadedStories(uploads);
-      } catch (error) {
-        console.error('Error fetching uploads:', error);
+        setLoading(true);
+        // If your table is named 'stories':
+        const { data, error } = await supabase.from('stories').select('*');
+        if (error) {
+          console.error('Error fetching DB stories:', error);
+          // fallback to just static if DB fails
+          setAllStories(staticStories);
+          return;
+        }
+
+        if (data) {
+          // Parse tags from "Wedding, Persian" -> ["Wedding", "Persian"]
+          const parsedDBStories: Story[] = data.map((row: any) => {
+            const tagArray = row.tags
+              ? row.tags
+                  .split(',')
+                  .map((tag: string) => tag.trim())
+                  .filter(Boolean)
+              : [];
+            return {
+              id: row.id,
+              couple: row.couple,
+              date: row.date,
+              thumbnail: row.thumbnail,
+              description: row.description,
+              pixiesetLink: row.pixiesetLink,
+              tags: tagArray,
+            };
+          });
+
+          // Merge static + DB stories
+          // (If you want DB stories first, do [...parsedDBStories, ...staticStories])
+          const merged = [...staticStories, ...parsedDBStories];
+          setAllStories(merged);
+        }
+      } catch (err) {
+        console.error('Supabase fetch error:', err);
+        // fallback to static
+        setAllStories(staticStories);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchUploads();
+    fetchDBStories();
   }, []);
 
-  // Combine Static and Uploaded Stories
-  const allStories = [...staticStories, ...uploadedStories];
+  // 4) Build unique tags from allStories (including static + DB)
+  const uniqueTags = ['All', ...new Set(allStories.flatMap((s) => s.tags))];
 
-  const uniqueTags = ['All', ...new Set(allStories.flatMap((story) => story.tags))];
-
-  // Filtered Stories
+  // 5) Filter logic
   const filteredStories = allStories.filter((story) => {
     const matchesSearch =
       story.couple.toLowerCase().includes(searchQuery.toLowerCase()) ||
       story.description.toLowerCase().includes(searchQuery.toLowerCase());
+
     const matchesTag = selectedTag === 'All' || story.tags.includes(selectedTag);
     return matchesSearch && matchesTag;
   });
 
+  // 6) Show limited stories by "Load More"
   const visibleFilteredStories = filteredStories.slice(0, visibleStories);
 
-  const handleLoadMore = () => {
-    setVisibleStories((prev) => prev + 6);
-  };
+  // 7) Load More
+  const handleLoadMore = () => setVisibleStories((prev) => prev + 6);
 
   return (
     <>
@@ -156,7 +186,6 @@ export default function PortfolioPage() {
         <meta name="keywords" content="photography, portfolio, gallery, love, stories" />
       </Head>
 
-      {/* Navbar */}
       <Navbar />
 
       {/* Hero Section */}
@@ -164,7 +193,6 @@ export default function PortfolioPage() {
         <h1 className="text-5xl mt-24 text-white drop-shadow-xl">PORTFOLIO</h1>
       </header>
 
-      {/* Main Content */}
       <div className="flex flex-col min-h-screen">
         {/* Search and Filter Section */}
         <section className="container mx-auto my-10 px-4">
@@ -173,7 +201,8 @@ export default function PortfolioPage() {
             <input
               type="text"
               placeholder="Search stories by name or description..."
-              className="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-950 transition"
+              className="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg shadow-md
+                         focus:outline-none focus:ring-2 focus:ring-green-950 transition"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -199,7 +228,11 @@ export default function PortfolioPage() {
 
         {/* Stories Grid */}
         <main className="container mx-auto my-1 px-4 flex-grow">
-          {visibleFilteredStories.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-10">
+              <h2 className="text-2xl font-semibold text-gray-600">Loading stories...</h2>
+            </div>
+          ) : visibleFilteredStories.length === 0 ? (
             <div className="text-center py-10">
               <h2 className="text-2xl font-semibold text-gray-600">No stories found!</h2>
               <p className="text-gray-500">Try a different search or filter.</p>
@@ -212,7 +245,8 @@ export default function PortfolioPage() {
                   href={story.pixiesetLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer"
+                  className="relative group rounded-lg overflow-hidden shadow-lg
+                             hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer"
                 >
                   <div className="relative w-full h-[500px] rounded-t-lg">
                     <img
@@ -233,18 +267,20 @@ export default function PortfolioPage() {
           )}
 
           {/* Load More Button */}
-          {visibleStories < filteredStories.length && (
+          {visibleStories < filteredStories.length && !loading && (
             <div className="text-center mt-12">
               <button
                 onClick={handleLoadMore}
-                className="px-8 py-3 bg-green-950 text-white rounded-lg font-bold hover:bg-green-700 transition duration-200"
+                className="px-8 py-3 bg-green-950 text-white rounded-lg font-bold
+                           hover:bg-green-700 transition duration-200"
               >
                 Load More Stories
               </button>
             </div>
           )}
-<Footer />
         </main>
+
+        <Footer />
       </div>
     </>
   );
