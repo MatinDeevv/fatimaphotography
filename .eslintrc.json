@@ -7,7 +7,7 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "prettier/prettier": ["warn", { "trailingComma": "none" }],
+    "prettier/prettier": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-empty-object-type": "off",
     "react-hooks/exhaustive-deps": "warn",
