@@ -38,7 +38,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
         </Swiper>
       ) : (
         <div className="flex justify-center items-center h-full bg-gray-200 text-gray-600">
-          <p>No images available.</p>
+          <p>Loading Images...</p>
         </div>
       )}
     </header>
