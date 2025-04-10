@@ -18,8 +18,7 @@ type Story = {
   tags: string[]; // We'll parse from both static array and DB
 };
 
-// 2) Static Stories
-// (Unchanged from your code, except corrected any typos)
+// 2) Static Stories (Unchanged from your code)
 const staticStories: Story[] = [
   {
     id: 5,
@@ -99,10 +98,9 @@ export default function PortfolioPage() {
   const [allStories, setAllStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // UI states for searching, filtering, load more
+  // UI states for searching and filtering
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('All');
-  const [visibleStories, setVisibleStories] = useState(6);
 
   // 3) On mount, fetch DB stories and parse their `tags` from text -> string[]
   useEffect(() => {
@@ -168,12 +166,6 @@ export default function PortfolioPage() {
     return matchesSearch && matchesTag;
   });
 
-  // 6) Show limited stories by "Load More"
-  const visibleFilteredStories = filteredStories.slice(0, visibleStories);
-
-  // 7) Load More
-  const handleLoadMore = () => setVisibleStories((prev) => prev + 6);
-
   return (
     <>
       <NoContextMenuPage />
@@ -201,8 +193,7 @@ export default function PortfolioPage() {
             <input
               type="text"
               placeholder="Search stories by name or description..."
-              className="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg shadow-md
-                         focus:outline-none focus:ring-2 focus:ring-green-950 transition"
+              className="w-full md:w-1/2 p-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-950 transition"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -232,21 +223,20 @@ export default function PortfolioPage() {
             <div className="text-center py-10">
               <h2 className="text-2xl font-semibold text-gray-600">Loading stories...</h2>
             </div>
-          ) : visibleFilteredStories.length === 0 ? (
+          ) : filteredStories.length === 0 ? (
             <div className="text-center py-10">
               <h2 className="text-2xl font-semibold text-gray-600">No stories found!</h2>
               <p className="text-gray-500">Try a different search or filter.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {visibleFilteredStories.map((story) => (
+              {filteredStories.map((story) => (
                 <a
                   key={story.id}
                   href={story.pixiesetLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative group rounded-lg overflow-hidden shadow-lg
-                             hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer"
+                  className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer"
                 >
                   <div className="relative w-full h-[500px] rounded-t-lg">
                     <img
@@ -263,19 +253,6 @@ export default function PortfolioPage() {
                   </div>
                 </a>
               ))}
-            </div>
-          )}
-
-          {/* Load More Button */}
-          {visibleStories < filteredStories.length && !loading && (
-            <div className="text-center mt-12">
-              <button
-                onClick={handleLoadMore}
-                className="px-8 py-3 bg-green-950 text-white rounded-lg font-bold
-                           hover:bg-green-700 transition duration-200"
-              >
-                Load More Stories
-              </button>
             </div>
           )}
         </main>
