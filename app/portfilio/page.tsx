@@ -42,7 +42,7 @@ const staticStories: Story[] = [
     id: 6,
     couple: 'Simran & Ramandeep',
     date: 'September 2024',
-    thumbnail: '/pictures-gallery/Simran.jpg',
+    thumbnail: '/reviews/Simran.jpg',
     description: 'An unforgettable scene full of emotion.',
     pixiesetLink: 'https://fatimaphotographyca.pixieset.com/web-1/',
     tags: ['Wedding', 'South Asian'],
