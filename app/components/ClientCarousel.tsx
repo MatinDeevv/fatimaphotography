@@ -1,4 +1,3 @@
-// components/ClientCarousel.tsx
 'use client';
 
 import React from 'react';
@@ -14,7 +13,11 @@ export default function ClientCarousel({ images }: CarouselProps) {
   return (
     <Swiper
       modules={[Autoplay]}
-      autoplay={{ delay: 3000 }}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+        waitForTransition: false,
+      }}
       slidesPerView={3}
       loop
       breakpoints={{
