@@ -5,13 +5,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 export default function LoadingScreen() {
+  // Adjust these constants as needed to change the logo and container size.
+  const LOGO_WIDTH = 1920;     // Base width of the logo image in pixels
+  const LOGO_HEIGHT = 1080;    // Base height of the logo image in pixels
+  const CONTAINER_WIDTH = '30%'; // Container width that holds the logo (e.g. "60%")
+
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    // After 3 seconds, trigger the exit animation.
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 3000); // Adjust the timing as needed
-
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,47 +24,28 @@ export default function LoadingScreen() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50"
+          className="fixed inset-0 flex flex-col items-center justify-center bg-black z-50"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }}
         >
+          {/* Logo container (exits upward) */}
           <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{
-              duration: 1.2,
-              ease: [0.6, 0.01, -0.05, 0.95]
-            }}
-            className="flex flex-col items-center"
+            className="flex items-center justify-center w-full px-4"
+            initial={{ scale: 0.2, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ y: "-100%", opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
           >
-            {/* Logo Animation */}
-            <Image
-              src="/logo.jpeg"
-              alt="Logo"
-              width={120}
-              height={120}
-              className="rounded-full shadow-lg"
-            />
-
-            {/* Text Animation */}
-            <motion.h1
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-2xl font-semibold text-gray-800 mt-4"
-            >
-              FatimaPhotography
-            </motion.h1>
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="text-sm text-gray-500 mt-2"
-            >
-              Capturing Your Moments, Professionally
-            </motion.p>
+            <div style={{ width: CONTAINER_WIDTH }}>
+              <Image
+                src="/lololololo.png"
+                alt="Logo"
+                width={LOGO_WIDTH}
+                height={LOGO_HEIGHT}
+                className="object-cover w-full h-auto"
+              />
+            </div>
           </motion.div>
         </motion.div>
       )}

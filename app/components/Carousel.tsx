@@ -1,48 +1,42 @@
-'use server';
-
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
+// components/Carousel.tsx
+import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
 
 interface CarouselProps {
   images: string[];
 }
 
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
+// Dynamically import the interactive client carousel with SSR disabled.
+const ClientCarousel = dynamic(
+  () => import('./ClientCarousel'),
+  { ssr: false }
+);
+
+export default function Carousel({ images }: CarouselProps) {
+  // This state helps us know when the component has mounted (client-side).
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <header className="relative h-screen mb-40">
-      {images.length > 0 ? (
-        <Swiper
-          modules={[Autoplay]}
-          autoplay={{ delay: 3000 }}
-          slidesPerView={3}
-          loop
-          breakpoints={{
-            60: { slidesPerView: 1 },
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 }
-          }}
-          className="h-full w-full"
-          spaceBetween={0}
-        >
+      {!isMounted ? (
+        // Static fallback: shows a grid of images immediately upon load.
+        <div className="h-full w-full grid grid-cols-3">
           {images.map((src, idx) => (
-            <SwiperSlide key={idx}>
-              <div
-                className="h-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${src})` }}
-              ></div>
-            </SwiperSlide>
+            <div
+              key={idx}
+              className="h-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${src})` }}
+            />
           ))}
-        </Swiper>
-      ) : (
-        <div className="flex justify-center items-center h-full bg-gray-200 text-gray-600">
-          <p>Loading Images...</p>
         </div>
+      ) : (
+        // After hydration, load the interactive carousel.
+        <ClientCarousel images={images} />
       )}
     </header>
   );
-};
-
-export default Carousel;
+}

@@ -35,7 +35,14 @@ I would highly recommend Fatima.`
     name: 'Herschel & Roberto',
     avatar: 'reviews/roberto.jpg',
     review: `Best team ever! Highly recommended. She knows how to capture “moments”. I’ll let the photos speak for itself ❤️🥰 P.S photos are filtered for vintage theme`
-  }
+  },
+  {
+    id: 4,
+    name: 'Amani & Nabil',
+    avatar: 'reviews/Amani review.jpg',
+    review: `I’m super excited about the wedding photos! They turned out amazing, and I feel so lucky to have picked Fatima as my photographer. She was awesome to work with—so flexible and always available when we needed her. She really took the time to chat with us and even offered great advice at times. Her attention to detail and meticulous work really stood out. It was just an incredible experience from start to finish. Great job, Fatima! The portraits you put together are stunning. I’d totally recommend her!`
+  },
+
 ];
 
 const Slider: React.FC = () => {

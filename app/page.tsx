@@ -14,6 +14,7 @@ import Footer from '@/app/components/Footer';
 import Image from 'next/image';
 import Carousel from './components/Carousel';
 import SpecialOffersBanner from './components/SpecialOffersBanner';
+import LoadingScreen from './LoadingScreen';
 const imageGroups = [
   {
     id: 'couple1',
@@ -97,10 +98,11 @@ export default function Page() {
   return (
     <>
       <Head>
+
         <title>Fatima Photography</title>
         <meta name="description" content="Capturing life's precious moments" />
       </Head>
-
+<LoadingScreen />
       <main className="bg-green-950 text-white font">
         <NavBar />
 
