@@ -103,7 +103,7 @@ export default function Page() {
         <title>Fatima Photography</title>
         <meta name="description" content="Capturing life's precious moments" />
       </Head>
-<LoadingScreen />
+
       <main className="bg-green-950 text-white font">
         <NavBar />
 

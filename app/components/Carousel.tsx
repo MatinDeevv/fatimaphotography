@@ -1,4 +1,3 @@
-// components/Carousel.tsx
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 
@@ -6,14 +5,11 @@ interface CarouselProps {
   images: string[];
 }
 
-// Dynamically import the interactive client carousel with SSR disabled.
-const ClientCarousel = dynamic(
-  () => import('./ClientCarousel'),
-  { ssr: false }
-);
+// Dynamically import the client carousel to ensure client-side-only loading.
+const ClientCarousel = dynamic(() => import('./ClientCarousel'), { ssr: false });
 
 export default function Carousel({ images }: CarouselProps) {
-  // This state helps us know when the component has mounted (client-side).
+  // Track the client-side mount for optimized rendering.
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -23,8 +19,9 @@ export default function Carousel({ images }: CarouselProps) {
   return (
     <header className="relative h-screen mb-40">
       {!isMounted ? (
-        // Static fallback: shows a grid of images immediately upon load.
-        <div className="h-full w-full grid grid-cols-3">
+        // Optimized static fallback: use responsive grid columns 
+        // (1 column for small/mobile, 2 for sm, 3 for md and above).
+        <div className="h-full w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {images.map((src, idx) => (
             <div
               key={idx}
@@ -34,7 +31,7 @@ export default function Carousel({ images }: CarouselProps) {
           ))}
         </div>
       ) : (
-        // After hydration, load the interactive carousel.
+        // Load the interactive carousel after hydration.
         <ClientCarousel images={images} />
       )}
     </header>
