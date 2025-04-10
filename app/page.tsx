@@ -15,6 +15,7 @@ import Image from 'next/image';
 import Carousel from './components/Carousel';
 import SpecialOffersBanner from './components/SpecialOffersBanner';
 import LoadingScreen from './LoadingScreen';
+import ClientCarousel from './components/ClientCarousel';
 const imageGroups = [
   {
     id: 'couple1',
@@ -107,7 +108,7 @@ export default function Page() {
         <NavBar />
 
         <header className="relative h-screen mb-40">
-          <Carousel images={images} />
+         <ClientCarousel images={images}/>
         </header>
         <section className="flex items-center mt-30 mb-40 justify-center py-20 px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
