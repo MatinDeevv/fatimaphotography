@@ -8,6 +8,7 @@ import 'swiper/css';
 
 interface CarouselProps {
   images: string[];
+  onFirstSlideTransition?: () => void;
 }
 
 const Carousel: React.FC<CarouselProps> = ({ images }) => {

@@ -2,19 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
 import CircularGallery from '@/app/components/CircularGallery';
 import Review from '@/app/components/Reviews';
 import CompactContactSection from '@/app/components/CompactContactSection';
 import WhyUs from '@/app/components/WhyUs';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
-import Carousel from './components/Carousel';
-import SpecialOffersBanner from './components/SpecialOffersBanner';
+import HeroGate from './components/HeroGate';
 import LoadingScreen from './LoadingScreen';
-import Image from 'next/image';
 
 const imageGroups = [
   {
@@ -104,40 +99,36 @@ export default function Page() {
 
       <main className="bg-green-950 text-white font">
         <NavBar />
-
-        <header className="relative h-screen mb-40">
-          {/* اینجا فقط لودینگ لایه بالاییه، بدون گیت */}
-          <LoadingScreen />
-          <Carousel images={images} />
-        </header>
-
-        <section className="flex items-center mt-30 mb-40 justify-center py-20 px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold mt-44 mb-0">
-                My name is <span className="text-green-200">FATIMA</span>
-              </h1>
-              <p className=" text-white leading-relaxed font-sans text-xl">
-                I strive to freeze moments that matter the most. I&apos;m a PhD student of
-                mechanical engineering and a passionate photographer. I use my engineering skills at
-                photography to capture perfect view of your beautiful moments.
-              </p>
+        <LoadingScreen />
+        <HeroGate images={images}>
+          <section className="flex items-center mt-30 mb-40 justify-center py-20 px-6">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <h1 className="text-4xl font-bold mt-44 mb-0">
+                  My name is <span className="text-green-200">FATIMA</span>
+                </h1>
+                <p className=" text-white leading-relaxed font-sans text-xl">
+                  I strive to freeze moments that matter the most. I&apos;m a PhD student of
+                  mechanical engineering and a passionate photographer. I use my engineering skills at
+                  photography to capture perfect view of your beautiful moments.
+                </p>
+              </div>
+              <div>
+                <img
+                  src="about.png"
+                  alt="fatima"
+                  className="w-full h-full max-w-full object-cover rounded-lg shadow-lg"
+                />
+              </div>
             </div>
-            <div>
-              <img
-                src="about.png"
-                alt="fatima"
-                className="w-full h-full max-w-full object-cover rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <CircularGallery imageGroups={imageGroups} />
-        <Review />
-        <WhyUs />
-        <CompactContactSection />
-        <Footer />
+          <CircularGallery imageGroups={imageGroups} />
+          <Review />
+          <WhyUs />
+          <CompactContactSection />
+          <Footer />
+        </HeroGate>
       </main>
     </>
   );
