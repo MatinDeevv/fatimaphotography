@@ -11,10 +11,11 @@ import CompactContactSection from '@/app/components/CompactContactSection';
 import WhyUs from '@/app/components/WhyUs';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
-import Image from 'next/image';
 import Carousel from './components/Carousel';
 import SpecialOffersBanner from './components/SpecialOffersBanner';
 import LoadingScreen from './LoadingScreen';
+import Image from 'next/image';
+
 const imageGroups = [
   {
     id: 'couple1',
@@ -80,7 +81,6 @@ const imageGroups = [
 
 export default function Page() {
   const [images, setImages] = useState<string[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     async function fetchImages() {
@@ -102,16 +102,15 @@ export default function Page() {
         <meta name="description" content="Capturing life's precious moments" />
       </Head>
 
-
       <main className="bg-green-950 text-white font">
         <NavBar />
 
         <header className="relative h-screen mb-40">
-        <LoadingScreen>
-        <Carousel images={images} />
-    </LoadingScreen>
-
+          {/* اینجا فقط لودینگ لایه بالاییه، بدون گیت */}
+          <LoadingScreen />
+          <Carousel images={images} />
         </header>
+
         <section className="flex items-center mt-30 mb-40 justify-center py-20 px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
@@ -133,6 +132,7 @@ export default function Page() {
             </div>
           </div>
         </section>
+
         <CircularGallery imageGroups={imageGroups} />
         <Review />
         <WhyUs />
