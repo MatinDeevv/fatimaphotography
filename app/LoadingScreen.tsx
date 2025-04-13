@@ -12,7 +12,7 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
     if (imageLoaded) {
       const timer = setTimeout(() => {
         setIsVisible(false)
-      }, 2000)
+      }, 5000)
 
       return () => clearTimeout(timer)
     }
