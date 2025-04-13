@@ -8,8 +8,8 @@ import CompactContactSection from '@/app/components/CompactContactSection';
 import WhyUs from '@/app/components/WhyUs';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
-import HeroGate from './components/HeroGate';
 import LoadingScreen from './LoadingScreen';
+import UltraSafeCarousel from './components/Carousel';
 
 const imageGroups = [
   {
@@ -100,7 +100,7 @@ export default function Page() {
       <main className="bg-green-950 text-white font">
         <NavBar />
         <LoadingScreen />
-        <HeroGate images={images}>
+        <UltraSafeCarousel images={images}  />
           <section className="flex items-center mt-30 mb-40 justify-center py-20 px-6">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
@@ -128,7 +128,7 @@ export default function Page() {
           <WhyUs />
           <CompactContactSection />
           <Footer />
-        </HeroGate>
+
       </main>
     </>
   );
