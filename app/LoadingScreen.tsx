@@ -1,68 +1,53 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 export default function LoadingScreen() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 3000); // Adjust the timing as needed
+    if (imageLoaded) {
+      const timer = setTimeout(() => {
+        setIsVisible(false)
+      }, 2000)
 
-    return () => clearTimeout(timer);
-  }, []);
+      return () => clearTimeout(timer)
+    }
+  }, [imageLoaded])
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50"
+          className="fixed inset-0 flex flex-col items-center justify-center bg-black z-50 px-4"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.6 }}
         >
           <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{
-              duration: 1.2,
-              ease: [0.6, 0.01, -0.05, 0.95]
-            }}
-            className="flex flex-col items-center"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md flex flex-col items-center"
           >
-            {/* Logo Animation */}
             <Image
-              src="/logo.jpeg"
+              src="/lololololo.png"
               alt="Logo"
-              width={120}
-              height={120}
-              className="rounded-full shadow-lg"
+              width={600}
+              height={400}
+              priority
+              onLoadingComplete={() => setImageLoaded(true)}
+              className="w-full h-auto object-contain"
             />
 
-            {/* Text Animation */}
-            <motion.h1
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-2xl font-semibold text-gray-800 mt-4"
-            >
-              FatimaPhotography
-            </motion.h1>
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="text-sm text-gray-500 mt-2"
-            >
-              Capturing Your Moments, Professionally
-            </motion.p>
+           
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }
