@@ -4,20 +4,18 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/app/admin/supabaseClient'; // Import your pre-configured Supabase client
 
 /**
- * Recursively collect all image files within a directory.
+ * Recursively collect all image files within a directory and include their file size.
  */
 function getAllFiles(dirPath, arrayOfFiles = []) {
   const files = fs.readdirSync(dirPath);
 
   files.forEach((file) => {
     const fullPath = path.join(dirPath, file);
-
-    if (fs.statSync(fullPath).isDirectory()) {
-      // Recursively scan sub-folders
+    const stat = fs.statSync(fullPath);
+    if (stat.isDirectory()) {
       getAllFiles(fullPath, arrayOfFiles);
     } else if (/\.(jpg|jpeg|png|gif|webp)$/i.test(file)) {
-      // Only include image files
-      arrayOfFiles.push(fullPath);
+      arrayOfFiles.push({ file: fullPath, size: stat.size });
     }
   });
 
@@ -36,17 +34,30 @@ function shuffleArray(array) {
 }
 
 /**
- * Fetch images from a Supabase storage bucket.
+ * Helper function to get image size via a HEAD request.
+ */
+async function getImageSize(url) {
+  try {
+    const res = await fetch(url, { method: 'HEAD' });
+    const contentLength = res.headers.get('content-length');
+    return contentLength ? parseInt(contentLength, 10) : Infinity;
+  } catch (error) {
+    console.error('Error fetching image size for', url, error);
+    return Infinity;
+  }
+}
+
+/**
+ * Fetch images from a Supabase storage bucket with file size.
  *
  * @param {string} bucketName - The name of the Supabase bucket.
  * @param {string} folderPath - (Optional) A folder path within the bucket.
- * @returns {Promise<string[]>} - An array of public image URLs.
+ * @returns {Promise<Array<{url: string, size: number}>>} - An array of objects with public image URLs and sizes.
  */
 async function getSupabaseImages(bucketName, folderPath = '') {
-  // List files in the bucket folder (the list API is not recursive)
+  // List files in the bucket folder (not recursive)
   const { data, error } = await supabase.storage
-  .from('carousel')
-
+    .from(bucketName)
     .list(folderPath, { limit: 100, offset: 0 });
 
   if (error) {
@@ -55,16 +66,23 @@ async function getSupabaseImages(bucketName, folderPath = '') {
   }
 
   // Filter for image files and generate public URLs
-  const imageUrls = data
+  const supabaseFiles = data
     .filter((file) => /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
     .map((file) => {
-      // Construct the file path (prepend folderPath if provided)
       const filePath = folderPath ? `${folderPath}/${file.name}` : file.name;
       const { publicURL } = supabase.storage.from(bucketName).getPublicUrl(filePath);
       return publicURL;
     });
 
-  return imageUrls;
+  // For each image, perform a HEAD request to get the size
+  const supabaseImageData = await Promise.all(
+    supabaseFiles.map(async (url) => {
+      const size = await getImageSize(url);
+      return { url, size };
+    })
+  );
+
+  return supabaseImageData;
 }
 
 /**
@@ -75,38 +93,48 @@ export async function GET() {
     // 1. Retrieve images from the local "pictures-gallery" folder in the public directory.
     const baseDirectory = path.join(process.cwd(), 'public');
     const picturesDirectory = path.join(baseDirectory, 'pictures-gallery');
-    const localImageFiles = getAllFiles(picturesDirectory);
+    const localFiles = getAllFiles(picturesDirectory); // returns array of {file, size}
 
-    // Convert absolute file paths into public URLs (e.g., "/pictures-gallery/your-image.jpg")
-    const localImageUrls = localImageFiles.map((filePath) =>
-      filePath.replace(baseDirectory, '').replace(/\\/g, '/')
-    );
+    // Convert absolute file paths into public URLs and retain size data.
+    const localImageData = localFiles.map((item) => ({
+      url: item.file.replace(baseDirectory, '').replace(/\\/g, '/'),
+      size: item.size,
+    }));
 
-    // 2. Retrieve images from the Supabase bucket.
+    // 2. Retrieve images from the Supabase bucket with size info.
     const SUPABASE_BUCKET_NAME = 'your-bucket-name'; // Replace with your bucket name
-    const supabaseImageUrls = await getSupabaseImages(SUPABASE_BUCKET_NAME);
+    const supabaseImageData = await getSupabaseImages(SUPABASE_BUCKET_NAME);
 
-    // 3. Combine both sources of image URLs.
-    const combinedImageUrls = [...localImageUrls, ...supabaseImageUrls];
+    // 3. Combine both sources of image data.
+    const combinedImageData = [...localImageData, ...supabaseImageData];
 
-    // 4. Group the images two at a time ("couples").
+    // 4. Sort the combined images by file size (ascending).
+    combinedImageData.sort((a, b) => a.size - b.size);
+
+    // 5. Extract the first 3 images (the smallest ones) to load first.
+    const firstThree = combinedImageData.slice(0, 3);
+
+    // 6. For the remaining images, group them into pairs and shuffle the pairs.
+    const remainder = combinedImageData.slice(3);
     const pairs = [];
-    for (let i = 0; i < combinedImageUrls.length; i += 2) {
-      const pair = [combinedImageUrls[i]];
-      if (i + 1 < combinedImageUrls.length) {
-        pair.push(combinedImageUrls[i + 1]);
+    for (let i = 0; i < remainder.length; i += 2) {
+      const pair = [remainder[i]];
+      if (i + 1 < remainder.length) {
+        pair.push(remainder[i + 1]);
       }
       pairs.push(pair);
     }
-
-    // 5. Shuffle the array of pairs.
     shuffleArray(pairs);
+    const shuffledRemainder = pairs.flat();
 
-    // 6. Flatten the pairs back into a single array so that each pair stays together.
-    const shuffledImageUrls = pairs.flat();
+    // 7. Concatenate the prioritized first three images at the beginning.
+    const finalCombinedImageData = [...firstThree, ...shuffledRemainder];
 
-    // 7. Return the combined and shuffled list of image URLs as JSON.
-    return NextResponse.json(shuffledImageUrls, { status: 200 });
+    // 8. Map to URL only for the final output.
+    const finalImageUrls = finalCombinedImageData.map((item) => item.url);
+
+    // 9. Return the final list of image URLs as JSON.
+    return NextResponse.json(finalImageUrls, { status: 200 });
   } catch (error) {
     console.error('Error fetching images:', error);
     return NextResponse.json(
