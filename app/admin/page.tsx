@@ -5,6 +5,7 @@ import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
 import Story from './admin-components/story';
 import Upload from './admin-components/upload';
+import AdminLogin from './admin-components/adminlogin'; // adjust path if necessary
 
 type Booking = {
   id: number;
@@ -23,6 +24,7 @@ type Booking = {
 const AdminPage = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState<'admin' | 'developer' | null>(null);
 
   const fetchBookings = async () => {
     setLoading(true);
@@ -40,8 +42,15 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    fetchBookings();
+    const savedRole = localStorage.getItem('userRole') as 'admin' | 'developer' | null;
+    if (savedRole) {
+      setUserRole(savedRole);
+    }
   }, []);
+
+  if (!userRole) {
+    return <AdminLogin onLoginSuccess={setUserRole} />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -49,13 +58,12 @@ const AdminPage = () => {
       {loading ? (
         <p className="text-center text-xl text-gray-500">Loading bookings...</p>
       ) : (
-<div>
-  <Bookings bookings={bookings} reloadBookings={fetchBookings} />
-  <Story />
-  <Upload />
-</div>
-)}
-
+        <div>
+          <Bookings bookings={bookings} reloadBookings={fetchBookings} />
+          <Story />
+          <Upload />
+        </div>
+      )}
     </div>
   );
 };
