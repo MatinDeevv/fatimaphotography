@@ -5,7 +5,7 @@ import { supabase } from '@/app/admin/supabaseClient';
 import Bookings from './admin-components/bookings';
 import Story from './admin-components/story';
 import Upload from './admin-components/upload';
-import AdminLogin from './admin-components/adminlogin'; // adjust path if necessary
+import AdminLogin from './admin-components/adminlogin';
 
 type Booking = {
   id: number;
@@ -23,7 +23,7 @@ type Booking = {
 
 const AdminPage = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [userRole, setUserRole] = useState<'admin' | 'developer' | null>(null);
 
   const fetchBookings = async () => {
@@ -47,6 +47,12 @@ const AdminPage = () => {
       setUserRole(savedRole);
     }
   }, []);
+
+  useEffect(() => {
+    if (userRole) {
+      fetchBookings();
+    }
+  }, [userRole]); // <--- only fetch when userRole is set
 
   if (!userRole) {
     return <AdminLogin onLoginSuccess={setUserRole} />;
