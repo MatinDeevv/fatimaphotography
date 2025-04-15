@@ -20,7 +20,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
 
   const handleLogin = () => {
     const validCredentials = [
-      { username: 'admin', password: 'admin123', role: 'admin' },
+      { username: 'admin', password: 'fatimaphotography', role: 'Admin123@@' },
       { username: 'developer', password: 'dev', role: 'developer' }
     ];
 
