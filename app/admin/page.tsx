@@ -66,8 +66,10 @@ const AdminPage = () => {
       ) : (
         <div>
           <Bookings bookings={bookings} reloadBookings={fetchBookings} />
-          <Story />
+          <h3>first upload your photo to the basket and then select it in the story form</h3>
           <Upload />
+          <Story />
+
         </div>
       )}
     </div>
