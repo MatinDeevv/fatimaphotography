@@ -57,7 +57,7 @@ export default function Carousel({ images }: CarouselProps) {
     return (
       <header className="relative h-screen mb-40">
         <div className="flex justify-center items-center h-full bg-gray-200 text-gray-600">
-          <p>Caching images…</p>
+          <p>Loading…</p>
         </div>
       </header>
     )
